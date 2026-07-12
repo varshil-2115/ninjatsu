@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcade Training Room - Explore Games</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global_ninja.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="logo">🥷 NINJATSU</div>
+        <nav>
+            <a href="{{ url_for('homepage') }}">Home</a>
+            <a href="{{ url_for('explore_games') }}" class="active">Explore Games</a>
+            <a href="{{ url_for('start_learning') }}">Start Learning</a>
+            <a href="{{ url_for('rewards') }}">Rewards</a>
+            {% if session.get('username') %}
+                <a href="#" style="color: #f9c74f; font-family: 'Press Start 2P', cursive; font-size: 14px;">Hi, {{ session['username'] }}</a>
+                <a href="{{ url_for('logout') }}" style="color: #f94144; font-family: 'Press Start 2P', cursive; font-size: 14px;">Logout</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main style="flex: 1;">
+        <!-- Clean Centered Stage Header -->
+        <div style="text-align: center; margin-top: 50px; padding: 0 20px;">
+            <h1 style="font-family: 'Press Start 2P', cursive; font-size: 32px; color: #ffffff; text-shadow: 4px 4px 0px #277da1; line-height: 1.5;">
+                ARCADE GAME ARENA
+            </h1>
+            <p style="color: #f9c74f; font-size: 24px; margin-top: 15px; font-weight: bold; max-width: 700px; margin-left: auto; margin-right: auto;">
+                Select a battlefield to challenge your skills and earn immediate XP points.
+            </p>
+        </div>
+
+        <!-- 8-Bit Structured Grid Section -->
+        <section class="games-grid">
+            
+            <!-- Word Ninja (Active Battle Entry) -->
+            <a href="{{ url_for('word_ninja') }}" class="game-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="font-size: 60px; margin-bottom: 15px; filter: drop-shadow(4px 4px 0px #277da1);">✏️</div>
+                    <h3 style="font-family: 'Press Start 2P', cursive; font-size: 16px; margin-bottom: 15px; color: #277da1;">WORD NINJA</h3>
+                    <p style="font-size: 20px; color: #577590; line-height: 1.4;">Unscramble chaotic letters to find hidden programming keywords and core parameters. Fast and lethal!</p>
+                </div>
+                <div style="margin-top: 25px; color: #f94144; font-family: 'Press Start 2P', cursive; font-size: 12px; font-weight: bold; letter-spacing: 1px;">
+                    PLAY BATTLE &rarr;
+                </div>
+            </a>
+
+            <!-- Math Slash (Locked State Component) -->
+            <div class="game-card" style="opacity: 0.75; background: #e5e7eb; border-color: #577590; cursor: not-allowed; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="font-size: 60px; margin-bottom: 15px; filter: grayscale(100%) opacity(0.6);">📐</div>
+                    <h3 style="font-family: 'Press Start 2P', cursive; font-size: 16px; margin-bottom: 15px; color: #577590;">MATH SLASH</h3>
+                    <p style="font-size: 20px; color: #577590; line-height: 1.4;">Slice through falling algebraic matrices and rapid-fire computational logic before your health runs out.</p>
+                </div>
+                <div style="margin-top: 25px; color: #577590; font-family: 'Press Start 2P', cursive; font-size: 11px; font-weight: bold;">
+                    LOCKED (COMING SOON)
+                </div>
+            </div>
+
+            <!-- Code Quest (Locked State Component) -->
+            <div class="game-card" style="opacity: 0.75; background: #e5e7eb; border-color: #577590; cursor: not-allowed; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="font-size: 60px; margin-bottom: 15px; filter: grayscale(100%) opacity(0.6);">🌐</div>
+                    <h3 style="font-family: 'Press Start 2P', cursive; font-size: 16px; margin-bottom: 15px; color: #577590;">CODE QUEST</h3>
+                    <p style="font-size: 20px; color: #577590; line-height: 1.4;">Trace the loops and fix syntax anomalies in a tactical dungeon-crawler environment mapping variables.</p>
+                </div>
+                <div style="margin-top: 25px; color: #577590; font-family: 'Press Start 2P', cursive; font-size: 11px; font-weight: bold;">
+                    LOCKED (COMING SOON)
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 Ninjatsu Dojo Studio.
+    </footer>
+
+</body>
+</html>

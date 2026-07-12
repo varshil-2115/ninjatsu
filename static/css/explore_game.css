@@ -1,0 +1,132 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  background:
+    url("ninja_bg2.jpg");
+  background-size: cover;
+  color: #efc728;
+}
+
+
+/* Header */
+header {
+    font-size: large;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: #32d734; /* Bright Blue */
+  color: rgb(36, 35, 31);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+nav a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: larger;
+}
+
+
+header nav a:hover {
+  color: #FACC15; /* Yellow highlight on hover */
+  transform: scale(1.1);
+}
+
+.games-hero {
+  text-align: center;
+  margin: 50px;
+}
+
+.games-hero span {
+  color: #FACC15;
+}
+
+.games-grid {
+  margin-top: 60px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  padding: 40px;
+}
+/* Game Card Base */
+.game-card {
+
+  border-radius: 25px;
+  padding: 30px;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.game-card:hover {
+  transform: translateY(50px) scale(1.1) rotate(-1deg);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+  
+}
+.games-grid a.game-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none; /* remove underline */
+  color: inherit; /* keep text color */
+}
+
+
+/* Individual Colors */
+.red {
+  background: #ef4444; /* Red */
+  transform: translateY(50px); /* move DOWN */
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+.blue {
+  background: #3b82f6; /* Blue */
+  transform: translateY(50px); /* move DOWN */
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+.green {
+  background: #22c55e; /* Green */
+  transform: translateY(50px); /* move DOWN */
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+.yellow {
+  background: #facc15; /* Yellow */
+  color: #1f2937; /* Dark text for contrast */
+  transform: translateY(50px); /* move DOWN */
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+
+.game-card h3 {
+  color: #ffffff;
+}
+
+footer {
+  margin-top: auto;
+  text-align: center;
+  padding: 20px;
+  background: #020617;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 5px #6c6e56; }
+  to { text-shadow: 0 0 20px #f8edea; }
+}

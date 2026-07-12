@@ -1,0 +1,167 @@
+/* =========================
+   LOGIN PAGE – NINJA DOJO
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+body.login-page {
+  min-height: 100vh;
+  background-image: url("ninja_bg.png");
+  background-repeat: no-repeat;
+  /* background-color:forestgreen; */
+  background-size: cover;       /* fits screen */
+  background-position: center;  /* centers image */
+  color: #efc728;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: #32d734; /* Bright Blue */
+  color: white;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.logo {
+  font-size: 30px;
+}
+nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: transform 0.2s, color 0.2s;
+}
+
+nav a:hover {
+  color: #FACC15; /* Yellow highlight on hover */
+  transform: scale(1.1);
+}
+
+
+/* Hero Card */
+.hero {
+  margin: 30px auto;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 35px;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+  border: 2px solid rgba(255,255,255,0.3);
+}
+
+
+/* Text */
+.hero-text h1 {
+  font-size: 42px;
+  color: #064e3b;
+}
+
+.hero-text h1 span {
+  color: #efc728;
+  display: inline-block; /* Required for transform animations */
+  animation: slide-left 0.9s infinite ease-in-out;
+
+}
+
+.hero-text p {
+  font-size: 20px;
+  margin: 15px 0 25px;
+  color: #1f2937;
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+/* Form */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 340px;
+}
+
+.auth-form input {
+  padding: 18px;
+  font-size: 18px;
+  border-radius: 18px;
+  border: 3px solid #064e3b;
+  background: #fff;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: #efc728;
+}
+
+/* Button */
+.btn-primary {
+  padding: 18px;
+  font-size: 20px;
+  border-radius: 20px;
+  background: #32d734;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 0 forestgreen;
+}
+
+.btn-primary:hover {
+  transform: translateY(2px);
+  box-shadow: 0 5px 0 #020617;
+}
+
+/* Ninja Emoji */
+.hero-image {
+  font-size: 100px;
+  animation: bounce 2s infinite;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #020617;
+  color: #efc728;
+}
+
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-5px); /* slides left */
+  }
+  100% {
+    transform: translateX(0); /* back to original */
+  }
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px rgba(235, 239, 28, 0.848);
+  }
+  to {
+    text-shadow: 0 0 10px rgb(245, 241, 228);
+  }
+}

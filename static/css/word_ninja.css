@@ -1,0 +1,174 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: url('ninja_bg10.jpg') no-repeat center/cover;
+  color: #efc728;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: #591d15;
+  color: white;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+nav a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: larger;
+}
+
+nav a:hover {
+  color: #facc15;
+}
+
+/* Main */
+.ninja-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* Game Card */
+.word-card {
+  background-color: rgba(0,0,0,0.65);
+  padding: 35px;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+  color: #facc15;
+}
+
+.word-card img {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+}
+
+#display-word {
+  font-size: 40px;
+  margin-bottom: 20px;
+  letter-spacing: 8px;
+}
+
+/* Letter Buttons */
+.letter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.letter-btn {
+  padding: 12px 18px;
+  font-size: 20px;
+  border-radius: 12px;
+  border: none;
+  background-color: #14532d;
+  color: #facc15;
+  cursor: pointer;
+}
+
+.letter-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Submit Button */
+#submit-btn {
+  margin-top: 25px;
+  padding: 12px 25px;
+  font-size: 20px;
+  border-radius: 15px;
+  border: none;
+  background-color: #14532d;
+  color: #facc15;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#submit-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Feedback */
+#feedback {
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+/* Reward Popup */
+.reward-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.reward-box {
+  background: rgba(0,0,0,0.85);
+  padding: 30px 40px;
+  border-radius: 25px;
+  text-align: center;
+  color: #facc15;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+}
+
+.reward-box span {
+  color: #22c55e;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.reward-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.reward-actions button {
+  padding: 10px 22px;
+  border-radius: 15px;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #14532d;
+  color: #facc15;
+}
+
+.reward-actions button:hover {
+  transform: scale(1.1);
+}
+
+.hidden {
+  display: none;
+}
+
+/* Footer */
+footer {
+  margin-top: auto;
+  text-align: center;
+  padding: 20px;
+  background: #020617;
+}

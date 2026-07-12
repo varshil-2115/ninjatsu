@@ -1,0 +1,82 @@
+/* main.css */
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+body {
+ background: linear-gradient(
+  135deg,
+  #FEF3C7,  /* parchment */
+  #86EFAC,  /* mint */
+  #FACC15   /* gold */
+);
+
+  color: #FACC15;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: #32d734;
+  color: white;
+  border-radius: 0 0 20px 20px;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+/* Buttons */
+.btn {
+  padding: 12px 25px;
+  border-radius: 15px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #32d734;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #fb823c;
+  color: white;
+}
+
+/* Hero (used everywhere) */
+.hero {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 60px;
+  margin: 30px;
+  border-radius: 30px;
+  background: linear-gradient(to right, #79fa6d, #2d2a2a);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #32d734;
+  color: white;
+  margin-top: 30px;
+}

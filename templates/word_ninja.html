@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninjatsu – Word Ninja Playroom 🌟</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global_ninja.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="logo">🥷 NINJATSU</div>
+        <nav>
+            <a href="{{ url_for('homepage') }}">Home</a>
+            <a href="{{ url_for('explore_games') }}" class="active">Explore Games</a>
+            <a href="{{ url_for('start_learning') }}">Let's Learn! 🚀</a>
+            <a href="{{ url_for('rewards') }}">My Rewards 🏅</a>
+            {% if session.get('username') %}
+                <a href="#" style="color: #db2777; font-weight: 700;">Hi, {{ session['username'] }} ✨</a>
+                <a href="{{ url_for('logout') }}" style="color: #f87171;">Logout</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px;">
+        <section class="word-game" style="width: 100%;">
+            <div class="word-card">
+                <h2 style="margin-bottom: 10px; color: #1e3a8a;">Word Ninja Arena 🥷</h2>
+                <p style="color: #4b5563; font-size: 16px; margin-bottom: 25px;">Unscramble the letters to find the secret word!</p>
+                
+                <img id="hint-img" src="" alt="Hint" style="max-width: 150px; border-radius: 12px; margin-bottom: 15px; display: none;">
+
+                <div id="display-word"></div>
+
+                <div class="letter-buttons" style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 25px;"></div>
+
+                <p id="feedback" style="font-weight: 700; font-size: 20px; margin-bottom: 25px; min-height: 30px;"></p>
+
+                <button id="submit-btn" class="btn btn-primary" style="margin: 0 auto; display: block; padding: 16px 40px; font-size: 20px;">
+                    Check My Word! ✨
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <div id="reward-popup" class="reward-popup hidden" style="position: fixed; inset: 0; background: rgba(30, 27, 75, 0.6); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1000;">
+        <div class="xp-box" style="border-color: #4ade80; background: #ffffff; padding: 40px; border-radius: 28px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
+            <h2 style="color: #1e3a8a; margin-bottom: 10px; font-size: 28px;">🎉 Well Done, Superstar!</h2>
+            <p style="color: #4b5563; font-size: 18px; margin-bottom: 25px; font-weight: 500;">
+                Awesome job! You earned <span id="xpValue" style="color: #db2777; font-weight: 700; font-size: 24px;">+10 XP Points</span>! ⭐
+            </p>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <a id="popup-home" class="btn btn-secondary" href="{{ url_for('homepage') }}">Back Home</a>
+                <button id="popup-next" class="btn btn-primary" style="margin-right: 0;">Next Word 🚀</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Ninjatsu Dojo Studio. Built with love for future coders!
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/word_ninja.js') }}"></script>
+</body>
+</html>

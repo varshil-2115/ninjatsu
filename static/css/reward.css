@@ -1,0 +1,122 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: url("reward.jpg") no-repeat center/cover;
+  color: white;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: px 50px;
+  background-color: #7a1f1f;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+nav a {
+  margin-left: 20px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #FACC15;
+}
+
+/* Hero */
+.rewards-hero {
+  text-align: center;
+  margin: 40px auto;
+}
+
+.rewards-hero span {
+  color: #FACC15;
+}
+
+/* XP Box */
+.xp-box {
+  width: 320px;
+  margin: 20px auto;
+  padding: 25px;
+  text-align: center;
+  border-radius: 25px;
+  background: rgba(0, 0, 0, 0.65); /* solid dark */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+#xpValue {
+  font-size: 32px;
+  color: #32d734;
+  margin-top: 10px;
+}
+
+/* Badges */
+.badges {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.badge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 25px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.badge {
+  padding: 20px;
+  border-radius: 25px;
+  background: rgba(0, 0, 0, 0.827); /* NO blur */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  transition: transform 0.3s;
+}
+
+.badge img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+
+.badge p {
+  font-size: 18px;
+  margin-top: 10px;
+  color: #FACC15;
+}
+
+.badge small {
+  font-size: 14px;
+  color: #e5e7eb;
+}
+
+/* Locked */
+.locked {
+  opacity: 0.4;
+  filter: grayscale(100%);
+}
+
+/* Unlocked */
+.unlocked {
+  opacity: 1;
+  filter: none;
+  transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+  margin-top: 40px;
+  text-align: center;
+  padding: 20px;
+  background: #020617;
+  color: #efc728;
+}

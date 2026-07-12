@@ -1,0 +1,230 @@
+/* ===========================
+   General Reset & Body
+=========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+body {
+  min-height: 80vh;
+  margin: 0;
+
+  background:
+    
+    url("ninja_bg4.jpg");
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  color: white;
+  
+}
+
+
+
+/* ===========================
+   Header
+=========================== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: #32d734; /* Bright Blue */
+  color: white;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+header .logo {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+header nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: transform 0.2s, color 0.2s;
+}
+
+header nav a:hover {
+  color: #FACC15; /* Yellow highlight on hover */
+  transform: scale(1.1);
+}
+
+/* ===========================
+   Hero Section
+=========================== */
+.hero {
+  
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 60px 50px;
+  margin: 30px;
+  border-radius: 60px;
+  background: rgba(249, 248, 248, 0.25);
+  backdrop-filter: blur(4px);
+  box-shadow: 10px 30px 20px rgba(0,0,0,0.1);
+  flex-wrap: wrap;
+}
+
+.hero-text h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+  color: #32d734; /* Bright Blue */
+}
+
+.hero-text h1 span { 
+  color: #FACC15; /* Yellow highlight */
+  display: inline-block; /* Required for transform animations */
+  animation: slide-left 0.9s infinite ease-in-out;
+}
+
+
+.hero-text p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: #101d2e; /* Dark Gray */
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+.hero .btn {
+  padding: 12px 25px;
+  margin-right: 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary {
+  background-color: #32d734; /* Bright Blue */
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #ff7a2e; /* Orange */
+  color: white;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.hero-image {
+  font-size: 160px;
+  animation: bounce 2s infinite;
+}
+
+/* ===========================
+   Features Section
+=========================== */
+section {
+  padding: 50px 20px;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.card {
+  background-color: #FFFFFF; /* White */
+  padding: 20px;
+  width: 250px;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.2);
+}
+
+.card h3 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #3c4862; /* Bright Blue for headings */
+}
+
+.card p {
+  font-size: 16px;
+  color: #1F2937; /* Dark Gray */
+}
+
+/* ===========================
+   Footer
+=========================== */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #020617; /* Bright Blue */
+  color: #efc728;
+  font-weight: bold;
+  margin-top: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+/* ===========================
+   Animations
+=========================== */
+@keyframes glow {
+  from { text-shadow: 0 0 5px #FACC15; }
+  to { text-shadow: 0 0 20px #FB923C; }
+}
+@keyframes slide-left {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-10px); /* slides left */
+  }
+  100% {
+    transform: translateX(0); /* back to original */
+  }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+/* ===========================
+   Responsive
+=========================== */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .hero-text h1 {
+    font-size: 36px;
+  }
+  
+  .hero-image {
+    font-size: 100px;
+    margin-top: 20px;
+  }
+
+  .features {
+    flex-direction: column;
+    align-items: center;
+  }
+}

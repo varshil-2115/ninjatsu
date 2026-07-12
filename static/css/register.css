@@ -1,0 +1,147 @@
+/* =========================
+   REGISTER PAGE – NINJA ACADEMY
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+body.register-page {
+  min-height: 100vh;
+  background-image: url("ninja_bg8.jpg");
+  background-repeat: no-repeat;
+  /* background-color:forestgreen; */
+  background-size:cover;       /* fits screen */
+  background-position: center;  /* centers image */
+  color: #efc728;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: #89371c; /* Bright Blue */
+  color: white;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.logo {
+  font-size: 30px;
+}
+nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: transform 0.2s, color 0.2s;
+}
+
+nav a:hover {
+  color: #FACC15; /* Yellow highlight on hover */
+  transform: scale(1.1);
+}
+
+
+/* Hero Card */
+.hero {
+  margin: 15px auto;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 35px;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+  border: 2px solid rgba(255,255,255,0.3);  
+}
+
+/* Text */
+.hero-text h1 {
+  font-size: 40px;
+  color: #ffffff;
+}
+
+.hero-text h1 span {
+  color: #f97316;
+}
+
+.hero-text p {
+  font-size: 20px;
+  margin: 15px 0 15px;
+  color: #1f2937;
+  padding-top: 20px;
+}
+
+/* Form */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 360px;
+}
+
+.auth-form input {
+  padding: 18px;
+  font-size: 18px;
+  border-radius: 18px;
+  border: 3px solid #0f766e;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: #f97316;
+}
+
+/* Button */
+.btn-secondary {
+  padding: 18px;
+  font-size: 20px;
+  border-radius: 20px;
+  background: #f97316;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 0 #c2410c;
+}
+
+.btn-secondary:hover {
+  transform: translateY(2px);
+  box-shadow: 0 5px 0 #c2410c;
+}
+
+/* Ninja Emoji */
+.hero-image {
+  gap: 0;
+  animation: bounce 2s infinite;
+  display: flex;
+  font-size: 0;
+  flex-direction: column;
+}
+.hero-image img{
+  gap: 0;
+  display: block;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #020617;
+  color: #fb923c;
+}
+
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}

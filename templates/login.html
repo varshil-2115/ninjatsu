@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Back Little Ninja! - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global_ninja.css') }}">
+    <style>
+        /* Form Box and Inputs mapping the Retro-Pop Arcade structure */
+        .auth-container {
+            background: #ffffff;
+            border: 6px solid #277da1;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 12px 12px 0px #277da1;
+        }
+        .auth-form div {
+            margin-bottom: 20px;
+        }
+        .auth-form input {
+            width: 100%;
+            padding: 12px;
+            font-family: 'VT323', monospace;
+            font-size: 22px;
+            border: 4px solid #577590;
+            background: #ffffff;
+            color: #277da1;
+            outline: none;
+        }
+        .auth-form input:focus {
+            border-color: #f9c74f;
+            background: #fdfaf2;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">🥷 NINJATSU</div>
+        <nav>
+            <a href="{{ url_for('homepage') }}">Home</a>
+            <a href="{{ url_for('login') }}" class="active">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+        </nav>
+    </header>
+
+    <main style="display: flex; justify-content: center; align-items: center; flex: 1; padding: 40px 20px;">
+        <div class="auth-container">
+            <h2 style="color: #f94144; font-family: 'Press Start 2P', cursive; font-size: 22px; margin-bottom: 15px; text-shadow: 3px 3px 0px #f9c74f;">
+                WELCOME BACK! ⚡
+            </h2>
+            <p style="color: #577590; font-size: 22px; margin-bottom: 30px; font-weight: bold; line-height: 1.3;">
+                Enter your secret nickname to keep playing your favorite games!
+            </p>
+            
+            <form class="auth-form" action="{{ url_for('login') }}" method="POST">
+                <div style="text-align: left;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 700; color: #277da1; letter-spacing: 0.5px;">
+                        YOUR NINJA NAME:
+                    </label>
+                    <input type="text" name="username" placeholder="Type your nickname here..." required>
+                </div>
+                <div style="text-align: left;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 700; color: #277da1; letter-spacing: 0.5px;">
+                        YOUR SECRET KEY (PASSWORD):
+                    </label>
+                    <input type="password" name="password" placeholder="Type your password..." required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px; font-size: 14px;">
+                    LET'S PLAY! 🚀
+                </button>
+            </form>
+            
+            <p style="margin-top: 30px; font-weight: 700; font-size: 22px; color: #577590;">
+                New student? <a href="{{ url_for('register') }}" style="color: #f3722c; text-decoration: underline; font-weight: bold;">Join Dojo Here &rarr;</a>
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 Ninjatsu Dojo Studio. Built with love for future coders!
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Dojo - Levels</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global_ninja.css') }}">
+    <style>
+        /* Specific borders and locks for learning page to remove inline parser errors */
+        .lvl-border-1 { border-left: 4px solid #ef4444; }
+        .lvl-border-2 { border-left: 4px solid #3b82f6; }
+        .lvl-border-3 { border-left: 4px solid #22c55e; }
+        .lvl-locked { opacity: 0.5; pointer-events: none; }
+        .lock-text { color: #ef4444; font-weight: 600; margin-top: 15px; }
+        
+        /* Styled link to act exactly like our premium buttons without triggering JS errors */
+        .btn-link {
+            display: inline-block;
+            background: #e11d48;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-link:hover {
+            background: #f43f5e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">🥷 NINJATSU</div>
+        <nav>
+            <a href="{{ url_for('homepage') }}">Home</a>
+            <a href="{{ url_for('explore_games') }}">Explore Games</a>
+            <a href="{{ url_for('start_learning') }}" class="active">Start Learning</a>
+            <a href="{{ url_for('rewards') }}">Rewards</a>
+            {% if session.get('username') %}
+                <a href="#" style="color: #fbbf24;">Hi, {{ session['username'] }}</a>
+                <a href="{{ url_for('logout') }}" style="color: #ef4444;">Logout</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        <div style="text-align: center; margin-top: 40px; padding: 0 20px;">
+            <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 42px;">Your Training Journey</h1>
+            <p style="color: #94a3b8; margin-top: 10px;">Your Current Level Rank: <span style="color:#fbbf24; font-weight:700;">Level {{ progress.current_level if progress else 1 }}</span></p>
+        </div>
+
+        <section class="levels">
+            <div class="level-card lvl-border-1">
+                <h2>Level 1: Novice Village</h2>
+                <p>Introduction to programmatic fundamentals, loops structures, and computational math equations.</p>
+                <a href="{{ url_for('word_ninja') }}" class="btn-link">Enter Training</a>
+            </div>
+
+            <div class="level-card {% if not progress or progress.current_level < 2 %}lvl-locked{% else %}lvl-border-2{% endif %}">
+                <h2>Level 2: Ninja Academy</h2>
+                <p>Mastering Object-Oriented paradigms (OOPs Concepts), simple data tracking, and list schemas.</p>
+                {% if progress and progress.current_level >= 2 %}
+                    <a href="#" class="btn-link" style="background:#3b82f6;">Enter Training</a>
+                {% else %}
+                    <p class="lock-text">🔒 Requires Level 2</p>
+                {% endif %}
+            </div>
+
+            <div class="level-card {% if not progress or progress.current_level < 3 %}lvl-locked{% else %}lvl-border-3{% endif %}">
+                <h2>Level 3: Whispering Woods</h2>
+                <p>Advanced algorithmic problems, algorithmic efficiency complex trees, and system parameters.</p>
+                {% if progress and progress.current_level >= 3 %}
+                    <a href="#" class="btn-link" style="background:#22c55e;">Enter Training</a>
+                {% else %}
+                    <p class="lock-text">🔒 Requires Level 3</p>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 Ninjatsu Dojo Studio.
+    </footer>
+
+</body>
+</html>
