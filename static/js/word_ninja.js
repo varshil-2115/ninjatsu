@@ -7,15 +7,14 @@ const submitBtn = document.getElementById('submit-btn');
 const rewardPopup = document.getElementById('reward-popup');
 const popupNext = document.getElementById('popup-next');
 
-// Words list with high-quality icons or clear text hints
+// Exact file extensions matching your folder (.gif for all these items)
 const words = [
-  { word: 'TREE', hint: '🌳' },
-  { word: 'APPLE', hint: '🍎' },
-  { word: 'NINJA', hint: '🥷' },
-  { word: 'CAT', hint: '🐱' },
-  { word: 'SUN', hint: '☀️' },
-  { word: 'FISH', hint: '🐟' },
-  { word: 'BEE', hint: '🐝' }
+  { word: 'SUN', file: 'sun.gif' },
+  { word: 'NINJA', file: 'ninja.gif' },
+  { word: 'TREE', file: 'tree.gif' },
+  { word: 'CAT', file: 'cat.gif' },
+  { word: 'FISH', file: 'fish.gif' },
+  { word: 'BEE', file: 'bee.gif' }
 ];
 
 let correctWord;
@@ -26,15 +25,14 @@ function pickWord() {
   correctWord = chosen.word;
   currentWord = Array(correctWord.length).fill('_');
   
-  // Set emoji badge/sticker or gif hint
-  hintImg.style.display = 'block';
-  hintImg.alt = chosen.hint; 
+  if (hintImg) {
+    hintImg.src = `/static/image/${chosen.file}`;
+    hintImg.style.display = 'block';
+  }
   
-  // Custom cool trick: hintImg ki jagah simple text ya large emoji use kar sakte hain
-  feedback.innerHTML = `<span style="font-size: 40px;">${chosen.hint}</span> Find this word!`;
-  feedback.style.color = '#fff';
+  feedback.textContent = 'Look at the picture and spell the word!';
+  feedback.style.color = '#fbbf24';
 
-  // Reveal 1 random letter initially for kids help
   const randomIdx = Math.floor(Math.random() * correctWord.length);
   currentWord[randomIdx] = correctWord[randomIdx];
 
@@ -46,7 +44,7 @@ function generateButtons() {
   letterButtonsContainer.innerHTML = '';
   const letters = new Set(correctWord.split(''));
 
-  while (letters.size < correctWord.length + 3) {
+  while (letters.size < correctWord.length + 4) {
     letters.add(String.fromCharCode(65 + Math.floor(Math.random() * 26)));
   }
 
@@ -74,26 +72,24 @@ function checkLetter(letter, btn) {
   }
 
   btn.disabled = true;
+  btn.style.opacity = '0.6';
 
   if (found) {
-    btn.style.background = '#4ade80'; // Sweet friendly green
-    btn.style.transform = 'scale(0.95)';
-    feedback.textContent = 'Wow! Right choice! ⭐';
-    feedback.style.color = '#4ade80';
+    btn.style.background = '#22c55e';
+    feedback.textContent = 'Great choice! ⭐';
+    feedback.style.color = '#22c55e';
   } else {
-    btn.style.background = '#f87171'; // Pastel soft red
+    btn.style.background = '#ef4444';
     feedback.textContent = 'Oops! Try another letter! 💕';
-    feedback.style.color = '#f87171';
+    feedback.style.color = '#ef4444';
   }
 
   updateWordDisplay();
 }
 
-// SUBMIT AT_TACK -> BACKEND REWARD FIX
 submitBtn.addEventListener('click', () => {
   if (!currentWord.includes('_')) {
     
-    // BACKEND SE CONNECT KARNE KE LIYE FETCH CALL
     fetch('/api/update-xp', {
       method: 'POST',
       headers: {
@@ -104,31 +100,28 @@ submitBtn.addEventListener('click', () => {
         game_name: 'Word Ninja'
       })
     })
-    .then(response => response.get_json ? response.get_json() : response.json())
+    .then(response => response.json())
     .then(data => {
       if (data.status === 'success') {
-        // Show reward popup smoothly
-        rewardPopup.style.display = 'flex';
+        rewardPopup.classList.remove('hidden');
       } else {
-        alert("Please login first to save your scores!");
+        alert("Please login first to save your star points!");
       }
     })
     .catch(err => {
       console.error("XP update failed:", err);
-      // Agar backend issue ho tab bhi bacchon ka dil nahi todenge, popup dikha denge
-      rewardPopup.style.display = 'flex';
+      rewardPopup.classList.remove('hidden');
     });
 
   } else {
     feedback.textContent = 'Fill all the missing blanks first! 🤗';
-    feedback.style.color = '#facc15';
+    feedback.style.color = '#d97706';
   }
 });
 
 popupNext.addEventListener('click', () => {
-  rewardPopup.style.display = 'none';
+  rewardPopup.classList.add('hidden');
   pickWord();
 });
 
-// Start game initially
 pickWord();

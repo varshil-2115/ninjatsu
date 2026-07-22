@@ -5,21 +5,21 @@ from models import db, User, Progress, GameScore, Badge
 
 app = Flask(__name__)
 
-# Secret key sessions encryption ke liye
+# Secret key for session encryption
 app.secret_key = 'ninjatsu_secret_key_for_semester_3'
 
 # PostgreSQL Connection String Setup
 # Format: postgresql://username:password@localhost:5432/database_name
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:viki123@localhost:5432/ninjatsu_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres123@localhost:5432/ninjatsu_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Database initialize kar rahe hain
+# Initializing the database
 db.init_app(app)
 
-# Tables automatically banane ke liye hook (Initial run par database table bana dega)
+# Hook to automatically create tables (will create database tables on initial run)
 with app.app_context():
     db.create_all()
-    # Dummy Badges agar database khali hai toh insert karne ke liye
+    # Insert dummy badges if the database is empty
     if Badge.query.count() == 0:
         b1 = Badge(name="🍃 Beginner Ninja", required_xp=0, icon_path="badge1.png")
         b2 = Badge(name="🌟 Shadow Trainee", required_xp=50, icon_path="badge2.png")
@@ -37,7 +37,7 @@ def homepage():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        # Agar JSON data aa raha hai AJAX se, toh request.get_json() use karenge, nahi toh form values
+        # If JSON data comes from AJAX use request.get_json(), otherwise use form values
         data = request.form
         username = data.get('username')
         email = data.get('email')
@@ -50,12 +50,12 @@ def register():
             flash('Username or Email already registered!', 'danger')
             return redirect(url_for('register'))
             
-        # Password Hash karke secure bana rahe hain
+        # Hash password to make it secure
         hashed_pw = generate_password_hash(password, method='pbkdf2:sha256')
         
         new_user = User(username=username, email=email, password_hash=hashed_pw, age=int(age))
         db.session.add(new_user)
-        db.session.commit() # Taaki user id generate ho jaye
+        db.session.commit() # So that user id gets generated
         
         # Initializing Progress for new user
         new_progress = Progress(user_id=new_user.id, current_level=1, total_xp=0)
@@ -92,13 +92,23 @@ def logout():
 
 @app.route('/explore-games')
 def explore_games():
-    return render_template('explore_game.html')
+    user_progress = None
+    if 'user_id' in session:
+        user_progress = Progress.query.filter_by(user_id=session['user_id']).first()
+    return render_template('explore_game.html', user_progress=user_progress)
+
+@app.route('/math-slice')
+def math_slice():
+    if 'user_id' not in session:
+        flash('Please login first!', 'warning')
+        return redirect(url_for('login'))
+    return render_template('math_slice.html')
 
 @app.route('/start-learning')
 def start_learning():
     # Session checking
     if 'user_id' not in session:
-        flash('Pehle Dojo mein login karein!', 'warning')
+        flash('Please login to play!', 'warning')
         return redirect(url_for('login'))
     
     user_progress = Progress.query.filter_by(user_id=session['user_id']).first()
@@ -107,7 +117,7 @@ def start_learning():
 @app.route('/rewards')
 def rewards():
     if 'user_id' not in session:
-        flash('Pehle Dojo mein login karein!', 'warning')
+        flash('Please login to the Dojo first!', 'warning')
         return redirect(url_for('login'))
         
     user_progress = Progress.query.filter_by(user_id=session['user_id']).first()
@@ -117,11 +127,11 @@ def rewards():
 @app.route('/word-ninja')
 def word_ninja():
     if 'user_id' not in session:
-        flash('Pehle login karein!', 'warning')
+        flash('Please login first!', 'warning')
         return redirect(url_for('login'))
     return render_template('word_ninja.html')
 
-# API Route: Jab game complete ho tab backend par secure tarike se score aur XP update karne ke liye
+# API Route: To securely update score and XP on backend when a game is completed
 @app.route('/api/update-xp', methods=['POST'])
 def update_xp():
     if 'user_id' not in session:
@@ -130,13 +140,25 @@ def update_xp():
     data = request.get_json()
     xp_earned = data.get('xp', 0)
     game_name = data.get('game_name', 'Word Ninja')
-    
+
+@app.route('/maze-adventure')
+def maze_adventure():
+    if 'user_id' not in session:
+        flash('Please login first!', 'warning')
+        return redirect(url_for('login'))
+    return render_template('maze_adventure.html')
+@app.route('/grandmaster-drill')
+def grandmaster_drill():
+    if 'user_id' not in session:
+        flash('Please login first!', 'warning')
+        return redirect(url_for('login'))
+    return render_template('grandmaster_drill.html')
     # Update Progress
     user_progress = Progress.query.filter_by(user_id=session['user_id']).first()
     if user_progress:
         user_progress.total_xp += xp_earned
         
-        # Adaptive Level Logic: Har 50 XP par level up
+        # Adaptive Level Logic: Level up every 50 XP
         new_level = (user_progress.total_xp // 50) + 1
         if new_level > user_progress.current_level:
             user_progress.current_level = min(new_level, 5) # Max level 5

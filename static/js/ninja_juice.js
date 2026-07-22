@@ -41,3 +41,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+document.addEventListener('DOMContentLoaded', () => {
+  const lessonButtons = document.querySelectorAll('.scroll-btn');
+
+  lessonButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      // If you want to show a quick reading alert or custom modal for lessons
+      const lessonTitle = btn.parentElement.querySelector('h2').textContent;
+      alert(`Unrolling scroll for: ${lessonTitle}\n\nGreat ninjas read daily to sharpen their minds! 📜✨`);
+    });
+  });
+});

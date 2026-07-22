@@ -1,250 +1,177 @@
-/* ==========================================================================
-   NINJATSU 8-BIT RETRO PIXEL GAME ENGINE - EXCITING & ADVENTUROUS
-   ========================================================================== */
-
-/* Authentic Pixel Art Gaming Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+/* =========================
+   HOME PAGE & GLOBAL THEME
+========================= */
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* Subtitles aur details ke liye crisp pixelated readable text font */
-    font-family: 'VT323', monospace; 
-    font-size: 22px; /* Pixel fonts text clear hone ke liye size bada hona chahiye */
+    font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
 body {
-    min-height: 100vh;
-    /* Retro 90s Game Sky color canvas with a real chunky pixel pattern block */
-    background: linear-gradient(135deg, #a5b4fc 0%, #fbcfe8 100%),
-                url('https://www.transparenttextures.com/patterns/fake-brick.png'); /* Real pixel-block texturing */
-    color: #111827;
+    background-image: url("../image/ninja_bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #efc728;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
-    image-rendering: pixelated; /* Forces browser to render elements crisp and blocky */
+    min-height: 100vh;
 }
 
-/* Heavy Pixelated Scrollbar */
-::-webkit-scrollbar {
-    width: 14px;
-}
-::-webkit-scrollbar-track {
-    background: #111827;
-}
-::-webkit-scrollbar-thumb {
-    background: #ff0055;
-    border: 4px solid #111827;
-}
-
-/* ==========================================================================
-   HEADER / NAVIGATION (Arcade Menu Bar)
-   ========================================================================== */
+/* Header */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 40px;
-    background: #ffffff; 
-    /* Chunky Blocky Pixel Border Effect */
-    border-bottom: 6px solid #111827;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    padding: 20px 50px;
+    background-color: #32d734;
+    color: white;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-header .logo {
-    font-family: 'Press Start 2P', cursive; /* Loud Arcade Text */
-    font-size: 20px;
-    color: #ff0055;
-    text-shadow: 3px 3px 0px #facc15, 6px 6px 0px #111827;
+.logo {
+    font-size: 30px;
 }
 
-header nav a {
-    margin-left: 15px;
+nav a {
+    margin-left: 20px;
     text-decoration: none;
-    color: #4f46e5;
+    color: white;
     font-weight: bold;
-    padding: 6px 12px;
-    border: 4px solid transparent;
-    transition: all 0.1s steps(4); /* Blocky step transition instead of smooth smooth animation */
+    transition: transform 0.2s, color 0.2s;
 }
 
-header nav a:hover, header nav a.active {
-    color: #111827;
-    background: #facc15;
-    border-color: #111827;
-    box-shadow: 4px 4px 0px #111827;
+nav a:hover, nav a.active {
+    color: #FACC15;
+    transform: scale(1.1);
 }
 
-/* ==========================================================================
-   HERO / MAIN LEVEL WINDOW (The Level Stage Box)
-   ========================================================================== */
+/* Hero Section */
 .hero {
+    margin: 30px auto;
+    max-width: 1200px;
+    width: 90%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 35px;
+    padding: 40px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 45px;
-    margin: 40px auto;
-    max-width: 1150px;
-    /* Authentic 8-bit Pixel Corner look using custom crisp layout offsets */
-    background: #ffffff;
-    border: 6px solid #111827;
-    box-shadow: 14px 14px 0px #111827;
     flex-wrap: wrap;
-    gap: 40px;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+    border: 2px solid rgba(255,255,255,0.6);
 }
 
 .hero-text h1 {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 28px;
-    line-height: 1.4;
-    color: #111827;
-    margin-bottom: 25px;
+    font-size: 38px;
+    color: #064e3b;
+    margin-bottom: 20px;
 }
 
 .hero-text h1 span {
-    color: #ffffff;
-    background: #ff0055;
-    padding: 6px 12px;
-    border: 4px solid #111827;
+    color: #d97706;
     display: inline-block;
-    box-shadow: 4px 4px 0px #111827;
+    animation: slide-left 0.9s infinite ease-in-out;
 }
 
 .hero-text p {
-    font-size: 24px;
-    line-height: 1.5;
-    color: #374151;
-    margin-bottom: 30px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #1f2937;
+    font-weight: bold;
 }
 
-/* ==========================================================================
-   CLICKY CRUNCHY BUTTONS (Pressable Gamepad Buttons)
-   ========================================================================== */
+/* Buttons */
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
 .btn {
     display: inline-block;
-    padding: 12px 24px;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 14px; /* Scaled perfectly for tiny pixel look */
-    cursor: pointer;
+    padding: 14px 24px;
     text-decoration: none;
-    border: 5px solid #111827;
-    transition: all 0.1s steps(2);
-    text-align: center;
+    font-weight: bold;
+    border-radius: 18px;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    cursor: pointer;
 }
 
 .btn-primary {
-    background: #ff0055;
+    background-color: #32d734;
     color: #ffffff;
-    box-shadow: 0 8px 0px #111827;
-    margin-right: 15px;
-}
-
-.btn-primary:hover {
-    transform: translateY(4px);
-    box-shadow: 0 4px 0px #111827;
-}
-
-.btn-primary:active {
-    transform: translateY(8px);
-    box-shadow: 0 0px 0px #111827;
+    box-shadow: 0 6px 0 #1b8a1d;
+    border: none;
 }
 
 .btn-secondary {
-    background: #22c55e;
+    background-color: #277da1;
     color: #ffffff;
-    box-shadow: 0 8px 0px #111827;
+    box-shadow: 0 6px 0 #174b63;
+    border: none;
 }
 
-.btn-secondary:hover {
-    transform: translateY(4px);
-    box-shadow: 0 4px 0px #111827;
+.btn:hover {
+    transform: translateY(2px);
+    box-shadow: 0 3px 0 rgba(0,0,0,0.3);
 }
 
-/* Floating Emoji Ninja Animation turned jerky step-by-step */
-.hero-image {
-    font-size: 140px;
+/* Features Cards */
+.features {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    animation: pixelFloat 1.5s steps(4) infinite alternate;
-    filter: drop-shadow(8px 8px 0px #111827);
+    gap: 30px;
+    padding: 20px 40px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* ==========================================================================
-   STAGE GRID & QUEST SELECT CARDS (Looks like Inventory Slots)
-   ========================================================================== */
-.features, .games-grid, .levels {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 35px;
-    max-width: 1150px;
-    margin: 30px auto;
-    padding: 0 20px;
-}
-
-.card, .game-card, .level-card {
-    background: #ffffff;
-    border: 5px solid #111827;
-    padding: 30px 20px;
+.card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(255,255,255,0.6);
+    border-radius: 25px;
+    padding: 30px;
+    flex: 1;
+    min-width: 280px;
+    max-width: 350px;
     text-align: center;
-    transition: transform 0.1s steps(2);
-    text-decoration: none;
-    color: inherit;
-    box-shadow: 8px 8px 0px #111827;
-}
-
-.card:hover, .game-card:hover, .level-card:hover {
-    transform: translate(-4px, -4px);
-    box-shadow: 12px 12px 0px #111827;
-    background: #fef08a; /* Highlights item card in gold when selected */
+    box-shadow: 0 15px 25px rgba(0,0,0,0.3);
 }
 
 .card h3 {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 14px;
-    color: #111827;
-    margin-top: 15px;
-    margin-bottom: 12px;
+    color: #064e3b;
+    margin-bottom: 10px;
 }
 
 .card p {
-    font-size: 20px;
-    color: #4b5563;
+    color: #1f2937;
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: bold;
 }
 
-.card div {
-    transition: transform 0.1s steps(2);
-}
-.card:hover div {
-    transform: scale(1.2) rotate(8deg);
-}
-
-/* ==========================================================================
-   WORD NINJA INTERACTIONSURFACE (Battle Box)
-   ========================================================================== */
-.word-card {
-    background: #ffffff !important;
-    border: 6px solid #111827 !important;
-    padding: 40px;
-    box-shadow: 14px 14px 0px #111827 !important;
-}
-
-/* Retro Animations */
-@keyframes pixelFloat {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-16px); }
-}
-
+/* Footer */
 footer {
-    margin-top: auto;
     text-align: center;
     padding: 20px;
-    background: #111827;
-    color: #ffffff;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 10px;
-    border-top: 6px solid #ff0055;
+    background: #020617;
+    color: #efc728;
+    margin-top: auto;
+}
+
+/* Animations */
+@keyframes slide-left {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
 }

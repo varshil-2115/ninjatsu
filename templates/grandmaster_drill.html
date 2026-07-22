@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grandmaster Endurance Test - Training</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/word_ninja.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="logo">🥷 NINJATSU</div>
+        <nav>
+            <a href="{{ url_for('homepage') }}">Home</a>
+            <a href="{{ url_for('explore_games') }}">Explore Games</a>
+            <a href="{{ url_for('start_learning') }}" class="active">Start Learning</a>
+            <a href="{{ url_for('rewards') }}">Rewards</a>
+            {% if session.get('username') %}
+                <a href="#">Hi, {{ session['username'] }}</a>
+                <a href="{{ url_for('logout') }}" style="color: #ef4444;">Logout</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main class="ninja-main">
+        <section style="width: 100%; max-width: 650px;">
+            <div class="game-hud">
+                <div>TRAINING DRILL: GRANDMASTER TEST</div>
+                <div style="color: #22c55e;">PRIZE: +15 STAR POINTS</div>
+            </div>
+
+            <div class="word-card">
+                <h3 style="margin-top: 0; font-size: 24px; color: #064e3b; margin-bottom: 10px;">
+                    MEMORY & REFLEX COMBAT 🧠⚔️
+                </h3>
+                <p id="feedback">Memorize the secret symbol pattern, then repeat it!</p>
+
+                <div id="symbol-display" style="font-size: 40px; margin: 20px 0; letter-spacing: 15px;">⭐ 🌙 🔥</div>
+
+                <div class="answer-container" id="symbol-buttons" style="display: flex; gap: 10px; justify-content: center; margin-top: 15px;">
+                    <button class="answer-btn" onclick="selectSymbol('⭐')">⭐</button>
+                    <button class="answer-btn" onclick="selectSymbol('🌙')">🌙</button>
+                    <button class="answer-btn" onclick="selectSymbol('🔥')">🔥</button>
+                    <button class="answer-btn" onclick="selectSymbol('⚡')">⚡</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Victory Reward Popup -->
+    <div id="reward-popup" class="reward-popup hidden">
+        <div class="reward-box">
+            <h2 style="font-size: 26px; color: #064e3b; margin-bottom: 15px;">ENDURANCE CONQUERED! 🎉</h2>
+            <p style="font-size: 20px; color: #1f2937; margin-bottom: 25px;">
+                YOU WON: <span id="xpValue">+15 STAR POINTS</span>
+            </p>
+            <div class="reward-actions">
+                <a class="btn-link" href="{{ url_for('start_learning') }}" style="text-decoration: none; display: inline-block; padding: 12px 20px; background: #32d734; color: white; border-radius: 18px;">BACK TO DRILLS</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Ninjatsu Dojo Studio. Made with magic for kids!
+    </footer>
+
+    <script>
+        let score = 0;
+        const target = '⭐🌙🔥';
+        let currentInput = '';
+
+        function selectSymbol(sym) {
+            currentInput += sym;
+            if (currentInput === target) {
+                document.getElementById('feedback').textContent = 'Perfect Grandmaster Focus! ⭐';
+                document.getElementById('feedback').style.color = '#22c55e';
+                
+                // Save XP
+                fetch('/api/update-xp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ xp: 15, game_name: 'Grandmaster Drill' })
+                }).then(res => res.json()).then(data => {
+                    if (data.status === 'success') {
+                        document.getElementById('reward-popup').classList.remove('hidden');
+                    }
+                });
+            } else if (target.startsWith(currentInput)) {
+                document.getElementById('feedback').textContent = 'Good! Keep going...';
+            } else {
+                document.getElementById('feedback').textContent = 'Incorrect sequence! Try again.';
+                document.getElementById('feedback').style.color = '#ef4444';
+                currentInput = '';
+            }
+        }
+    </script>
+    <script src="{{ url_for('static', filename='js/ninja_juice.js') }}"></script>
+</body>
+</html>

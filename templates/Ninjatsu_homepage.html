@@ -16,8 +16,8 @@
             <a href="{{ url_for('start_learning') }}">Start Learning</a>
             <a href="{{ url_for('rewards') }}">Rewards</a>
             {% if session.get('username') %}
-                <a href="#" style="color: #f9c74f; font-family: 'Press Start 2P', cursive; font-size: 14px;">Hi, {{ session['username'] }}</a>
-                <a href="{{ url_for('logout') }}" style="color: #f94144; font-family: 'Press Start 2P', cursive; font-size: 14px;">Logout</a>
+                <a href="#">Hi, {{ session['username'] }}</a>
+                <a href="{{ url_for('logout') }}" style="color: #ef4444;">Logout</a>
             {% else %}
                 <a href="{{ url_for('login') }}">Login</a>
                 <a href="{{ url_for('register') }}">Register</a>
@@ -27,9 +27,9 @@
 
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            <div style="max-width: 650px; margin: 30px auto; padding: 15px; background: #ffffff; border: 5px solid #f94144; box-shadow: 8px 8px 0px #277da1; text-align: center;">
+            <div class="flash-container" style="max-width: 650px; margin: 30px auto; padding: 15px; border: 4px solid #ef4444; border-radius: 15px; background: rgba(255, 255, 255, 0.9); text-align: center;">
                 {% for category, message in messages %}
-                    <p style="color: #f94144; font-family: 'Press Start 2P', cursive; font-size: 14px; line-height: 1.4;">⚠️ {{ message }}</p>
+                    <p style="color: #ef4444; font-weight: bold; font-size: 16px; line-height: 1.4;">⚠️ {{ message }}</p>
                 {% endfor %}
             </div>
         {% endif %}
@@ -37,37 +37,37 @@
 
     <main style="flex: 1;">
         <section class="hero">
-            <div class="hero-text">
+            <div class="hero-text" style="flex: 1; min-width: 300px;">
                 <h1>Master Coding & Math Like a <span>Ninja Warrior</span></h1>
-                <p style="color: #577590;">Sharpen your mind, slice through bugs, and conquer mathematical equations in our elite gamified training dojo. Level up your skills, unlock legendary katana badges, and become a shadow master.</p>
-                <div class="hero-buttons" style="margin-top: 30px;">
+                <p>Sharpen your mind, slice through bugs, and conquer mathematical equations in our elite gamified training dojo. Level up your skills, unlock legendary katana badges, and become a shadow master.</p>
+                <div class="hero-buttons" style="margin-top: 30px;"> 
                     <a href="{{ url_for('start_learning') }}" class="btn btn-primary" style="margin-bottom: 10px;">Enter Training Room ⚔️</a>
                     <a href="{{ url_for('explore_games') }}" class="btn btn-secondary" style="margin-bottom: 10px;">Play Arcade 🕹️</a>
                 </div>
             </div>
-            <div class="hero-image" style="filter: drop-shadow(8px 8px 0px #277da1);">🥷</div>
+            <div class="hero-image" style="display: flex; justify-content: center; align-items: center; min-width: 200px;">
+                <img src="{{ url_for('static', filename='image/ninja2_reg (3).png') }}" alt="Hanging Ninja" style="max-width: 220px; height: auto; border: none; background: transparent; filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.6));">
+            </div>
         </section>
 
         <section class="features">
-            
             <div class="card">
-                <div style="font-size: 55px; margin-bottom: 15px; filter: drop-shadow(4px 4px 0px #277da1);">⚔️</div>
-                <h3 style="color: #277da1;">GAMIFIED CHALLENGES</h3>
-                <p style="color: #577590; line-height: 1.4;">Learn core concepts of Python, Java, and Logic Building disguised as elite boss fights and quests.</p>
+                <div style="font-size: 55px; margin-bottom: 15px;">⚔️</div>
+                <h3>GAMIFIED CHALLENGES</h3>
+                <p>Learn core concepts of Python, Java, and Logic Building disguised as elite boss fights and quests.</p>
             </div>
 
             <div class="card">
-                <div style="font-size: 55px; margin-bottom: 15px; filter: drop-shadow(4px 4px 0px #277da1);">🔥</div>
-                <h3 style="color: #277da1;">ADAPTIVE XP ENGINE</h3>
-                <p style="color: #577590; line-height: 1.4;">Earn XP points instantly as you crack problems. Watch your rank rise from Recruit to Shogun.</p>
+                <div style="font-size: 55px; margin-bottom: 15px;">🔥</div>
+                <h3>ADAPTIVE XP ENGINE</h3>
+                <p>Earn XP points instantly as you crack problems. Watch your rank rise from Recruit to Shogun.</p>
             </div>
 
             <div class="card">
-                <div style="font-size: 55px; margin-bottom: 15px; filter: drop-shadow(4px 4px 0px #277da1);">🛡️</div>
-                <h3 style="color: #277da1;">LEGENDARY BADGES</h3>
-                <p style="color: #577590; line-height: 1.4;">Unlock custom element-based items, weapons, and title badges to showcase your coding honor.</p>
+                <div style="font-size: 55px; margin-bottom: 15px;">🛡️</div>
+                <h3>LEGENDARY BADGES</h3>
+                <p>Unlock custom element-based items, weapons, and title badges to showcase your coding honor.</p>
             </div>
-
         </section>
     </main>
 
@@ -75,5 +75,6 @@
         &copy; 2026 Ninjatsu Dojo Studio. Designed for Next-Gen Coders.
     </footer>
 
+    <script src="{{ url_for('static', filename='js/ninja_juice.js') }}"></script>
 </body>
 </html>

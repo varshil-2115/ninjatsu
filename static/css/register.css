@@ -11,12 +11,14 @@
 
 body.register-page {
   min-height: 100vh;
-  background-image: url("ninja_bg8.jpg");
+  background-image: url("../image/ninja_bg4.jpg");
   background-repeat: no-repeat;
-  /* background-color:forestgreen; */
-  background-size:cover;       /* fits screen */
-  background-position: center;  /* centers image */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   color: #efc728;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Header */
@@ -25,7 +27,7 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 20px 50px;
-  background-color: #89371c; /* Bright Blue */
+  background-color: #32d734;
   color: white;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
@@ -35,6 +37,7 @@ header {
 .logo {
   font-size: 30px;
 }
+
 nav a {
   margin-left: 20px;
   text-decoration: none;
@@ -43,32 +46,32 @@ nav a {
   transition: transform 0.2s, color 0.2s;
 }
 
-nav a:hover {
-  color: #FACC15; /* Yellow highlight on hover */
+nav a:hover, nav a.active {
+  color: #FACC15;
   transform: scale(1.1);
 }
 
-
 /* Hero Card */
 .hero {
-  margin: 15px auto;
-  max-width: 500px;
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(10px);
+  margin: 20px auto;
+  max-width: 650px;
+  width: 90%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-radius: 35px;
-  padding: 30px;
+  padding: 35px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 25px 40px rgba(0,0,0,0.5);
-  border: 2px solid rgba(255,255,255,0.3);  
+  border: 2px solid rgba(255,255,255,0.6);
 }
 
 /* Text */
 .hero-text h1 {
-  font-size: 40px;
-  color: #ffffff;
+  font-size: 32px;
+  color: #064e3b;
 }
 
 .hero-text h1 span {
@@ -76,25 +79,28 @@ nav a:hover {
 }
 
 .hero-text p {
-  font-size: 20px;
-  margin: 15px 0 15px;
+  font-size: 16px;
+  margin: 10px 0 15px;
   color: #1f2937;
-  padding-top: 20px;
+  font-weight: bold;
 }
 
 /* Form */
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  width: 360px;
+  gap: 12px;
+  width: 100%;
 }
 
 .auth-form input {
-  padding: 18px;
-  font-size: 18px;
-  border-radius: 18px;
-  border: 3px solid #0f766e;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 15px;
+  border: 3px solid #064e3b;
+  background: #fff;
+  color: #1f2937;
 }
 
 .auth-form input:focus {
@@ -104,32 +110,26 @@ nav a:hover {
 
 /* Button */
 .btn-secondary {
-  padding: 18px;
-  font-size: 20px;
-  border-radius: 20px;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 18px;
   background: #f97316;
   color: #fff;
   border: none;
   cursor: pointer;
-  box-shadow: 0 8px 0 #c2410c;
+  box-shadow: 0 6px 0 #c2410c;
+  transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .btn-secondary:hover {
   transform: translateY(2px);
-  box-shadow: 0 5px 0 #c2410c;
+  box-shadow: 0 3px 0 #c2410c;
 }
 
-/* Ninja Emoji */
+/* Ninja Emoji/Image Animation */
 .hero-image {
-  gap: 0;
   animation: bounce 2s infinite;
-  display: flex;
-  font-size: 0;
-  flex-direction: column;
-}
-.hero-image img{
-  gap: 0;
-  display: block;
 }
 
 /* Footer */
@@ -137,11 +137,11 @@ footer {
   text-align: center;
   padding: 20px;
   background: #020617;
-  color: #fb923c;
+  color: #efc728;
+  margin-top: auto;
 }
-
 
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+  50% { transform: translateY(-15px); }
 }
