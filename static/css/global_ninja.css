@@ -18,7 +18,9 @@ body {
     color: #efc728;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden; /* Stops page scrolling */
 }
 
 /* Header */
@@ -26,7 +28,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 50px;
+    padding: 12px 30px;
     background-color: #32d734;
     color: white;
     border-bottom-left-radius: 20px;
@@ -35,14 +37,15 @@ header {
 }
 
 .logo {
-    font-size: 30px;
+    font-size: 26px;
 }
 
 nav a {
-    margin-left: 20px;
+    margin-left: 15px;
     text-decoration: none;
     color: white;
     font-weight: bold;
+    font-size: 16px;
     transition: transform 0.2s, color 0.2s;
 }
 
@@ -53,26 +56,26 @@ nav a:hover, nav a.active {
 
 /* Hero Section */
 .hero {
-    margin: 30px auto;
-    max-width: 1200px;
+    margin: 15px auto;
+    max-width: 1100px;
     width: 90%;
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border-radius: 35px;
-    padding: 40px;
+    border-radius: 25px;
+    padding: 25px 30px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
     border: 2px solid rgba(255,255,255,0.6);
 }
 
 .hero-text h1 {
-    font-size: 38px;
+    font-size: 30px;
     color: #064e3b;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .hero-text h1 span {
@@ -82,8 +85,8 @@ nav a:hover, nav a.active {
 }
 
 .hero-text p {
-    font-size: 18px;
-    line-height: 1.6;
+    font-size: 15px;
+    line-height: 1.4;
     color: #1f2937;
     font-weight: bold;
 }
@@ -91,16 +94,17 @@ nav a:hover, nav a.active {
 /* Buttons */
 .hero-buttons {
     display: flex;
-    gap: 15px;
+    gap: 12px;
     flex-wrap: wrap;
 }
 
 .btn {
     display: inline-block;
-    padding: 14px 24px;
+    padding: 10px 20px;
     text-decoration: none;
     font-weight: bold;
-    border-radius: 18px;
+    border-radius: 15px;
+    font-size: 14px;
     transition: transform 0.1s ease, box-shadow 0.1s ease;
     cursor: pointer;
 }
@@ -108,20 +112,20 @@ nav a:hover, nav a.active {
 .btn-primary {
     background-color: #32d734;
     color: #ffffff;
-    box-shadow: 0 6px 0 #1b8a1d;
+    box-shadow: 0 4px 0 #1b8a1d;
     border: none;
 }
 
 .btn-secondary {
     background-color: #277da1;
     color: #ffffff;
-    box-shadow: 0 6px 0 #174b63;
+    box-shadow: 0 4px 0 #174b63;
     border: none;
 }
 
 .btn:hover {
     transform: translateY(2px);
-    box-shadow: 0 3px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 2px 0 rgba(0,0,0,0.3);
 }
 
 /* Features Cards */
@@ -129,9 +133,9 @@ nav a:hover, nav a.active {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 30px;
-    padding: 20px 40px 60px;
-    max-width: 1200px;
+    gap: 20px;
+    padding: 10px 30px 20px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
@@ -139,34 +143,36 @@ nav a:hover, nav a.active {
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(8px);
     border: 2px solid rgba(255,255,255,0.6);
-    border-radius: 25px;
-    padding: 30px;
+    border-radius: 20px;
+    padding: 20px;
     flex: 1;
-    min-width: 280px;
-    max-width: 350px;
+    min-width: 250px;
+    max-width: 330px;
     text-align: center;
-    box-shadow: 0 15px 25px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
 .card h3 {
     color: #064e3b;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    font-size: 18px;
 }
 
 .card p {
     color: #1f2937;
-    font-size: 16px;
-    line-height: 1.4;
+    font-size: 14px;
+    line-height: 1.3;
     font-weight: bold;
 }
 
 /* Footer */
 footer {
     text-align: center;
-    padding: 20px;
+    padding: 10px;
     background: #020617;
     color: #efc728;
     margin-top: auto;
+    font-size: 14px;
 }
 
 /* Animations */

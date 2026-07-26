@@ -9,7 +9,6 @@ app = Flask(__name__)
 app.secret_key = 'ninjatsu_secret_key_for_semester_3'
 
 # PostgreSQL Connection String Setup
-# Format: postgresql://username:password@localhost:5432/database_name
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres123@localhost:5432/ninjatsu_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -37,7 +36,6 @@ def homepage():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        # If JSON data comes from AJAX use request.get_json(), otherwise use form values
         data = request.form
         username = data.get('username')
         email = data.get('email')
@@ -106,7 +104,6 @@ def math_slice():
 
 @app.route('/start-learning')
 def start_learning():
-    # Session checking
     if 'user_id' not in session:
         flash('Please login to play!', 'warning')
         return redirect(url_for('login'))
@@ -131,6 +128,36 @@ def word_ninja():
         return redirect(url_for('login'))
     return render_template('word_ninja.html')
 
+@app.route('/maze-adventure')
+def maze_adventure():
+    if 'user_id' not in session:
+        flash('Please login first!', 'warning')
+        return redirect(url_for('login'))
+    return render_template('maze_adventure.html')
+
+
+@app.route('/word-speed-run')
+def word_speed_run():
+    return render_template('word_speed_run.html')
+
+@app.route('/star-strike')
+def star_strike():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    return render_template('star_strike.html')
+
+@app.route('/memory-ninja')
+def memory_ninja():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    return render_template('memory_ninja.html')
+
+@app.route('/word-race')
+def word_race():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    return render_template('word_race.html')
+
 # API Route: To securely update score and XP on backend when a game is completed
 @app.route('/api/update-xp', methods=['POST'])
 def update_xp():
@@ -141,19 +168,6 @@ def update_xp():
     xp_earned = data.get('xp', 0)
     game_name = data.get('game_name', 'Word Ninja')
 
-@app.route('/maze-adventure')
-def maze_adventure():
-    if 'user_id' not in session:
-        flash('Please login first!', 'warning')
-        return redirect(url_for('login'))
-    return render_template('maze_adventure.html')
-@app.route('/grandmaster-drill')
-def grandmaster_drill():
-    if 'user_id' not in session:
-        flash('Please login first!', 'warning')
-        return redirect(url_for('login'))
-    return render_template('grandmaster_drill.html')
-    # Update Progress
     user_progress = Progress.query.filter_by(user_id=session['user_id']).first()
     if user_progress:
         user_progress.total_xp += xp_earned

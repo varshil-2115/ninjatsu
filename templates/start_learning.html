@@ -24,49 +24,55 @@
 
     <main class="training-main">
         <div class="timeline-banner">
-            <h1>⛩️ DOJO SKILL DRILLS & TRAINING</h1>
-            <p>Practice specific gameplay mechanics to sharpen your reflexes! Current Rank: Level {{ progress.current_level if progress else 1 }} 🌟</p>
+            <h1>⛩️ THE PATH OF LEGENDS</h1>
+            <p>Choose your dojo station, train hard, and rank up! Current Rank: Level {{ progress.current_level if progress else 1 }} 🌟</p>
         </div>
 
-        <div class="scroll-path-container">
+        <!-- Arcade Side-by-Side Training Stations Grid -->
+        <div class="training-grid">
             
-            <!-- Skill Drill 1 -->
-            <div class="scroll-item">
-                <div class="scroll-badge">⚡</div>
-                <div class="scroll-content">
-                    <h2>Drill 1: Shuriken Speed Practice</h2>
-                    <p>Focus purely on fast letter-recognition and rapid unscrambling mechanics to build your reflexes.</p>
-                    <a href="{{ url_for('word_ninja') }}" class="scroll-btn">START DRILL</a>
-                </div>
+            <!-- Station 1 -->
+            <div class="training-card">
+                <div class="card-badge">⚡</div>
+                <h2>Word Speed Run</h2>
+                <p>Unscramble the secret ninja scrolls and test your rapid typing reflexes!</p>
+                <a href="{{ url_for('word_speed_run') }}" class="scroll-btn">TRAIN NOW</a>
             </div>
 
-            <!-- Skill Drill 2 -->
-            <div class="scroll-item {% if not progress or progress.current_level < 2 %}lvl-locked{% endif %}">
-                <div class="scroll-badge">⚔️</div>
-                <div class="scroll-content">
-                    <h2>Drill 2: Blade Precision Practice</h2>
-                    <p>Master fast-paced mental arithmetic and target-selection under simulated time pressure.</p>
-                    {% if progress and progress.current_level >= 2 %}
-                        <a href="{{ url_for('math_slice') }}" class="scroll-btn">START DRILL</a>
-                    {% else %}
-                        <span class="lock-tag">🔒 UNLOCKS AT LEVEL 2</span>
-                    {% endif %}
-                </div>
+            <!-- Station 2 -->
+            <div class="training-card {% if not progress or progress.current_level < 2 %}locked-card{% endif %}">
+                <div class="card-badge">🎯</div>
+                <h2>Star Strike</h2>
+                <p>Test your ninja reflexes and hit the targets before time runs out!</p>
+                {% if progress and progress.current_level >= 2 %}
+                    <a href="{{ url_for('star_strike') }}" class="scroll-btn">TRAIN NOW</a>
+                {% else %}
+                    <span class="lock-tag">🔒 LEVEL 2 REQ</span>
+                {% endif %}
             </div>
 
-            <!-- Skill Drill 3 -->
-            <!-- Skill Drill 3 -->
-            <div class="scroll-item {% if not progress or progress.current_level < 3 %}lvl-locked{% endif %}">
-                <div class="scroll-badge">🎯</div>
-                <div class="scroll-content">
-                    <h2>Drill 3: Grandmaster Endurance Test</h2>
-                    <p>Put your accumulated agility, reaction speed, and mental focus to the ultimate multi-tasking test.</p>
-                    {% if progress and progress.current_level >= 3 %}
-                        <a href="{{ url_for('grandmaster_drill') }}" class="scroll-btn">START DRILL</a>
-                    {% else %}
-                        <span class="lock-tag">🔒 UNLOCKS AT LEVEL 3</span>
-                    {% endif %}
-                </div>
+            <!-- Station 3 -->
+            <div class="training-card {% if not progress or progress.current_level < 3 %}locked-card{% endif %}">
+                <div class="card-badge">🃏</div>
+                <h2>Memory Ninja</h2>
+                <p>Flip the cards and find all matching ninja tool pairs!</p>
+                {% if progress and progress.current_level >= 3 %}
+                    <a href="{{ url_for('memory_ninja') }}" class="scroll-btn">TRAIN NOW</a>
+                {% else %}
+                    <span class="lock-tag">🔒 LEVEL 3 REQ</span>
+                {% endif %}
+            </div>
+
+            <!-- Station 4 -->
+            <div class="training-card {% if not progress or progress.current_level < 4 %}locked-card{% endif %}">
+                <div class="card-badge">⌨️</div>
+                <h2>Ninja Word Race</h2>
+                <p>Type fast, beat the AI bots, and win the typing speed showdown!</p>
+                {% if progress and progress.current_level >= 4 %}
+                    <a href="{{ url_for('word_race') }}" class="scroll-btn">TRAIN NOW</a>
+                {% else %}
+                    <span class="lock-tag">🔒 LEVEL 4 REQ</span>
+                {% endif %}
             </div>
 
         </div>

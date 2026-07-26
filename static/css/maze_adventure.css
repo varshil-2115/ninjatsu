@@ -10,7 +10,8 @@
 }
 
 body {
-  min-height: 100vh;
+  height: 100vh;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
   background-image: url("../image/ninja_bg10.jpg");
@@ -19,13 +20,14 @@ body {
   background-position: center;
   background-attachment: fixed;
   color: #efc728;
+  overflow: hidden; /* Stops page scrolling */
 }
 
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 50px;
+  padding: 12px 30px;
   background-color: #32d734;
   color: white;
   border-bottom-left-radius: 20px;
@@ -34,15 +36,15 @@ header {
 }
 
 .logo {
-  font-size: 30px;
+  font-size: 26px;
 }
 
 nav a {
   color: white;
-  margin-left: 20px;
+  margin-left: 15px;
   text-decoration: none;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
   transition: transform 0.2s, color 0.2s;
 }
 
@@ -56,7 +58,8 @@ nav a:hover, nav a.active {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px 20px;
+  padding: 10px 20px;
+  overflow: hidden;
 }
 
 .game-hud {
@@ -64,65 +67,67 @@ nav a:hover, nav a.active {
   justify-content: space-between;
   background: rgba(17, 24, 39, 0.9);
   border: 3px solid #32d734;
-  padding: 15px 20px;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  font-size: 16px;
+  padding: 10px 18px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  font-size: 14px;
   font-weight: bold;
   color: #fbbf24;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
 }
 
 .search-card {
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  padding: 25px;
-  border-radius: 35px;
+  padding: 15px 20px;
+  border-radius: 25px;
   text-align: center;
-  box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.5);
   border: 3px solid #064e3b;
   color: #1f2937;
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 600px;
+  width: 100%;
 }
 
 #feedback {
-  margin: 5px 0 10px 0;
-  font-size: 16px;
+  margin: 2px 0 8px 0;
+  font-size: 14px;
   font-weight: bold;
   color: #d97706;
 }
 
 .word-target-list {
   background: #f3f4f6;
-  padding: 8px 20px;
-  border-radius: 15px;
-  margin-bottom: 15px;
+  padding: 6px 15px;
+  border-radius: 12px;
+  margin-bottom: 10px;
   border: 2px dashed #064e3b;
 }
 
-/* 6x6 Letter Grid Box */
+/* Letter Grid Box */
 #word-grid {
   display: grid;
-  grid-template-columns: repeat(6, 48px);
-  grid-template-rows: repeat(6, 48px);
-  gap: 8px;
+  grid-template-columns: repeat(6, 42px);
+  grid-template-rows: repeat(6, 42px);
+  gap: 6px;
   background: #064e3b;
-  padding: 12px;
-  border-radius: 20px;
+  padding: 10px;
+  border-radius: 16px;
   box-shadow: inset 0 5px 10px rgba(0,0,0,0.4);
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .letter-cell {
   background: #ffffff;
-  border-radius: 12px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
   color: #064e3b;
   user-select: none;
@@ -141,39 +146,39 @@ nav a:hover, nav a.active {
 
 .reward-box {
   background: #ffffff;
-  padding: 40px;
-  border-radius: 35px;
+  padding: 30px;
+  border-radius: 30px;
   text-align: center;
   color: #1f2937;
   box-shadow: 0 25px 50px rgba(0,0,0,0.7);
   border: 4px solid #32d734;
-  max-width: 450px;
+  max-width: 400px;
   width: 90%;
 }
 
 .reward-box span {
   color: #22c55e;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
 }
 
 .reward-actions {
-  margin-top: 20px;
+  margin-top: 15px;
   display: flex;
-  gap: 15px;
+  gap: 12px;
   justify-content: center;
 }
 
 .reward-actions button, .reward-actions .btn-link {
-  padding: 12px 20px;
-  border-radius: 18px;
+  padding: 10px 18px;
+  border-radius: 15px;
   border: none;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
   cursor: pointer;
   background: #32d734;
   color: #ffffff;
-  box-shadow: 0 5px 0 #1b8a1d;
+  box-shadow: 0 4px 0 #1b8a1d;
 }
 
 .hidden {
@@ -181,9 +186,9 @@ nav a:hover, nav a.active {
 }
 
 footer {
-  margin-top: auto;
   text-align: center;
-  padding: 20px;
+  padding: 10px;
   background: #020617;
   color: #efc728;
+  font-size: 14px;
 }

@@ -1,11 +1,10 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
-  const drillButtons = document.querySelectorAll('.scroll-btn');
+  const trainingButtons = document.querySelectorAll('.scroll-btn');
 
-  drillButtons.forEach(btn => {
+  trainingButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
-      console.log('Entering skill training drill...');
+
+      console.log('Entering training station:', btn.href);
     });
   });
 });

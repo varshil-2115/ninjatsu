@@ -3,64 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ninja Hall of Fame - Rewards</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/global_ninja.css') }}">
-    <style>
-        /* Custom Arcade Inventory Slot Styles for Badges */
-        .xp-box {
-            background: #ffffff;
-            border: 6px solid #277da1;
-            padding: 30px;
-            max-width: 600px;
-            margin: 40px auto;
-            text-align: center;
-            box-shadow: 10px 10px 0px #277da1;
-        }
-        
-        #xpValue {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 36px;
-            color: #f94144;
-            margin: 15px 0;
-            text-shadow: 3px 3px 0px #f9c74f;
-        }
-
-        .badge-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
-            max-width: 1150px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .badge-slot {
-            background: #ffffff;
-            border: 5px solid #277da1;
-            padding: 25px 15px;
-            text-align: center;
-            box-shadow: 6px 6px 0px #277da1;
-            transition: all 0.1s steps(2);
-        }
-
-        /* Unlocked Item Visual Profile */
-        .badge-slot.unlocked-item {
-            border-color: #90be6d;
-            background: #fdfdfd;
-        }
-        .badge-slot.unlocked-item:hover {
-            transform: translate(-4px, -4px);
-            box-shadow: 10px 10px 0px #277da1;
-            background: #f9c74f; /* Gold highlight on active trophies */
-        }
-
-        /* Locked Item Visual Profile */
-        .badge-slot.locked-item {
-            background: #577590;
-            border-color: #277da1;
-            opacity: 0.7;
-        }
-    </style>
+    <title>Ninja Hall of Fame - Rewards Vault</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reward.css') }}">
 </head>
 <body>
 
@@ -72,52 +16,44 @@
             <a href="{{ url_for('start_learning') }}">Start Learning</a>
             <a href="{{ url_for('rewards') }}" class="active">Rewards</a>
             {% if session.get('username') %}
-                <a href="#" style="color: #f9c74f; font-family: 'Press Start 2P', cursive; font-size: 14px;">Hi, {{ session['username'] }}</a>
-                <a href="{{ url_for('logout') }}" style="color: #f94144; font-family: 'Press Start 2P', cursive; font-size: 14px;">Logout</a>
+                <a href="#" style="color: #facc15;">Hi, {{ session['username'] }}</a>
+                <a href="{{ url_for('logout') }}" style="color: #ff0055;">Logout</a>
             {% endif %}
         </nav>
     </header>
 
-    <main style="flex: 1;">
-        <div class="xp-box">
-            <h3 style="color: #277da1; font-family: 'Press Start 2P', cursive; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">
-                TOTAL ACQUIRED NINJA MIGHT
-            </h3>
-            <div id="xpValue">{{ progress.total_xp if progress else 0 }} XP</div>
-            <p style="color: #577590; font-size: 22px; font-weight: bold; line-height: 1.3;">
-                Keep playing games to stack up XP and evolve through the ranks.
-            </p>
+    <main class="rewards-main">
+        <!-- Ancient Scroll Banner -->
+        <div class="scroll-banner">
+            <span class="scroll-tag">📜 SECRET DOJO VAULT</span>
+            <h1>YOUR NINJA POWER: <span class="xp-highlight">{{ progress.total_xp if progress else 0 }} XP</span></h1>
+            <p>Complete challenges in the training dojo to unlock legendary armory gear!</p>
         </div>
 
-        <div style="text-align: center; margin: 50px 0 20px 0; padding: 0 20px;">
-            <h2 style="font-family: 'Press Start 2P', cursive; font-size: 24px; color: #ffffff; text-shadow: 4px 4px 0px #277da1;">
-                YOUR EARNED MEDALS & BADGES
-            </h2>
+        <div class="section-title">
+            <h2>🎒 ARMORY & BADGE COLLECTION</h2>
         </div>
 
-        <section class="badge-grid">
+        <!-- Armory Slots Grid -->
+        <div class="armory-grid">
             {% for badge in badges %}
                 {% set is_unlocked = progress and progress.total_xp >= badge.required_xp %}
                 
-                <div class="badge-slot {{ 'unlocked-item' if is_unlocked else 'locked-item' }}">
-                    <div style="font-size: 55px; margin-bottom: 12px; filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.15));">
-                        {% if is_unlocked %} 🏅 {% else %} 🔒 {% endif %}
+                <div class="armory-slot {% if not is_unlocked %}locked-gear{% else %}unlocked-gear{% endif %}">
+                    <div class="gear-icon">
+                        {% if is_unlocked %} ⚔️ {% else %} 🔒 {% endif %}
                     </div>
-                    
-                    <h4 style="font-family: 'Press Start 2P', cursive; font-size: 12px; color: {{ '#277da1' if is_unlocked else '#f9c74f' }}; margin-bottom: 8px;">
-                        {{ badge.name }}
-                    </h4>
-                    
-                    <p style="font-size: 20px; color: {{ '#577590' if is_unlocked else '#ffffff' }}; font-weight: bold;">
-                        Unlocks at {{ badge.required_xp }} XP
-                    </p>
+                    <div class="gear-info">
+                        <h3>{{ badge.name }}</h3>
+                        <p class="status-text">{% if is_unlocked %}UNLOCKED & EQUIPPED{% else %}UNLOCKS AT {{ badge.required_xp }} XP{% endif %}</p>
+                    </div>
                 </div>
             {% endfor %}
-        </section>
+        </div>
     </main>
 
     <footer>
-        &copy; 2026 Ninjatsu Dojo Studio.
+        &copy; 2026 Ninjatsu Dojo Studio. Made with magic for kids!
     </footer>
 
 </body>
