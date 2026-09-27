@@ -7,14 +7,33 @@ const submitBtn = document.getElementById('submit-btn');
 const rewardPopup = document.getElementById('reward-popup');
 const popupNext = document.getElementById('popup-next');
 
-// Exact file extensions matching your folder (.gif for all these items)
 const words = [
   { word: 'SUN', file: 'sun.gif' },
   { word: 'NINJA', file: 'ninja.gif' },
   { word: 'TREE', file: 'tree.gif' },
   { word: 'CAT', file: 'cat.gif' },
   { word: 'FISH', file: 'fish.gif' },
-  { word: 'BEE', file: 'bee.gif' }
+  { word: 'BEE', file: 'bee.gif' },
+  { word: 'DOG', file: 'dog.gif' },
+  { word: 'FLOWER', file: 'flower.gif' },
+  { word: 'MOON', file: 'moon.gif' },
+  { word: 'BIRD', file: 'sun.gif' },
+  { word: 'PANDA', file: 'panda.gif' },
+  { word: 'COW', file: 'cow.gif' },
+  { word: 'STAR', file: 'star.gif' },
+  { word: 'BOY', file: 'boy.mp4' },
+  { word: 'GIRL', file: 'girl.gif' },
+  { word: 'APPLE', file:'apple.gif' },
+  { word: 'FOX', file: 'fox.gif' },
+  { word: 'PLANE', file: 'plane.gif' },
+  { word: 'CAR', file: 'car.gif' },
+  { word: 'BUS', file: 'bus.gif' },
+  { word: 'FIRE', file: 'fire.gif' },
+  { word: 'WATER', file: 'water.gif' },
+  { word: 'NEST', file: 'nest.jfif' },
+  { word: 'ICECREAME', file: 'icecreame.gif' },
+  { word: 'BUTTERFLY', file: 'butterfly.gif' },
+  { word: 'ICE', file: 'ice.gif' }
 ];
 
 let correctWord;
@@ -30,7 +49,7 @@ function pickWord() {
     hintImg.style.display = 'block';
   }
   
-  feedback.textContent = 'Look at the picture and spell the word!';
+  feedback.textContent = 'Spell what you see! ⭐';
   feedback.style.color = '#fbbf24';
 
   const randomIdx = Math.floor(Math.random() * correctWord.length);
@@ -76,50 +95,50 @@ function checkLetter(letter, btn) {
 
   if (found) {
     btn.style.background = '#22c55e';
-    feedback.textContent = 'Great choice! ⭐';
+    feedback.textContent = 'Nice job! ⭐';
     feedback.style.color = '#22c55e';
+    if (window.NinjaAudio) NinjaAudio.cheer(); // Cheer Sound + Voice
   } else {
     btn.style.background = '#ef4444';
-    feedback.textContent = 'Oops! Try another letter! 💕';
+    feedback.textContent = 'Try another letter! 😊';
     feedback.style.color = '#ef4444';
+    if (window.NinjaAudio) NinjaAudio.comfort(); // Gentle Sound + Voice
   }
 
   updateWordDisplay();
 }
 
 submitBtn.addEventListener('click', () => {
+  if (window.NinjaAudio) NinjaAudio.playTap();
+
   if (!currentWord.includes('_')) {
-    
     fetch('/api/update-xp', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        xp: 10,
-        game_name: 'Word Ninja'
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ xp: 10, game_name: 'Word Ninja' })
     })
     .then(response => response.json())
     .then(data => {
       if (data.status === 'success') {
+        if (window.NinjaAudio) NinjaAudio.cheer();
         rewardPopup.classList.remove('hidden');
       } else {
-        alert("Please login first to save your star points!");
+        alert("Log in to save your stars! ⭐");
       }
     })
     .catch(err => {
-      console.error("XP update failed:", err);
       rewardPopup.classList.remove('hidden');
     });
 
   } else {
-    feedback.textContent = 'Fill all the missing blanks first! 🤗';
+    feedback.textContent = 'Fill all missing letters first! 🤗';
     feedback.style.color = '#d97706';
+    if (window.NinjaAudio) NinjaAudio.comfort();
   }
 });
 
 popupNext.addEventListener('click', () => {
+  if (window.NinjaAudio) NinjaAudio.playWhoosh();
   rewardPopup.classList.add('hidden');
   pickWord();
 });

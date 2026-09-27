@@ -9,13 +9,13 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password_hash = db.Column(db.String(255), nullable=False)  # Password security ke liye hashing use karenge
+    password_hash = db.Column(db.String(255), nullable=False) 
     age = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
-    # Relationships (User delete hone par uski progress bhi clear ho jaye)
     progress = db.relationship('Progress', backref='player', uselist=False, cascade="all, delete-orphan")
     scores = db.relationship('GameScore', backref='player', cascade="all, delete-orphan")
+    quests = db.relationship('DailyQuest', backref='player', cascade="all, delete-orphan")
 
 class Progress(db.Model):
     __tablename__ = 'user_progress'
@@ -42,3 +42,12 @@ class Badge(db.Model):
     name = db.Column(db.String(50), unique=True, nullable=False)
     required_xp = db.Column(db.Integer, nullable=False)
     icon_path = db.Column(db.String(255), nullable=False)
+
+class DailyQuest(db.Model):
+    __tablename__ = 'daily_quests'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
+    quest_name = db.Column(db.String(100), nullable=False)
+    is_completed = db.Column(db.Boolean, default=False)
+    date_assigned = db.Column(db.String(20), nullable=False)

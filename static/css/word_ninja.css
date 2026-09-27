@@ -1,121 +1,300 @@
-/* =========================
-   WORD PUZZLE NINJA PAGE
-========================= */
+/* ==========================================================================
+   WORD NINJA - PLAYFUL PBS KIDS STYLE
+   ========================================================================== */
+
+/* ==========================================================================
+   DAY & NIGHT DYNAMIC THEMES
+   ========================================================================== */
+
+/* DAY THEME (DEFAULT) */
+body.theme-day {
+  background-image: url("../image/day/7.png");
+  background-color: #e0f2fe;
+  color: #1e293b;
+  transition: background-image 0.5s ease, background-color 0.5s ease;
+}
+
+/* NIGHT THEME (AUTOMATIC 7 PM to 6 AM) */
+body.theme-night {
+  /* Dark Night Forest Scenery with Deep Blue/Moonlight Tone */
+  background-image:  url("../image/night/11.jfif");
+  background-color: #030712;
+  color: #f8fafc;
+  transition: background-image 0.5s ease, background-color 0.5s ease;
+}
+
+/* Header Adjustments at Night */
+body.theme-night header,
+body.theme-night .dojo-header-green {
+  background-color: #0f172a !important;
+  border-bottom-color: #38bdf8 !important;
+  box-shadow: 0 4px 20px rgba(56, 189, 248, 0.2);
+}
+
+body.theme-night nav a:hover,
+body.theme-night nav a.active {
+  background: #38bdf8 !important;
+  color: #0f172a !important;
+}
+
+/* Cards & Bento Grid at Night */
+body.theme-night .bento-card,
+body.theme-night .training-card,
+body.theme-night .dojo-arena-box,
+body.theme-night .hero-card,
+body.theme-night .sound-settings-card,
+body.theme-night .auth-card,
+body.theme-night .admin-table-card,
+body.theme-night .admin-hero-banner {
+  background: rgba(15, 23, 42, 0.94) !important;
+  border-color: #1e293b !important;
+  color: #f1f5f9 !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+}
+
+body.theme-night .timeline-banner {
+  background: rgba(15, 23, 42, 0.96) !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
+}
+
+body.theme-night .timeline-banner h1,
+body.theme-night .hero-card h2,
+body.theme-night h2, body.theme-night h3 {
+  color: #38bdf8 !important;
+}
+
+body.theme-night p,
+body.theme-night .subtitle-text {
+  color: #cbd5e1 !important;
+}
+
+/* Game Arenas at Night */
+body.theme-night .target-arena,
+body.theme-night #targetArena {
+  background: #090d16 !important;
+  border-color: #38bdf8 !important;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Night Star Colors */
+body.theme-night .stats-row {
+  background: #0f172a !important;
+  border-color: #1e293b !important;
+  color: #38bdf8 !important;
+}
+
+/* Footer at Night */
+body.theme-night footer,
+body.theme-night .dojo-footer {
+  background: #020617 !important;
+  border-top-color: #38bdf8 !important;
+  color: #94a3b8 !important;
+}
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-family: 'Fredoka', cursive, sans-serif;
+}
+
+header {
+  margin: 0 !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background-color: #32d734;
+  border-bottom: 5px solid #16a34a;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+}
+
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 body {
   min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  background-image: url("../image/ninja_bg10.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  color: #efc728;
+  background: transparent;
+  color: #1e293b;
 }
 
-/* Header Match */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 50px;
-  background-color: #32d734;
-  color: white;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
+
 
 .logo {
-  font-size: 30px;
+  font-family: 'Mali', cursive;
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  text-shadow: 2px 2px 0px #15803d;
+}
+
+.logo-ninja {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;          /* Preserves the original compact footprint */
+  height: 34px;
+  font-size: 34px;      /* Native emoji scale base */
+  position: relative;
+  text-shadow: 2px 2px 0px #15803d;
+  z-index: 20;          /* Lifts it into an upper layer */
+  transform: scale(1.5); /* Increase scale freely (e.g. 1.4, 1.6, 1.8) */
+  transform-origin: center;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+  pointer-events: none; /* Prevents interference with navbar clicks */
 }
 
 nav a {
-  color: white;
-  margin-left: 20px;
+  margin-left: 12px;
   text-decoration: none;
-  font-weight: bold;
-  font-size: 18px;
-  transition: transform 0.2s, color 0.2s;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 nav a:hover, nav a.active {
-  color: #facc15;
-  transform: scale(1.1);
+  background: #facc15;
+  color: #0f172a;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 0 #ca8a04;
 }
 
-/* Main Container */
+nav a.nav-user {
+  background: #fef08a;
+  color: #854d0e;
+}
+
+nav a.nav-logout {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Main Area */
 .ninja-main {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px 20px;
+  padding: 30px 20px;
 }
 
-/* Game HUD Top Bar */
+.game-wrapper {
+  width: 100%;
+  max-width: 580px;
+}
+
+/* Kid HUD Top Bar */
 .game-hud {
   display: flex;
   justify-content: space-between;
-  background: rgba(17, 24, 39, 0.9);
-  border: 3px solid #32d734;
-  padding: 15px 20px;
-  border-radius: 20px;
+  align-items: center;
+  background: #0f172a;
+  border: 4px solid #32d734;
+  padding: 14px 24px;
+  border-radius: 30px;
   margin-bottom: 20px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fbbf24;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  font-size: 18px;
+  font-weight: 700;
+  color: #facc15;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+
+.hud-prize {
+  color: #4ade80 !important;
 }
 
 /* Word Card Box */
 .word-card {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: 35px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 35px 30px;
   border-radius: 35px;
   text-align: center;
-  box-shadow: 0 25px 40px rgba(0,0,0,0.5);
-  border: 3px solid #064e3b;
-  color: #1f2937;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.22);
+  border: 6px solid #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-heading {
+  font-size: 24px;
+  color: #064e3b;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+/* Centered Hint Image */
+.hint-image-box {
+  text-align: center;
+  margin: 10px 0 15px;
 }
 
 .word-card img {
-  width: 140px;
-  height: 140px;
-  margin-bottom: 15px;
-  border-radius: 15px;
-  border: 3px solid #064e3b;
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15));
+  margin: 0 auto;
+  display: block;
 }
 
+/* Display Word Blank Boxes */
 #display-word {
-  background: #f3f4f6;
-  border: 3px dashed #064e3b;
-  border-radius: 20px;
-  padding: 20px;
-  font-size: 36px;
-  font-weight: bold;
-  margin-bottom: 20px;
+  background: #f8fafc;
+  border: 4px dashed #32d734;
+  border-radius: 25px;
+  padding: 15px 25px;
+  font-size: 38px;
+  font-weight: 700;
+  margin-bottom: 12px;
   letter-spacing: 12px;
   color: #064e3b;
+  min-width: 250px;
 }
 
-/* Keyboard Console Box */
+/* Feedback Msg */
+#feedback {
+  margin: 10px 0;
+  font-size: 20px;
+  font-weight: 700;
+  min-height: 28px;
+  color: #d97706;
+}
+
+/* Keyboard Console */
 .keyboard-console {
-  background: rgba(243, 244, 246, 0.95);
-  border: 3px solid #32d734;
-  padding: 20px;
-  border-radius: 25px;
-  margin-top: 20px;
+  background: #f1f5f9;
+  border: 3px solid #cbd5e1;
+  padding: 18px;
+  border-radius: 30px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.keyboard-title {
+  font-size: 16px;
+  color: #064e3b;
+  margin-bottom: 12px;
+  text-align: center;
+  font-weight: 700;
 }
 
 .letter-buttons {
@@ -127,63 +306,61 @@ nav a:hover, nav a.active {
 
 .letter-btn {
   padding: 12px 18px;
-  font-size: 20px;
-  border-radius: 15px;
-  border: 2px solid #064e3b;
+  font-size: 22px;
+  border-radius: 18px;
+  border: 2px solid #ffffff;
   background-color: #32d734;
   color: #ffffff;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 4px 0 #1b8a1d;
-  transition: transform 0.1s, box-shadow 0.1s;
+  box-shadow: 0 5px 0 #1b8a1d, 0 6px 10px rgba(0,0,0,0.1);
+  transition: all 0.12s ease;
 }
 
-.letter-btn:hover {
-  transform: translateY(2px);
-  box-shadow: 0 2px 0 #1b8a1d;
+.letter-btn:hover:not([disabled]) {
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 7px 0 #1b8a1d;
+  background-color: #39e83b;
 }
 
 .letter-btn:active:not([disabled]) {
-  transform: translateY(4px);
-  box-shadow: none;
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #1b8a1d;
 }
 
-/* Submit Button */
+/* Giant Action Button */
 #submit-btn {
-  margin-top: 25px;
+  margin-top: 22px;
   width: 100%;
   padding: 16px;
   font-size: 20px;
-  border-radius: 20px;
-  border: none;
+  border-radius: 50px;
+  border: 3px solid #ffffff;
   background-color: #f97316;
   color: #ffffff;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 6px 0 #c2410c;
-  transition: transform 0.1s, box-shadow 0.1s;
+  box-shadow: 0 6px 0 #c2410c, 0 10px 15px rgba(0,0,0,0.15);
+  transition: all 0.15s ease;
 }
 
 #submit-btn:hover {
-  transform: translateY(2px);
-  box-shadow: 0 3px 0 #c2410c;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 9px 0 #c2410c;
+  background-color: #fb923c;
 }
 
-/* Feedback Text */
-#feedback {
-  margin-top: 15px;
-  font-size: 18px;
-  font-weight: bold;
-  min-height: 25px;
-  color: #d97706;
+#submit-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #c2410c;
 }
 
 /* Reward Popup Overlay */
 .reward-popup {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(5px);
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -192,85 +369,77 @@ nav a:hover, nav a.active {
 
 .reward-box {
   background: #ffffff;
-  padding: 40px;
+  padding: 40px 35px;
   border-radius: 35px;
   text-align: center;
-  color: #1f2937;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.7);
-  border: 4px solid #32d734;
-  max-width: 450px;
+  color: #1e293b;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+  border: 6px solid #32d734;
+  max-width: 440px;
   width: 90%;
+  animation: popBounce 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.reward-box h2 {
+  font-size: 28px;
+  color: #064e3b;
+  margin-bottom: 12px;
+}
+
+.reward-box p {
+  font-size: 20px;
+  color: #475569;
+  font-weight: 600;
+  margin-bottom: 25px;
 }
 
 .reward-box span {
   color: #22c55e;
   font-size: 24px;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .reward-actions {
-  margin-top: 20px;
   display: flex;
   gap: 15px;
   justify-content: center;
 }
 
 .reward-actions button, .reward-actions .btn-link {
-  padding: 12px 20px;
-  border-radius: 18px;
-  border: none;
-  font-size: 16px;
-  font-weight: bold;
+  padding: 12px 24px;
+  border-radius: 50px;
+  border: 3px solid #ffffff;
+  font-size: 17px;
+  font-weight: 700;
   cursor: pointer;
   background: #32d734;
   color: #ffffff;
+  text-decoration: none;
   box-shadow: 0 5px 0 #1b8a1d;
+  transition: all 0.12s ease;
 }
 
 .reward-actions button:hover, .reward-actions .btn-link:hover {
-  transform: translateY(2px);
-  box-shadow: 0 2px 0 #1b8a1d;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 7px 0 #1b8a1d;
 }
 
 .hidden {
   display: none !important;
 }
 
-/* Footer */
 footer {
-  margin-top: auto;
   text-align: center;
-  padding: 20px;
+  padding: 18px;
   background: #020617;
   color: #efc728;
+  font-size: 15px;
+  font-weight: 700;
+  border-top: 5px solid #32d734;
+  margin-top: auto;
 }
 
-/* Word Card Box */
-.word-card {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: 35px;
-  border-radius: 35px;
-  text-align: center;
-  box-shadow: 0 25px 40px rgba(0,0,0,0.5);
-  border: 3px solid #064e3b;
-  color: #1f2937;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Centers everything inside the card horizontally */
-}
-
-/* Hint Image / GIF Styling (Border Removed & Centered) */
-.word-card img {
-  width: 140px;
-  height: 140px;
-  margin-bottom: 15px;
-  border-radius: 0;
-  border: none;
-  background: transparent;
-  box-shadow: none;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+@keyframes popBounce {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
 }

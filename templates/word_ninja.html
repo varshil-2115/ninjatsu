@@ -3,82 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Puzzle Ninja - Fun Game</title>
+    <title>Word Ninja - Fun Game 🥷</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Mali:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/word_ninja.css') }}">
 </head>
 <body>
-
     <header>
-        <div class="logo">🥷 NINJATSU</div>
+        <div class="logo">
+            <img src="/static/image/logo.png" class="logo-ninja">
+            <span class="logo-title">NINJATSU</span>
+        </div>
         <nav>
             <a href="{{ url_for('homepage') }}">Home</a>
-            <a href="{{ url_for('explore_games') }}" class="active">Explore Games</a>
-            <a href="{{ url_for('start_learning') }}">Start Learning</a>
-            <a href="{{ url_for('rewards') }}">Rewards</a>
+            <a href="{{ url_for('explore_games') }}" class="active">Play Games</a>
+            <a href="{{ url_for('start_learning') }}">Dojo Camp</a>
+            <a href="{{ url_for('rewards') }}">Trophies</a>
             {% if session.get('username') %}
-                <a href="#">Hi, {{ session['username'] }}</a>
-                <a href="{{ url_for('logout') }}" style="color: #ef4444;">Logout</a>
+                <a href="#" class="nav-user">Hi, {{ session['username'] }}! ⭐</a>
+                <a href="{{ url_for('logout') }}" class="nav-logout">Logout</a>
             {% else %}
                 <a href="{{ url_for('login') }}">Login</a>
-                <a href="{{ url_for('register') }}">Register</a>
+                <a href="{{ url_for('register') }}">Join Us!</a>
             {% endif %}
         </nav>
     </header>
 
     <main class="ninja-main">
-        <section style="width: 100%; max-width: 600px;">
+        <section class="game-wrapper">
             
-            <!-- Game HUD / Score Info -->
             <div class="game-hud">
-                <div>PUZZLE LEVEL: WORD NINJA</div>
-                <div style="color: #22c55e;">PRIZE: +10 STAR POINTS</div>
+                <div>WORD NINJA 🥷</div>
+                <div class="hud-prize">WIN: +10 STARS ⭐</div>
             </div>
 
             <div class="word-card">
-                <h3 style="margin-top: 0; font-size: 24px; color: #064e3b; margin-bottom: 15px;">
-                    WORD UNSCRAMBLE PUZZLE
+                <h3 class="card-heading">
+                    SPELL THE SECRET WORD! 🔍
                 </h3>
                 
-                <div style="text-align: center; margin: 15px 0;">
+                <div class="hint-image-box">
                     <img id="hint-img" src="" alt="Hint Picture" style="display: none;">
                 </div>
 
-                <!-- Display Box for Letters -->
                 <div id="display-word"></div>
 
                 <p id="feedback"></p>
 
-                <!-- Keyboard Letter Console -->
                 <div class="keyboard-console">
-                    <div style="font-size: 16px; color: #064e3b; margin-bottom: 12px; text-align: center; font-weight: bold;">
-                        TAP LETTERS TO SPELL THE WORD!
+                    <div class="keyboard-title">
+                        TAP LETTERS TO SPELL! 👇
                     </div>
                     <div class="letter-buttons"></div>
                 </div>
 
                 <button id="submit-btn">
-                    CHECK ANSWER! 🌟
+                    CHECK IT! ✨
                 </button>
             </div>
         </section>
     </main>
 
-    <!-- Victory Reward Popup -->
     <div id="reward-popup" class="reward-popup hidden">
         <div class="reward-box">
-            <h2 style="font-size: 26px; color: #064e3b; margin-bottom: 15px;">GREAT JOB, NINJA! 🎉</h2>
-            <p style="font-size: 20px; color: #1f2937; margin-bottom: 25px;">
-                YOU WON: <span id="xpValue">+10 STAR POINTS</span>
-            </p>
+            <h2>YOU CRUSHED IT! 🎉</h2>
+            <p>YOU WON: <span id="xpValue">+10 STARS ⭐</span></p>
             <div class="reward-actions">
-                <a id="popup-home" class="btn-link" href="{{ url_for('homepage') }}" style="text-decoration: none; display: inline-block;">GAME MENU</a>
-                <button id="popup-next">NEXT PUZZLE</button>
+                <a id="popup-home" class="btn-link" href="{{ url_for('homepage') }}">HOME 🏠</a>
+                <button id="popup-next">NEXT WORD ➡️</button>
             </div>
         </div>
     </div>
 
     <footer>
-        &copy; 2026 Ninjatsu Dojo Studio. Made with magic for kids!
+        &copy; 2026 Ninjatsu Dojo Studio. Play, Learn & Have Fun! 🌟
     </footer>
 
     <script src="{{ url_for('static', filename='js/word_ninja.js') }}"></script>

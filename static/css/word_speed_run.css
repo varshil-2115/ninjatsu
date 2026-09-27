@@ -1,123 +1,379 @@
+/* ==========================================================================
+   WORD SPEED RUN - ENERGETIC & FRIENDLY THEME
+   ========================================================================== */
+
+/* ==========================================================================
+   DAY & NIGHT DYNAMIC THEMES
+   ========================================================================== */
+
+/* DAY THEME (DEFAULT) */
+body.theme-day {
+  background-image: url("../image/day/21.jfif");
+  background-color: #e0f2fe;
+  color: #1e293b;
+  transition: background-image 0.5s ease, background-color 0.5s ease;
+}
+
+/* NIGHT THEME (AUTOMATIC 7 PM to 6 AM) */
+body.theme-night {
+  /* Dark Night Forest Scenery with Deep Blue/Moonlight Tone */
+  background-image: url("../image/night/5.jfif");
+  background-color: #030712;
+  color: #f8fafc;
+  transition: background-image 0.5s ease, background-color 0.5s ease;
+}
+
+/* Header Adjustments at Night */
+body.theme-night header,
+body.theme-night .dojo-header-green {
+  background-color: #0f172a !important;
+  border-bottom-color: #38bdf8 !important;
+  box-shadow: 0 4px 20px rgba(56, 189, 248, 0.2);
+}
+
+body.theme-night nav a:hover,
+body.theme-night nav a.active {
+  background: #38bdf8 !important;
+  color: #0f172a !important;
+}
+
+/* Cards & Bento Grid at Night */
+body.theme-night .bento-card,
+body.theme-night .training-card,
+body.theme-night .dojo-arena-box,
+body.theme-night .hero-card,
+body.theme-night .sound-settings-card,
+body.theme-night .auth-card,
+body.theme-night .admin-table-card,
+body.theme-night .admin-hero-banner {
+  background: rgba(15, 23, 42, 0.94) !important;
+  border-color: #1e293b !important;
+  color: #f1f5f9 !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+}
+
+body.theme-night .timeline-banner {
+  background: rgba(15, 23, 42, 0.96) !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
+}
+
+body.theme-night .timeline-banner h1,
+body.theme-night .hero-card h2,
+body.theme-night h2, body.theme-night h3 {
+  color: #38bdf8 !important;
+}
+
+body.theme-night p,
+body.theme-night .subtitle-text {
+  color: #cbd5e1 !important;
+}
+
+/* Game Arenas at Night */
+body.theme-night .target-arena,
+body.theme-night #targetArena {
+  background: #090d16 !important;
+  border-color: #38bdf8 !important;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Night Star Colors */
+body.theme-night .stats-row {
+  background: #0f172a !important;
+  border-color: #1e293b !important;
+  color: #38bdf8 !important;
+}
+
+/* Footer at Night */
+body.theme-night footer,
+body.theme-night .dojo-footer {
+  background: #020617 !important;
+  border-top-color: #38bdf8 !important;
+  color: #94a3b8 !important;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Fredoka', cursive, sans-serif;
+}
+
+header {
+  margin: 0 !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background-color: #32d734;
+  border-bottom: 5px solid #16a34a;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+}
+
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  color: #1e293b;
+}
+
+
+.logo {
+  font-family: 'Mali', cursive;
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  text-shadow: 2px 2px 0px #15803d;
+}
+
+.logo-ninja {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;          /* Preserves the original compact footprint */
+  height: 34px;
+  font-size: 34px;      /* Native emoji scale base */
+  position: relative;
+  text-shadow: 2px 2px 0px #15803d;
+  z-index: 20;          /* Lifts it into an upper layer */
+  transform: scale(1.5); /* Increase scale freely (e.g. 1.4, 1.6, 1.8) */
+  transform-origin: center;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+  pointer-events: none; /* Prevents interference with navbar clicks */
+}
+
+nav a {
+  margin-left: 12px;
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+nav a:hover, nav a.active {
+  background: #facc15;
+  color: #0f172a;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 0 #ca8a04;
+}
+
+.training-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px;
+}
+
+/* Dojo Box Card */
 .dojo-arena-box {
-    background: rgba(255, 255, 255, 0.95);
-    border: 3px solid #064e3b;
-    border-radius: 20px;
-    padding: 25px 35px;
-    max-width: 550px;
-    width: 100%;
-    text-align: center;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-    position: relative;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 6px solid #ffffff;
+  border-radius: 35px;
+  padding: 35px 30px;
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.22);
+  position: relative;
 }
 
+.dojo-arena-box h1 {
+  color: #064e3b;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.subtitle-text {
+  color: #475569;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+/* Stats Pill Bar */
 .stats-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    font-weight: bold;
-    color: #064e3b;
-    background: #e6f4ea;
-    padding: 6px 12px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ceead6;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: 700;
+  color: #064e3b;
+  background: #ecfdf5;
+  padding: 10px 18px;
+  border-radius: 50px;
+  margin-bottom: 20px;
+  border: 2px solid #a7f3d0;
 }
 
+/* Scramble Word Pill */
 .scramble-word {
-    font-size: 36px;
-    letter-spacing: 5px;
-    color: #d97706;
-    margin: 15px 0;
-    font-weight: bold;
-    text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+  font-size: 42px;
+  letter-spacing: 8px;
+  color: #d97706;
+  background: #fef08a;
+  border: 4px dashed #f59e0b;
+  border-radius: 25px;
+  padding: 12px 20px;
+  margin: 15px 0 20px;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 240px;
 }
 
+/* Input */
 .dojo-input {
-    padding: 12px;
-    font-size: 18px;
-    border: 2px solid #064e3b;
-    border-radius: 12px;
-    width: 100%;
-    margin-bottom: 15px;
-    outline: none;
-    text-align: center;
-    font-weight: bold;
-    letter-spacing: 2px;
+  padding: 14px 20px;
+  font-size: 20px;
+  border: 3px solid #cbd5e1;
+  border-radius: 50px;
+  width: 100%;
+  margin-bottom: 16px;
+  outline: none;
+  text-align: center;
+  font-weight: 700;
+  color: #1e293b;
+  background: #f8fafc;
+  transition: all 0.2s ease;
 }
 
 .dojo-input:focus {
-    border-color: #32d734;
-    box-shadow: 0 0 10px rgba(50, 215, 52, 0.3);
+  border-color: #32d734;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(50, 215, 52, 0.2);
+}
+
+/* Bouncy Action Button */
+.scroll-btn {
+  width: 100%;
+  padding: 15px;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 50px;
+  background: #f97316;
+  color: #ffffff;
+  border: 3px solid #ffffff;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #c2410c, 0 10px 15px rgba(0,0,0,0.15);
+  transition: all 0.15s ease;
+}
+
+.scroll-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 9px 0 #c2410c;
+  background: #fb923c;
+}
+
+.scroll-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #c2410c;
 }
 
 .back-btn {
-    display: inline-block;
-    margin-top: 12px;
-    padding: 6px 14px;
-    background-color: #4b5563;
-    color: white;
-    text-decoration: none;
-    border-radius: 10px;
-    font-weight: bold;
-    font-size: 12px;
+  display: inline-block;
+  margin-top: 16px;
+  padding: 8px 18px;
+  background-color: #f1f5f9;
+  color: #475569;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 15px;
+  border: 2px solid #cbd5e1;
+  transition: all 0.15s ease;
 }
 
+.back-btn:hover {
+  background-color: #e2e8f0;
+  color: #0f172a;
+}
+
+/* Shake Animation on Wrong Guess */
 .shake {
-    animation: shake 0.3s ease-in-out;
+  animation: playfulShake 0.35s ease-in-out;
 }
 
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-8px); }
-    75% { transform: translateX(8px); }
+@keyframes playfulShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px) rotate(-1deg); }
+  75% { transform: translateX(10px) rotate(1deg); }
 }
 
-/* Modal Custom Styles */
+/* Modal Overlay */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    backdrop-filter: blur(4px);
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 .modal-content {
-    background: #ffffff;
-    border: 3px solid #064e3b;
-    border-radius: 20px;
-    padding: 30px 40px;
-    max-width: 450px;
-    width: 90%;
-    text-align: center;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-    animation: popUp 0.3s ease-in-out;
+  background: #ffffff;
+  border: 6px solid #32d734;
+  border-radius: 35px;
+  padding: 40px 35px;
+  max-width: 440px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+  animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .modal-badge {
-    font-size: 40px;
-    margin-bottom: 10px;
+  font-size: 48px;
+  margin-bottom: 12px;
 }
 
 .modal-content h2 {
-    color: #064e3b;
-    margin-bottom: 10px;
-    font-size: 24px;
+  color: #064e3b;
+  margin-bottom: 10px;
+  font-size: 26px;
+  font-weight: 700;
 }
 
 .modal-content p {
-    color: #4b5563;
-    font-size: 14px;
-    margin-bottom: 20px;
-    line-height: 1.5;
+  color: #475569;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+footer {
+  text-align: center;
+  padding: 18px;
+  background: #020617;
+  color: #efc728;
+  font-size: 15px;
+  font-weight: 700;
+  border-top: 5px solid #32d734;
+  margin-top: auto;
 }
 
 @keyframes popUp {
-    0% { transform: scale(0.8); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
 }

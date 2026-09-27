@@ -1,0 +1,128 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Fredoka', cursive, sans-serif;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #030712;
+  /* Dark Night Forest Wallpaper */
+  background-image: linear-gradient(rgba(3, 7, 18, 0.45), rgba(3, 7, 18, 0.75)), url("../image/night/7.jpeg");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.loading-wrapper {
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(12px);
+  border: 5px solid #38bdf8;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65), 0 0 25px rgba(56, 189, 248, 0.3);
+  border-radius: 40px;
+  padding: 45px 40px;
+  max-width: 480px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mascot-box {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.ninja-avatar {
+  font-size: 52px;
+  z-index: 2;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
+  animation: gentleBob 1.8s ease-in-out infinite alternate;
+}
+
+.shuriken-spin {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  font-size: 26px;
+  color: #facc15;
+  text-shadow: 0 0 10px #eab308;
+  animation: spinShuriken 1.2s linear infinite;
+}
+
+.dojo-title {
+  font-family: 'Mali', cursive;
+  font-size: 34px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0px #0284c7;
+  margin-bottom: 6px;
+}
+
+.status-quote {
+  font-size: 16px;
+  font-weight: 600;
+  color: #38bdf8;
+  min-height: 24px;
+  margin-bottom: 22px;
+  letter-spacing: 0.5px;
+}
+
+/* Rounded Pill Track */
+.progress-track {
+  width: 100%;
+  height: 20px;
+  background: #090d16;
+  border: 3px solid #1e293b;
+  border-radius: 50px;
+  overflow: hidden;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+/* Animated Neon Green/Gold Progress Fill */
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #facc15);
+  border-radius: 50px;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.7);
+  transition: width 0.08s ease-out;
+}
+
+.percent-text {
+  margin-top: 10px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #facc15;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes gentleBob {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+
+@keyframes spinShuriken {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,147 +1,332 @@
-/* =========================
-   REGISTER PAGE – NINJA ACADEMY
-========================= */
+/* ==========================================================================
+   DAY & NIGHT DYNAMIC THEMES
+   ========================================================================== */
+
+/* DAY THEME (DEFAULT) */
+body.theme-day {
+  background-image: url("../image/day/18.jfif");
+  background-color: #e0f2fe;
+  color: #1e293b;
+  transition: background-image 0.5s ease, background-color 0.5s ease;
+}
+
+/* NIGHT THEME (AUTOMATIC 7 PM to 6 AM) */
+body.theme-night {
+  /* Dark Night Forest Scenery with Deep Blue/Moonlight Tone */
+  background-image:  url("../image/night/9.jfif");
+  background-color: #030712;
+  color: #f8fafc;
+  transition: background-image 0.5s ease, background-color 0.5s ease;
+}
+
+/* Header Adjustments at Night */
+body.theme-night header,
+body.theme-night .dojo-header-green {
+  background-color: #0f172a !important;
+  border-bottom-color: #38bdf8 !important;
+  box-shadow: 0 4px 20px rgba(56, 189, 248, 0.2);
+}
+
+body.theme-night nav a:hover,
+body.theme-night nav a.active {
+  background: #38bdf8 !important;
+  color: #0f172a !important;
+}
+
+/* Cards & Bento Grid at Night */
+body.theme-night .bento-card,
+body.theme-night .training-card,
+body.theme-night .dojo-arena-box,
+body.theme-night .hero-card,
+body.theme-night .sound-settings-card,
+body.theme-night .auth-card,
+body.theme-night .admin-table-card,
+body.theme-night .admin-hero-banner {
+  background: rgba(15, 23, 42, 0.94) !important;
+  border-color: #1e293b !important;
+  color: #f1f5f9 !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+}
+
+body.theme-night .timeline-banner {
+  background: rgba(15, 23, 42, 0.96) !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
+}
+
+body.theme-night .timeline-banner h1,
+body.theme-night .hero-card h2,
+body.theme-night h2, body.theme-night h3 {
+  color: #38bdf8 !important;
+}
+
+body.theme-night p,
+body.theme-night .subtitle-text {
+  color: #cbd5e1 !important;
+}
+
+/* Game Arenas at Night */
+body.theme-night .target-arena,
+body.theme-night #targetArena {
+  background: #090d16 !important;
+  border-color: #38bdf8 !important;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Night Star Colors */
+body.theme-night .stats-row {
+  background: #0f172a !important;
+  border-color: #1e293b !important;
+  color: #38bdf8 !important;
+}
+
+/* Footer at Night */
+body.theme-night footer,
+body.theme-night .dojo-footer {
+  background: #020617 !important;
+  border-top-color: #38bdf8 !important;
+  color: #94a3b8 !important;
+}
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-family: 'Fredoka', cursive, sans-serif;
 }
 
-body.register-page {
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body {
   min-height: 100vh;
-  background-image: url("../image/ninja_bg4.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  color: #efc728;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  background: transparent;
+  color: #1e293b;
 }
 
-/* Header */
 header {
+  margin: 0 !important;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 50px;
+  padding: 16px 40px;
   background-color: #32d734;
-  color: white;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-bottom: 5px solid #16a34a;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.18);
 }
 
 .logo {
-  font-size: 30px;
+  font-family: 'Mali', cursive;
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  text-shadow: 2px 2px 0px #15803d;
+}
+
+.logo-ninja {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;          /* Preserves the original compact footprint */
+  height: 34px;
+  font-size: 34px;      /* Native emoji scale base */
+  position: relative;
+  text-shadow: 2px 2px 0px #15803d;
+  z-index: 20;          /* Lifts it into an upper layer */
+  transform: scale(1.5); /* Increase scale freely (e.g. 1.4, 1.6, 1.8) */
+  transform-origin: center;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+  pointer-events: none; /* Prevents interference with navbar clicks */
 }
 
 nav a {
-  margin-left: 20px;
+  margin-left: 12px;
   text-decoration: none;
   color: white;
-  font-weight: bold;
-  transition: transform 0.2s, color 0.2s;
+  font-weight: 700;
+  font-size: 17px;
+  padding: 8px 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 nav a:hover, nav a.active {
-  color: #FACC15;
-  transform: scale(1.1);
+  background: #facc15;
+  color: #0f172a;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 0 #ca8a04;
 }
 
-/* Hero Card */
-.hero {
-  margin: 20px auto;
-  max-width: 650px;
-  width: 90%;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 35px;
-  padding: 35px;
+.register-main {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  box-shadow: 0 25px 40px rgba(0,0,0,0.5);
-  border: 2px solid rgba(255,255,255,0.6);
+  flex: 1;
+  padding: 50px 20px;
 }
 
-/* Text */
+/* Card is now centered with a fixed clean width */
+.register-card {
+  position: relative;
+  margin: 20px auto;
+  max-width: 480px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 35px;
+  padding: 40px 35px;
+  box-shadow: 0 20px 35px rgba(0,0,0,0.22);
+  border: 6px solid #ffffff;
+}
+
+/* Hanging Ninja Positioned Outside at the top right */
+.hanging-ninja-wrapper {
+  position: absolute;
+  top: -65px;
+  right: -35px;
+  z-index: 10;
+  pointer-events: none;
+  animation: gentleSway 3s ease-in-out infinite alternate;
+}
+
+.hanging-ninja-img {
+  width: 110px;
+  height: auto;
+  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
+}
+
+@keyframes gentleSway {
+  0% { transform: rotate(-5deg); }
+  100% { transform: rotate(5deg); }
+}
+
+.hero-text {
+  width: 100%;
+  text-align: center;
+}
+
 .hero-text h1 {
   font-size: 32px;
   color: #064e3b;
+  line-height: 1.2;
 }
 
 .hero-text h1 span {
   color: #f97316;
+  background: #fef08a;
+  padding: 2px 12px;
+  border-radius: 16px;
+  display: inline-block;
 }
 
 .hero-text p {
   font-size: 16px;
-  margin: 10px 0 15px;
-  color: #1f2937;
-  font-weight: bold;
+  margin: 10px 0 20px;
+  color: #475569;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
-/* Form */
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   width: 100%;
+}
+
+.form-group {
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 700;
+  color: #064e3b;
+  font-size: 14px;
 }
 
 .auth-form input {
   width: 100%;
-  padding: 12px;
+  padding: 13px 18px;
   font-size: 16px;
-  border-radius: 15px;
-  border: 3px solid #064e3b;
-  background: #fff;
-  color: #1f2937;
+  font-weight: 600;
+  border-radius: 25px;
+  border: 3px solid #cbd5e1;
+  background: #f8fafc;
+  color: #1e293b;
+  transition: all 0.2s ease;
 }
 
 .auth-form input:focus {
   outline: none;
+  background: #ffffff;
   border-color: #f97316;
+  box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.2);
 }
 
-/* Button */
 .btn-secondary {
+  width: 100%;
   padding: 15px;
-  font-size: 18px;
-  font-weight: bold;
-  border-radius: 18px;
+  font-size: 19px;
+  font-weight: 700;
+  border-radius: 50px;
   background: #f97316;
   color: #fff;
-  border: none;
+  border: 3px solid #ffffff;
   cursor: pointer;
-  box-shadow: 0 6px 0 #c2410c;
-  transition: transform 0.1s, box-shadow 0.1s;
+  box-shadow: 0 6px 0 #c2410c, 0 8px 15px rgba(0,0,0,0.15);
+  transition: all 0.15s ease;
+  margin-top: 8px;
 }
 
 .btn-secondary:hover {
-  transform: translateY(2px);
-  box-shadow: 0 3px 0 #c2410c;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 9px 0 #c2410c;
+  background: #fb923c;
 }
 
-/* Ninja Emoji/Image Animation */
-.hero-image {
-  animation: bounce 2s infinite;
+.switch-auth {
+  margin-top: 18px;
+  font-weight: 700;
+  font-size: 16px;
+  color: #334155;
+  text-align: center;
 }
 
-/* Footer */
+.switch-auth a {
+  color: #d97706;
+  text-decoration: underline;
+  font-weight: 700;
+}
+
 footer {
   text-align: center;
-  padding: 20px;
+  padding: 18px;
   background: #020617;
   color: #efc728;
+  font-size: 16px;
+  font-weight: 700;
+  border-top: 5px solid #32d734;
   margin-top: auto;
 }
 
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
+@media (max-width: 550px) {
+  .hanging-ninja-wrapper {
+    display: none;
+  }
 }

@@ -1,6 +1,95 @@
 /* =========================
    HOME PAGE & GLOBAL THEME
 ========================= */
+/* ==========================================================================
+   DAY & NIGHT DYNAMIC THEMES
+   ========================================================================== */
+
+/* DAY THEME (DEFAULT) */
+body.theme-day {
+  background-image: url("../image/ninja_bg10.jpg");
+  background-color: #e0f2fe;
+  color: #1e293b;
+  transition: background-image 0.5s ease, background-color 0.5s ease;
+}
+
+/* NIGHT THEME (AUTOMATIC 7 PM to 6 AM) */
+body.theme-night {
+  /* Dark Night Forest Scenery with Deep Blue/Moonlight Tone */
+  background-image:url("../image//night/9.jfif");
+  background-color: #030712;
+  color: #f8fafc;
+  transition: background-image 0.5s ease, background-color 0.5s ease;
+}
+
+/* Header Adjustments at Night */
+body.theme-night header,
+body.theme-night .dojo-header-green {
+  background-color: #0f172a !important;
+  border-bottom-color: #38bdf8 !important;
+  box-shadow: 0 4px 20px rgba(56, 189, 248, 0.2);
+}
+
+body.theme-night nav a:hover,
+body.theme-night nav a.active {
+  background: #38bdf8 !important;
+  color: #0f172a !important;
+}
+
+/* Cards & Bento Grid at Night */
+body.theme-night .bento-card,
+body.theme-night .training-card,
+body.theme-night .dojo-arena-box,
+body.theme-night .hero-card,
+body.theme-night .sound-settings-card,
+body.theme-night .auth-card,
+body.theme-night .admin-table-card,
+body.theme-night .admin-hero-banner {
+  background: rgba(15, 23, 42, 0.94) !important;
+  border-color: #1e293b !important;
+  color: #f1f5f9 !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+}
+
+body.theme-night .timeline-banner {
+  background: rgba(15, 23, 42, 0.96) !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
+}
+
+body.theme-night .timeline-banner h1,
+body.theme-night .hero-card h2,
+body.theme-night h2, body.theme-night h3 {
+  color: #38bdf8 !important;
+}
+
+body.theme-night p,
+body.theme-night .subtitle-text {
+  color: #cbd5e1 !important;
+}
+
+/* Game Arenas at Night */
+body.theme-night .target-arena,
+body.theme-night #targetArena {
+  background: #090d16 !important;
+  border-color: #38bdf8 !important;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Night Star Colors */
+body.theme-night .stats-row {
+  background: #0f172a !important;
+  border-color: #1e293b !important;
+  color: #38bdf8 !important;
+}
+
+/* Footer at Night */
+body.theme-night footer,
+body.theme-night .dojo-footer {
+  background: #020617 !important;
+  border-top-color: #38bdf8 !important;
+  color: #94a3b8 !important;
+}
 
 * {
     margin: 0;

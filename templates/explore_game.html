@@ -3,96 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fun Games Arena - Explore Games</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/explore_game.css') }}">
+    <title>Fun Games Playroom - Ninjatsu 🎮</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Mali:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/explore_game.css">
 </head>
 <body>
-
     <header>
-        <div class="logo">🥷 NINJATSU</div>
+        <div class="logo">
+            <img src="/static/image/logo.png" class="logo-ninja">
+            <span class="logo-title">NINJATSU</span>
+        </div>
         <nav>
             <a href="{{ url_for('homepage') }}">Home</a>
-            <a href="{{ url_for('explore_games') }}" class="active">Explore Games</a>
-            <a href="{{ url_for('start_learning') }}">Start Learning</a>
-            <a href="{{ url_for('rewards') }}">Rewards</a>
+            <a href="{{ url_for('explore_games') }}" class="active">Play Games</a>
+            <a href="{{ url_for('start_learning') }}">Dojo Camp</a>
+            <a href="{{ url_for('rewards') }}">Trophies</a>
             {% if session.get('username') %}
-                <a href="#">Hi, {{ session['username'] }}</a>
-                <a href="{{ url_for('logout') }}" style="color: #ef4444;">Logout</a>
+                <a href="#" class="nav-user">Hi, {{ session['username'] }}! ⭐</a>
+                <a href="{{ url_for('logout') }}" class="nav-logout">Logout</a>
             {% else %}
                 <a href="{{ url_for('login') }}">Login</a>
-                <a href="{{ url_for('register') }}">Register</a>
+                <a href="{{ url_for('register') }}">Join Us!</a>
             {% endif %}
         </nav>
     </header>
 
-    <main style="flex: 1;">
-        <!-- Simple & Fun Header -->
+    <main class="explore-main">
         <div class="games-hero">
-            <h1>FUN GAMES ARENA</h1>
-            <p>Pick a fun game to play, have a blast, and win cool star points!</p>
+            <h1>FUN GAMES ARENA 🎮</h1>
+            <p>Pick a fun game and win shiny stars!</p>
         </div>
 
-        <!-- Kid-Friendly Grid Section -->
         <section class="games-grid">
             
-            <!-- Word Ninja (Always Unlocked) -->
             <a href="{{ url_for('word_ninja') }}" class="game-card green">
-                <div>
-                    <div style="font-size: 60px; margin-bottom: 15px; filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.2));">✏️</div>
-                    <h3>WORD PUZZLE NINJA</h3>
-                    <p>Unmix the mixed-up letters to find the hidden secret words. Super fast and super fun!</p>
+                <div class="card-body">
+                    <div class="card-icon">🌳</div>
+                    <h3>WORD NINJA</h3>
+                    <p>Unmix letters to spell secret words! Quick and super fun!</p>
                 </div>
-                <div style="margin-top: 25px; color: #ffffff; font-size: 16px; font-weight: bold; letter-spacing: 1px;">
-                    PLAY NOW &rarr;
+                <div class="card-action play-badge">
+                    PLAY NOW 🚀
                 </div>
             </a>
 
-            <!-- Math Slice (Unlocks at Level 2 or 50+ Star Points) -->
             {% if user_progress and user_progress.total_xp >= 50 %}
                 <a href="{{ url_for('math_slice') }}" class="game-card green">
-                    <div>
-                        <div style="font-size: 60px; margin-bottom: 15px; filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.2));">📐</div>
-                        <h3>MATH SLICE</h3>
-                        <p>Slice through falling number puzzles and fun math challenges before the timer runs out!</p>
+                    <div class="card-body">
+                        <div class="card-icon">🔢</div>
+                        <h3>NUMBER SLICE</h3>
+                        <p>Slice fast math numbers before they drop down!</p>
                     </div>
-                    <div style="margin-top: 25px; color: #ffffff; font-size: 16px; font-weight: bold; letter-spacing: 1px;">
-                        PLAY NOW &rarr;
+                    <div class="card-action play-badge">
+                        PLAY NOW 🚀
                     </div>
                 </a>
             {% else %}
                 <div class="game-card locked">
-                    <div>
-                        <div style="font-size: 60px; margin-bottom: 15px; filter: grayscale(100%) opacity(0.6);">📐</div>
-                        <h3>MATH SLICE</h3>
-                        <p>Slice through number puzzles and fun math challenges! <strong>(Unlocks at Level 2 / 50 Star Points)</strong></p>
+                    <div class="card-body">
+                        <div class="card-icon locked-icon">🔢</div>
+                        <h3>NUMBER SLICE</h3>
+                        <p>Slice numbers to solve quick math puzzles!</p>
                     </div>
-                    <div style="margin-top: 25px; color: #4b5563; font-size: 14px; font-weight: bold;">
-                        🔒 UNLOCKS AT 50 XP
+                    <div class="card-action lock-badge">
+                        🔒 UNLOCKS AT 50 STARS
                     </div>
                 </div>
             {% endif %}
 
-           <!-- Maze Adventure Card Update -->
-            {% if user_progress and user_progress.total_xp >= 100 %}
+            {% if user_progress and user_progress.total_xp >= 300 %}
                 <a href="{{ url_for('maze_adventure') }}" class="game-card green">
-                    <div>
-                        <div style="font-size: 60px; margin-bottom: 15px; filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.2));">🌐</div>
-                        <h3>MAZE ADVENTURE</h3>
-                        <p>Guide your little ninja through fun maze paths and collect treasures along the way.</p>
+                    <div class="card-body">
+                        <div class="card-icon">🔍</div>
+                        <h3>WORD SEARCH</h3>
+                        <p>Spot hidden words on the grid with sharp ninja eyes!</p>
                     </div>
-                    <div style="margin-top: 25px; color: #ffffff; font-size: 16px; font-weight: bold; letter-spacing: 1px;">
-                        PLAY NOW &rarr;
+                    <div class="card-action play-badge">
+                        PLAY NOW 🚀
                     </div>
                 </a>
             {% else %}
                 <div class="game-card locked">
-                    <div>
-                        <div style="font-size: 60px; margin-bottom: 15px; filter: grayscale(100%) opacity(0.6);">🌐</div>
-                        <h3>MAZE ADVENTURE</h3>
-                        <p>Guide your little ninja through fun maze paths! <strong>(Unlocks at Level 3 / 100 Star Points)</strong></p>
+                    <div class="card-body">
+                        <div class="card-icon locked-icon">🔍</div>
+                        <h3>WORD SEARCH</h3>
+                        <p>Spot hidden secret words on the big colorful grid!</p>
                     </div>
-                    <div style="margin-top: 25px; color: #4b5563; font-size: 14px; font-weight: bold;">
-                        🔒 UNLOCKS AT 100 XP
+                    <div class="card-action lock-badge">
+                        🔒 UNLOCKS AT 300 STARS
                     </div>
                 </div>
             {% endif %}
@@ -101,7 +99,7 @@
     </main>
 
     <footer>
-        &copy; 2026 Ninjatsu Dojo Studio. Made with magic for kids!
+        &copy; 2026 Ninjatsu Dojo Studio. Play, Learn & Have Fun! 🌟
     </footer>
 
     <script src="{{ url_for('static', filename='js/ninja_juice.js') }}"></script>

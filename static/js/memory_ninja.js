@@ -30,12 +30,12 @@ let currentLevelIndex = parseInt(localStorage.getItem('memory_ninja_max_level'))
 let cards = [];
 let flippedCards = [];
 let scores = { player: 0, ai: 0 };
-let turn = 'player'; // 'player' or 'ai'
+let turn = 'player';
 let isLocked = false;
 
 function initGame() {
     const cfg = levels[currentLevelIndex];
-    levelTitle.innerText = `🃏 VS AI BOT - LEVEL ${cfg.level}`;
+    levelTitle.innerText = `🃏 CARD MATCH - STAGE ${cfg.level}`;
     
     scores = { player: 0, ai: 0 };
     turn = 'player';
@@ -67,14 +67,16 @@ function initGame() {
 }
 
 function updateScoreBoard() {
-    movesDisplay.innerText = `Turn: ${turn === 'player' ? 'You 🥷' : 'AI Bot 🤖'}`;
-    matchesDisplay.innerText = `You: ${scores.player} | Bot: ${scores.ai}`;
+    movesDisplay.innerText = `Turn: ${turn === 'player' ? 'You 🥷' : 'Robot Pal 🤖'}`;
+    matchesDisplay.innerText = `You: ${scores.player} | Robot: ${scores.ai}`;
 }
 
 function flipCard(card) {
     if (isLocked) return;
     if (card === flippedCards[0]) return;
     if (card.classList.contains('flipped')) return;
+
+    if (window.NinjaAudio) NinjaAudio.playTap();
 
     card.classList.add('flipped');
     flippedCards.push(card);
@@ -90,26 +92,30 @@ function checkForMatch() {
     const isMatch = card1.dataset.symbol === card2.dataset.symbol;
 
     if (isMatch) {
-        if (turn === 'player') scores.player++;
-        else scores.ai++;
+        if (turn === 'player') {
+            scores.player++;
+            if (window.NinjaAudio) NinjaAudio.cheer();
+        } else {
+            scores.ai++;
+            if (window.NinjaAudio) NinjaAudio.comfort();
+        }
 
         flippedCards = [];
         isLocked = false;
         updateScoreBoard();
         checkGameEnd();
 
-        // If AI scored a match, it gets another turn
         if (turn === 'ai' && !isGameOver()) {
             setTimeout(aiTurn, 1000);
         }
     } else {
         setTimeout(() => {
+            if (window.NinjaAudio) NinjaAudio.playLoss();
             card1.classList.remove('flipped');
             card2.classList.remove('flipped');
             flippedCards = [];
             isLocked = false;
 
-            // Switch turn
             turn = (turn === 'player') ? 'ai' : 'player';
             updateScoreBoard();
 
@@ -120,14 +126,12 @@ function checkForMatch() {
     }
 }
 
-// AI Bot Logic
 function aiTurn() {
     if (isGameOver() || turn !== 'ai') return;
 
     const unclickedCards = Array.from(document.querySelectorAll('.memory-card:not(.flipped)'));
     if (unclickedCards.length < 2) return;
 
-    // Pick two random unclicked cards for the AI
     const randomIdx1 = Math.floor(Math.random() * unclickedCards.length);
     let randomIdx2;
     do {
@@ -153,7 +157,6 @@ function isGameOver() {
 }
 
 function checkGameEnd() {
-    const cfg = levels[currentLevelIndex];
     if (isGameOver()) {
         setTimeout(handleEndGameResult, 500);
     }
@@ -170,6 +173,8 @@ function handleEndGameResult() {
             body: JSON.stringify({ xp: 50, game_name: `Memory Ninja vs AI Lvl ${cfg.level}` })
         }).catch(error => console.log('XP sync error'));
 
+        if (window.NinjaAudio) NinjaAudio.cheer();
+
         let savedMaxLevel = parseInt(localStorage.getItem('memory_ninja_max_level')) || 0;
         if (currentLevelIndex + 1 > savedMaxLevel && currentLevelIndex + 1 < levels.length) {
             localStorage.setItem('memory_ninja_max_level', currentLevelIndex + 1);
@@ -177,25 +182,29 @@ function handleEndGameResult() {
 
         if (currentLevelIndex < levels.length - 1) {
             modalBadge.innerText = '🌟';
-            modalTitle.innerText = `YOU BEAT THE AI BOT!`;
-            finalScoreText.innerText = `Score - You: ${scores.player} | Bot: ${scores.ai}. Get ready for Level ${cfg.level + 1}!`;
-            finishBtn.innerText = "NEXT LEVEL";
+            modalTitle.innerText = `YOU BEAT THE ROBOT! 🎉`;
+            finalScoreText.innerText = `Score: You ${scores.player} - ${scores.ai} Robot. Ready for Stage ${cfg.level + 1}!`;
+            finishBtn.innerText = "NEXT STAGE 🚀";
             finishBtn.onclick = () => {
                 currentLevelIndex++;
                 initGame();
             };
         } else {
             modalBadge.innerText = '🏆';
-            modalTitle.innerText = `ULTIMATE NINJA MASTER!`;
-            finalScoreText.innerText = `You defeated the AI across all levels and earned +200 XP!`;
-            finishBtn.innerText = "RETURN TO TRAINING CAMP";
-            finishBtn.onclick = () => window.location.href = "/start-learning";
+            modalTitle.innerText = `NINJA MEMORY MASTER!`;
+            finalScoreText.innerText = `You cleared all memory stages and earned +200 Stars! ⭐`;
+            finishBtn.innerText = "BACK TO DOJO 🏠";
+            finishBtn.onclick = () => {
+                if (window.NinjaAudio) NinjaAudio.playWhoosh();
+                window.location.href = "/start-learning";
+            };
         }
     } else {
+        if (window.NinjaAudio) NinjaAudio.comfort();
         modalBadge.innerText = '🤖';
-        modalTitle.innerText = `AI BOT WON!`;
-        finalScoreText.innerText = `Score - You: ${scores.player} | Bot: ${scores.ai}. Don't give up, challenge the bot again!`;
-        finishBtn.innerText = "TRY AGAIN";
+        modalTitle.innerText = `ROBOT WON THIS ROUND!`;
+        finalScoreText.innerText = `Score: You ${scores.player} - ${scores.ai} Robot. You can do it, try again!`;
+        finishBtn.innerText = "TRY AGAIN 🔄";
         finishBtn.onclick = () => initGame();
     }
     completionModal.style.display = 'flex';

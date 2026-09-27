@@ -3,75 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Training Dojo - Skill Arena</title>
+    <title>Ninja Training Dojo ⛩️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Mali:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/start_learning.css') }}">
 </head>
 <body>
-
     <header>
-        <div class="logo">🥷 NINJATSU</div>
+        <div class="logo">
+            <img src="/static/image/logo.png" class="logo-ninja">
+            <span class="logo-title">NINJATSU</span>
+        </div>
         <nav>
             <a href="{{ url_for('homepage') }}">Home</a>
-            <a href="{{ url_for('explore_games') }}">Explore Games</a>
-            <a href="{{ url_for('start_learning') }}" class="active">Start Learning</a>
-            <a href="{{ url_for('rewards') }}">Rewards</a>
+            <a href="{{ url_for('explore_games') }}">Play Games</a>
+            <a href="{{ url_for('start_learning') }}" class="active">Dojo Camp</a>
+            <a href="{{ url_for('rewards') }}">Trophies</a>
             {% if session.get('username') %}
-                <a href="#" style="color: #facc15;">Hi, {{ session['username'] }}</a>
-                <a href="{{ url_for('logout') }}" style="color: #ff0055;">Logout</a>
+                <a href="#" class="nav-user">Hi, {{ session['username'] }}! ⭐</a>
+                <a href="{{ url_for('logout') }}" class="nav-logout">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Join Us!</a>
             {% endif %}
         </nav>
     </header>
 
     <main class="training-main">
         <div class="timeline-banner">
-            <h1>⛩️ THE PATH OF LEGENDS</h1>
-            <p>Choose your dojo station, train hard, and rank up! Current Rank: Level {{ progress.current_level if progress else 1 }} 🌟</p>
+            <h1>⛩️ NINJA TRAINING CAMP 🌟</h1>
+            <p>Train your skills, win challenges, and level up! Current: <b>Level {{ progress.current_level if progress else 1 }} ⭐</b></p>
         </div>
 
-        <!-- Arcade Side-by-Side Training Stations Grid -->
         <div class="training-grid">
-            
-            <!-- Station 1 -->
-            <div class="training-card">
-                <div class="card-badge">⚡</div>
-                <h2>Word Speed Run</h2>
-                <p>Unscramble the secret ninja scrolls and test your rapid typing reflexes!</p>
-                <a href="{{ url_for('word_speed_run') }}" class="scroll-btn">TRAIN NOW</a>
-            </div>
 
-            <!-- Station 2 -->
-            <div class="training-card {% if not progress or progress.current_level < 2 %}locked-card{% endif %}">
+            <div class="training-card">
                 <div class="card-badge">🎯</div>
                 <h2>Star Strike</h2>
-                <p>Test your ninja reflexes and hit the targets before time runs out!</p>
-                {% if progress and progress.current_level >= 2 %}
-                    <a href="{{ url_for('star_strike') }}" class="scroll-btn">TRAIN NOW</a>
-                {% else %}
-                    <span class="lock-tag">🔒 LEVEL 2 REQ</span>
-                {% endif %}
+                <p>Tap floating stars as fast as you can to win!</p>
+                <a href="{{ url_for('star_strike') }}" class="scroll-btn">START! 🚀</a>
             </div>
 
-            <!-- Station 3 -->
-            <div class="training-card {% if not progress or progress.current_level < 3 %}locked-card{% endif %}">
-                <div class="card-badge">🃏</div>
+            <div class="training-card {% if not progress or progress.total_xp < 400 %}locked-card{% endif %}">
+                <div class="card-badge">🎴</div>
                 <h2>Memory Ninja</h2>
-                <p>Flip the cards and find all matching ninja tool pairs!</p>
-                {% if progress and progress.current_level >= 3 %}
-                    <a href="{{ url_for('memory_ninja') }}" class="scroll-btn">TRAIN NOW</a>
+                <p>Flip cards over to find matching ninja tool pairs!</p>
+                {% if progress and progress.total_xp >= 400 %}
+                    <a href="{{ url_for('memory_ninja') }}" class="scroll-btn">START! 🚀</a>
                 {% else %}
-                    <span class="lock-tag">🔒 LEVEL 3 REQ</span>
+                    <span class="lock-tag">🔒 NEEDS 400xp</span>
                 {% endif %}
             </div>
 
-            <!-- Station 4 -->
-            <div class="training-card {% if not progress or progress.current_level < 4 %}locked-card{% endif %}">
-                <div class="card-badge">⌨️</div>
-                <h2>Ninja Word Race</h2>
-                <p>Type fast, beat the AI bots, and win the typing speed showdown!</p>
-                {% if progress and progress.current_level >= 4 %}
-                    <a href="{{ url_for('word_race') }}" class="scroll-btn">TRAIN NOW</a>
+            <div class="training-card {% if not progress or progress.total_xp < 500 %}locked-card{% endif %}">
+                <div class="card-badge">⚡</div>
+                <h2>Word Speed Run</h2>
+                <p>Fix scrambled words before the cute timer runs out!</p>
+                {% if progress and progress.total_xp >= 500 %}
+                    <a href="{{ url_for('word_speed_run') }}" class="scroll-btn">START! 🚀</a>
                 {% else %}
-                    <span class="lock-tag">🔒 LEVEL 4 REQ</span>
+                    <span class="lock-tag">🔒 NEEDS 500xp</span>
+                {% endif %}
+            </div>
+
+            <div class="training-card {% if not progress or progress.total_xp < 800 %}locked-card{% endif %}">
+                <div class="card-badge">🏁</div>
+                <h2>Ninja Word Race</h2>
+                <p>Type fast to build the tallest ninja block tower!</p>
+                {% if progress and progress.total_xp >= 800 %}
+                    <a href="{{ url_for('word_race') }}" class="scroll-btn">START! 🚀</a>
+                {% else %}
+                    <span class="lock-tag">🔒 NEEDS 800xp</span>
                 {% endif %}
             </div>
 
@@ -79,7 +80,7 @@
     </main>
 
     <footer>
-        &copy; 2026 Ninjatsu Dojo Studio. Made with magic for kids!
+        &copy; 2026 Ninjatsu Dojo Studio. Play, Learn & Have Fun! 🌟
     </footer>
 
     <script src="{{ url_for('static', filename='js/ninja_juice.js') }}"></script>

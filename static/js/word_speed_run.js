@@ -34,6 +34,7 @@ function startTimer() {
         timerEl.innerText = `⏱️ Time: ${timeLeft}s`;
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
+            if (window.NinjaAudio) NinjaAudio.comfort();
             currentLevel = 0;
             loadLevel();
         }
@@ -43,23 +44,21 @@ function startTimer() {
 function loadLevel() {
     if (currentLevel < levels.length) {
         scrambledEl.innerText = levels[currentLevel].scrambled;
-        roundEl.innerText = `Scroll: ${currentLevel + 1} / ${levels.length}`;
+        roundEl.innerText = `Word: ${currentLevel + 1} / ${levels.length} ⭐`;
         inputEl.value = "";
-        inputEl.placeholder = "Type correct word..."; // Resets placeholder on every new word
+        inputEl.placeholder = "Type the word here...";
         startTimer();
     } else {
         clearInterval(timerInterval);
         
-        // Send XP to backend silently
         fetch('/api/update-xp', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ xp: 50, game_name: 'Word Speed Run' })
-        }).catch(error => console.log('XP sync error'));
+        }).catch(error => console.log('Star sync error'));
 
-        // Show custom dialog modal box
+        if (window.NinjaAudio) NinjaAudio.cheer();
+
         if (completionModal) {
             completionModal.style.display = 'flex';
         }
@@ -69,13 +68,15 @@ function loadLevel() {
 function checkAnswer() {
     const userVal = inputEl.value.trim().toUpperCase();
     if (userVal === levels[currentLevel].correct) {
+        if (window.NinjaAudio) NinjaAudio.cheer();
         currentLevel++;
         loadLevel();
     } else {
+        if (window.NinjaAudio) NinjaAudio.comfort();
         arenaBox.classList.add('shake');
         setTimeout(() => arenaBox.classList.remove('shake'), 300);
         inputEl.value = "";
-        inputEl.placeholder = "❌ Try Again!";
+        inputEl.placeholder = "❌ Try again!";
     }
 }
 
@@ -91,9 +92,9 @@ if (inputEl) {
 
 if (finishBtn) {
     finishBtn.addEventListener('click', () => {
+        if (window.NinjaAudio) NinjaAudio.playWhoosh();
         window.location.href = "/start-learning";
     });
 }
 
-// Initialize first round on load
 loadLevel();

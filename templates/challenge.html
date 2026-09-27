@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge from {{ challenger }} | Ninjatsu Dojo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Mali:wght@700&display=swap" rel="stylesheet">
+</head>
+<body class="theme-day">
+
+    <header class="dojo-header-green">
+        <div class="logo-box-green">
+            <span class="logo-ninja">🥷</span>
+            <span class="logo-title">Ninjatsu</span>
+        </div>
+    </header>
+
+    <main class="arcade-viewport" style="justify-content: center; min-height: 80vh;">
+        <div class="share-belt-card" style="max-width: 520px; width: 100%; margin: auto; padding: 35px 25px;">
+            <div class="share-badge-glow">⚔️</div>
+            
+            <h1 class="share-title" style="font-size: 26px;">DOJO BATTLE INVITATION!</h1>
+            <p class="share-desc">A ninja warrior has challenged you to beat their score!</p>
+
+            <!-- Dynamic Live Stats Box -->
+            <div style="background: #f0fdf4; border: 3px dashed #22c55e; border-radius: 20px; padding: 18px; margin: 20px 0;">
+                <div style="font-size: 18px; font-weight: 700; color: #15803d; margin-bottom: 6px;">
+                    🥷 Challenger: <u>{{ challenger }}</u>
+                </div>
+                <div style="font-size: 24px; font-weight: 700; color: #d97706;">
+                    ⭐ {{ stars }} Stars Earned!
+                </div>
+                <div style="font-size: 14px; font-weight: 600; color: #4b5563; margin-top: 4px;">
+                    Current Rank: <b>{{ belt }}</b>
+                </div>
+            </div>
+
+            <p style="font-size: 15px; color: #334155; font-weight: 600; margin-bottom: 25px;">
+                Can you slice faster and claim a higher ninja rank?
+            </p>
+
+            <!-- Play & Accept Challenge Button -->
+            <a href="{{ url_for('register', ref=challenger, utm_source='challenge_page', utm_campaign='ninja_vs_battle') }}" 
+               class="btn-play-mega" 
+               style="font-size: 20px; padding: 14px 32px; text-decoration: none; display: inline-flex;">
+                🎮 Accept Challenge & Play
+            </a>
+        </div>
+    </main>
+
+    <footer class="dojo-footer">
+        <div class="footer-copy-text">&copy; 2026 Ninjatsu Dojo Studio. Play, Learn & Have Fun! ⭐</div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entering Ninjatsu Dojo...</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Mali:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loading.css') }}">
+</head>
+<body class="theme-night">
+
+    <div class="loading-wrapper">
+        <!-- Spinning Shuriken Mascot -->
+        <div class="mascot-box">
+            <span class="ninja-avatar">🥷</span>
+            <div class="shuriken-spin">✦</div>
+        </div>
+
+        <h1 class="dojo-title">NINJATSU</h1>
+        <p class="status-quote" id="statusQuote">Sharpening ninja blades...</p>
+
+        <!-- Bouncy Progress Bar -->
+        <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="percent-text" id="percentText">0%</div>
+    </div>
+
+    <script>
+        const statusList = [
+            "Entering hidden ninja sanctuary...",
+            "Rolling out training scrolls...",
+            "Polishing golden star trophies...",
+            "Dojo gates opening!"
+        ];
+
+        const progressFill = document.getElementById('progressFill');
+        const percentText = document.getElementById('percentText');
+        const statusQuote = document.getElementById('statusQuote');
+        
+        let progress = 0;
+        const totalDuration = 3200; // 3.2 seconds loading duration
+        const stepInterval = 40;
+        const increment = 100 / (totalDuration / stepInterval);
+
+        const timer = setInterval(() => {
+            progress += increment;
+            
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(timer);
+                progressFill.style.width = '100%';
+                percentText.textContent = '100%';
+                statusQuote.textContent = "Dojo gates opening!";
+                
+                // Automatically redirect to homepage
+                setTimeout(() => {
+                    window.location.href = "{{ url_for('homepage') }}";
+                }, 350);
+            } else {
+                const current = Math.floor(progress);
+                progressFill.style.width = current + '%';
+                percentText.textContent = current + '%';
+
+                // Cycle playful status messages
+                if (current > 25 && current < 50) statusQuote.textContent = statusList[1];
+                else if (current >= 50 && current < 80) statusQuote.textContent = statusList[2];
+                else if (current >= 80) statusQuote.textContent = statusList[3];
+            }
+        }, stepInterval);
+    </script>
+</body>
+</html>

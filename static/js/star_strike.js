@@ -12,22 +12,22 @@ let timeLeft = 20;
 let gameInterval;
 let targetSpawner;
 let currentSpawnRate = 1200; 
-// Using reliable symbols that render everywhere without failing
 const icons = ['★', '✦', '❖', '🎯', '📜'];
 
 function startGame() {
+    if (window.NinjaAudio) NinjaAudio.playWhoosh();
     startPrompt.style.display = 'none';
     score = 0;
-    timeLeft = 20;
+    timeLeft = 60;
     currentSpawnRate = 1200; 
-    scoreDisplay.innerText = `Score: ${score}`;
-    timerDisplay.innerText = `Time: ${timeLeft}s`;
+    scoreDisplay.innerText = `Stars: ${score} ⭐`;
+    timerDisplay.innerText = `⏱️ Time: ${timeLeft}s`;
 
     document.querySelectorAll('.target-item').forEach(el => el.remove());
 
     gameInterval = setInterval(() => {
         timeLeft--;
-        timerDisplay.innerText = `Time: ${timeLeft}s`;
+        timerDisplay.innerText = `⏱️ Time: ${timeLeft}s`;
         if (timeLeft <= 0) {
             endGame();
         }
@@ -47,7 +47,6 @@ function spawnTarget() {
     const target = document.createElement('div');
     target.classList.add('target-item');
 
-    // 15% chance to spawn a Special Golden Star (+30 points!)
     const isGolden = Math.random() < 0.15;
     if (isGolden) {
         target.innerHTML = '★';
@@ -72,10 +71,17 @@ function spawnTarget() {
     target.addEventListener('click', (e) => {
         const points = isGolden ? 30 : 10;
         score += points;
-        scoreDisplay.innerText = `Score: ${score}`;
+        scoreDisplay.innerText = `Stars: ${score} ⭐`;
         
-        showBurstText(e.clientX, e.clientY, `+${points}`);
+        if (window.NinjaAudio) {
+            if (isGolden) {
+                NinjaAudio.cheer();
+            } else {
+                NinjaAudio.playTap();
+            }
+        }
 
+        showBurstText(e.clientX, e.clientY, `+${points} ⭐`);
         target.remove();
 
         if (score >= 60 && currentSpawnRate > 700) {
@@ -123,13 +129,13 @@ function endGame() {
 
     fetch('/api/update-xp', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ xp: 50, game_name: 'Star Strike' })
     }).catch(error => console.log('XP sync error'));
 
-    finalScoreText.innerText = `Great training! You scored ${score} points and earned +50 XP.`;
+    if (window.NinjaAudio) NinjaAudio.cheer();
+
+    finalScoreText.innerText = `Super popping! You won ${score} points and earned +50 Stars! ⭐`;
     completionModal.style.display = 'flex';
 }
 
@@ -139,6 +145,7 @@ if (startBtn) {
 
 if (finishBtn) {
     finishBtn.addEventListener('click', () => {
+        if (window.NinjaAudio) NinjaAudio.playWhoosh();
         window.location.href = "/start-learning";
     });
 }

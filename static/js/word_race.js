@@ -10,11 +10,10 @@ const modalTitle = document.getElementById('modalTitle');
 const finalScoreText = document.getElementById('finalScoreText');
 const finishBtn = document.getElementById('finishBtn');
 
-// Boht saare words ki ek achi list
 const wordList = [
-    "LOCKS", "BLUNT", "COAT", "HEAD", "MYANMAR", "FUND", "PLANNED", "SURFACE", "BUILD", "BILLING",
-    "NINJA", "SHADOW", "BLADE", "SCROLL", "STRIKE", "WARRIOR", "DOJO", "SHURIKEN", "CHAKRA", "LEGEND",
-    "SPEED", "FLASH", "TOWER", "RACE", "COMBAT", "SILENT", "STEALTH", "HONOR", "SPIRIT", "MASTER"
+    "CAT", "DOG", "SUN", "RUN", "JUMP", "STAR", "FISH", "BALL", "BOOK", "TREE",
+    "NINJA", "TOY", "PLAY", "CAKE", "MILK", "BIRD", "MOON", "BLUE", "FROG", "DUCK",
+    "SHIELD", "HERO", "GOLD", "FIRE", "WATER", "WIND", "FAST", "SLIDE", "KITE"
 ];
 
 let currentWord = "";
@@ -23,7 +22,6 @@ let playerBlocks = 0;
 let bot1Blocks = 0;
 let bot2Blocks = 0;
 let bot3Blocks = 0;
-const maxBlocks = 12;
 let gameInterval;
 let botInterval;
 
@@ -31,12 +29,10 @@ function startGame() {
     getNextWord();
     updateTowers();
     gameInterval = setInterval(updateTimer, 1000);
-    botInterval = setInterval(moveBots, 1200);
-
+    botInterval = setInterval(moveBots, 1400);
     wordInput.addEventListener('input', handleTyping);
 }
 
-// Sirf ek naya word pick karega aur screen par dikhayega
 function getNextWord() {
     const randomIndex = Math.floor(Math.random() * wordList.length);
     currentWord = wordList[randomIndex];
@@ -51,13 +47,11 @@ function getNextWord() {
 function handleTyping(e) {
     const typedText = e.target.value.trim().toUpperCase();
 
-    // Jaise hi user exact word type kar dega
     if (typedText === currentWord) {
-        e.target.value = ''; // Input box clear kar do
+        if (window.NinjaAudio) NinjaAudio.playTap(); // Clean block placement sound
+        e.target.value = '';
         playerBlocks++;
         updateTowers();
-        
-        // Agla naya word laao
         getNextWord();
     }
 }
@@ -88,10 +82,9 @@ function createBlock() {
 }
 
 function moveBots() {
-    if (Math.random() > 0.45) bot1Blocks++;
-    if (Math.random() > 0.5) bot2Blocks++;
-    if (Math.random() > 0.55) bot3Blocks++;
-
+    if (Math.random() > 0.5) bot1Blocks++;
+    if (Math.random() > 0.53) bot2Blocks++;
+    if (Math.random() > 0.56) bot3Blocks++;
     updateTowers();
 }
 
@@ -108,10 +101,10 @@ function updateTimer() {
 
 function showRankings() {
     const participants = [
-        { name: 'AMI (You 🥷)', blocks: playerBlocks, isPlayer: true },
-        { name: 'GUEST 7165 (Bot 1)', blocks: bot1Blocks, isPlayer: false },
-        { name: 'GUEST 9714 (Bot 2)', blocks: bot2Blocks, isPlayer: false },
-        { name: 'GUEST 268 (Bot 3)', blocks: bot3Blocks, isPlayer: false }
+        { name: 'YOU (Super Ninja 🥷)', blocks: playerBlocks, isPlayer: true },
+        { name: 'Robo-Bot 🤖', blocks: bot1Blocks, isPlayer: false },
+        { name: 'Ninja Fox 🦊', blocks: bot2Blocks, isPlayer: false },
+        { name: 'Speedy Panda 🐼', blocks: bot3Blocks, isPlayer: false }
     ];
 
     participants.sort((a, b) => b.blocks - a.blocks);
@@ -120,21 +113,24 @@ function showRankings() {
     const isWin = (playerRank === 1);
 
     if (isWin) {
-        modalTitle.innerText = "🎉 YOU GOT 1ST RANK!";
-        fetch('/api/update-xp', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ xp: 80, game_name: 'Word Race Tower 1st Rank' })
-        }).catch(err => console.log('XP sync error'));
+        if (window.NinjaAudio) NinjaAudio.cheer();
+        modalTitle.innerText = "🏆 1ST PLACE WINNER!";
     } else {
-        modalTitle.innerText = `🏁 RACE ENDED - RANK #${playerRank}`;
+        if (window.NinjaAudio) NinjaAudio.comfort();
+        modalTitle.innerText = `🏁 FINISHED - RANK #${playerRank}!`;
     }
+
+    fetch('/api/update-xp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ xp: isWin ? 80 : 30, game_name: 'Word Race Tower' })
+    }).catch(err => console.log('Star sync error'));
 
     let rankingHTML = "<ul style='list-style: none; padding: 0; margin-top: 10px; text-align: left;'>";
     participants.forEach((p, index) => {
         let medal = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : "4️⃣";
         let weight = p.isPlayer ? "font-weight: bold; color: #d97706;" : "";
-        rankingHTML += `<li style="padding: 5px 0; border-bottom: 1px dashed #ddd; ${weight}">${medal} <b>#${index + 1}</b> ${p.name} - <b>${p.blocks}</b> blocks</li>`;
+        rankingHTML += `<li style="padding: 6px 0; border-bottom: 1px dashed #cbd5e1; ${weight}">${medal} <b>#${index + 1}</b> ${p.name} - <b>${p.blocks}</b> blocks built</li>`;
     });
     rankingHTML += "</ul>";
 
@@ -143,6 +139,7 @@ function showRankings() {
 }
 
 finishBtn.addEventListener('click', () => {
+    if (window.NinjaAudio) NinjaAudio.playWhoosh();
     window.location.href = '/start-learning';
 });
 

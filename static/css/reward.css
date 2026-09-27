@@ -1,123 +1,287 @@
-/* =========================
-   NINJA ARMORY & VAULT THEME
-========================= */
+/* ==========================================================================
+   DAY & NIGHT DYNAMIC THEMES
+   ========================================================================== */
+
+/* DAY THEME (DEFAULT) */
+body.theme-day {
+  background-image: url("../image/day/22.jfif");
+  background-color: #e0f2fe;
+  color: #1e293b;
+  transition: background-image 0.5s ease, background-color 0.5s ease;
+}
+
+/* NIGHT THEME (AUTOMATIC 7 PM to 6 AM) */
+body.theme-night {
+  background-image: url("../image/night/12.jfif");
+  background-color: #030712;
+  color: #f8fafc;
+  transition: background-image 0.5s ease, background-color 0.5s ease;
+}
+
+/* Header Adjustments at Night */
+body.theme-night header,
+body.theme-night .dojo-header-green {
+  background-color: #0f172a !important;
+  border-bottom-color: #38bdf8 !important;
+  box-shadow: 0 4px 20px rgba(56, 189, 248, 0.2);
+}
+
+body.theme-night nav a:hover,
+body.theme-night nav a.active {
+  background: #38bdf8 !important;
+  color: #0f172a !important;
+}
+
+/* Cards & Bento Grid at Night */
+body.theme-night .bento-card,
+body.theme-night .training-card,
+body.theme-night .dojo-arena-box,
+body.theme-night .hero-card,
+body.theme-night .sound-settings-card,
+body.theme-night .auth-card,
+body.theme-night .admin-table-card,
+body.theme-night .admin-hero-banner,
+body.theme-night .scroll-banner,
+body.theme-night .armory-slot,
+body.theme-night .share-belt-card {
+  background: rgba(15, 23, 42, 0.94) !important;
+  border-color: #1e293b !important;
+  color: #f1f5f9 !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+}
+
+body.theme-night .timeline-banner {
+  background: rgba(15, 23, 42, 0.96) !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
+}
+
+body.theme-night .timeline-banner h1,
+body.theme-night .hero-card h2,
+body.theme-night h2, 
+body.theme-night h3,
+body.theme-night .scroll-banner h1,
+body.theme-night .gear-info h3,
+body.theme-night .share-title {
+  color: #38bdf8 !important;
+}
+
+body.theme-night p,
+body.theme-night .subtitle-text,
+body.theme-night .scroll-banner p,
+body.theme-night .share-desc {
+  color: #cbd5e1 !important;
+}
+
+body.theme-night .locked-gear {
+  background: rgba(15, 23, 42, 0.6) !important;
+  border-color: #1e293b !important;
+}
+
+body.theme-night .locked-gear .gear-icon {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+body.theme-night .share-preview-pill {
+  background: #1e293b;
+  border-color: #38bdf8;
+  color: #facc15;
+}
+
+/* Footer at Night */
+body.theme-night footer,
+body.theme-night .dojo-footer {
+  background: #020617 !important;
+  border-top-color: #38bdf8 !important;
+  color: #94a3b8 !important;
+}
+
+/* ==========================================================================
+   GLOBAL RESET & LAYOUT
+   ========================================================================== */
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-family: 'Fredoka', cursive, sans-serif;
+}
+
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 body {
-  height: 100vh;
-  max-height: 100vh;
+  min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  background-image: url("../image/ninja_bg10.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  color: #1f2937;
-  overflow: hidden;
+  background: transparent;
+  color: #1e293b;
 }
 
 header {
+  margin: 0 !important;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 30px;
+  padding: 14px 40px;
   background-color: #32d734;
-  color: white;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  border-bottom: 5px solid #16a34a;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+  box-sizing: border-box;
 }
 
 .logo {
-  font-size: 26px;
-  text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+  font-family: 'Mali', cursive;
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  text-shadow: 2px 2px 0px #15803d;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-ninja {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 34px;
+  font-size: 34px;
+  position: relative;
+  text-shadow: 2px 2px 0px #15803d;
+  z-index: 20;
+  transform: scale(1.4);
+  transform-origin: center;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+  pointer-events: none;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 nav a {
-  color: white;
-  margin-left: 15px;
+  margin-left: 8px;
   text-decoration: none;
-  font-weight: bold;
-  font-size: 16px;
-  transition: transform 0.2s, color 0.2s;
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 50px;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 nav a:hover, nav a.active {
-  color: #facc15;
-  transform: scale(1.1);
+  background: #facc15;
+  color: #0f172a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 0 #ca8a04;
 }
+
+nav a.nav-user {
+  background: #fef08a;
+  color: #854d0e;
+}
+
+nav a.nav-logout {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ==========================================================================
+   REWARDS PAGE ARENA
+   ========================================================================== */
 
 .rewards-main {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 10px 20px;
-  overflow: hidden;
-  max-width: 850px;
+  padding: 30px 20px 50px;
+  max-width: 800px;
   margin: 0 auto;
   width: 100%;
+  box-sizing: border-box;
 }
 
-/* Scroll Banner */
 .scroll-banner {
-  background: rgba(17, 24, 39, 0.95);
-  border: 3px solid #32d734;
-  border-radius: 18px;
-  padding: 15px 25px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 5px solid #ffffff;
+  border-radius: 32px;
+  padding: 24px 30px;
   text-align: center;
-  margin-bottom: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  margin-bottom: 24px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.15);
   width: 100%;
+  box-sizing: border-box;
 }
 
 .scroll-tag {
-  background: #32d734;
-  color: #020617;
-  font-size: 11px;
-  font-weight: bold;
-  padding: 2px 10px;
-  border-radius: 10px;
-  text-transform: uppercase;
+  background: #fef08a;
+  color: #854d0e;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 4px 16px;
+  border-radius: 50px;
+  display: inline-block;
+  margin-bottom: 6px;
 }
 
 .scroll-banner h1 {
-  font-size: 22px;
-  color: #ffffff;
-  margin: 6px 0 2px 0;
+  font-size: 28px;
+  color: #064e3b;
+  margin: 8px 0;
 }
 
 .xp-highlight {
-  color: #facc15;
+  color: #f97316;
+  background: #fff7ed;
+  padding: 2px 12px;
+  border-radius: 16px;
+  border: 2px dashed #f97316;
 }
 
 .scroll-banner p {
-  font-size: 12px;
-  color: #9ca3af;
-  font-weight: bold;
+  font-size: 16px;
+  color: #475569;
+  font-weight: 600;
+}
+
+.section-title {
+  width: 100%;
 }
 
 .section-title h2 {
-  font-size: 16px;
+  font-size: 20px;
   color: #ffffff;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  margin-bottom: 16px;
   text-align: center;
+  font-weight: 700;
 }
 
-/* Armory Slots Grid (Horizontal Inventory Style) */
 .armory-grid {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   width: 100%;
 }
 
@@ -126,63 +290,256 @@ nav a:hover, nav a.active {
   align-items: center;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(8px);
-  border: 3px solid #064e3b;
-  border-radius: 16px;
-  padding: 12px 20px;
+  border: 4px solid #ffffff;
+  border-radius: 25px;
+  padding: 16px 24px;
   gap: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .armory-slot:hover {
-  transform: translateX(5px);
+  transform: translateX(6px) scale(1.01);
   border-color: #32d734;
 }
 
 .gear-icon {
-  font-size: 32px;
-  background: #f3f4f6;
-  padding: 10px 14px;
-  border-radius: 12px;
-  border: 2px dashed #064e3b;
+  font-size: 38px;
+  background: #f0fdf4;
+  padding: 12px;
+  border-radius: 20px;
+  border: 3px solid #bbf7d0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 68px;
+  min-height: 68px;
 }
 
 .gear-info h3 {
-  font-size: 16px;
+  font-size: 19px;
   color: #064e3b;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
+  font-weight: 700;
 }
 
 .status-text {
-  font-size: 12px;
-  font-weight: bold;
-  color: #d97706;
+  font-size: 15px;
+  font-weight: 700;
+  color: #22c55e;
 }
 
-/* Locked Gear Styling */
 .locked-gear {
-  background: rgba(229, 231, 235, 0.9);
-  border-color: #4b5563;
-  opacity: 0.8;
+  background: rgba(241, 245, 249, 0.92);
+  border-color: #e2e8f0;
+  opacity: 0.9;
+}
+
+.locked-gear:hover {
+  border-color: #cbd5e1;
 }
 
 .locked-gear .gear-icon {
-  background: #e5e7eb;
-  border-color: #6b7280;
+  background: #e2e8f0;
+  border-color: #cbd5e1;
 }
 
 .locked-gear h3 {
-  color: #374151;
+  color: #64748b;
 }
 
 .locked-gear .status-text {
-  color: #dc2626;
+  color: #ef4444;
 }
 
-footer {
+/* ==========================================================================
+   SOCIAL MEDIA & REFERRAL INTEGRATION
+   ========================================================================== */
+
+.social-trophy-showcase {
+  width: 100%;
+  margin: 10px auto 26px auto;
+  box-sizing: border-box;
+}
+
+.share-belt-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border: 4px solid #32d734;
+  border-radius: 28px;
+  padding: 24px 20px;
   text-align: center;
-  padding: 10px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.14);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.share-badge-glow {
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.share-title {
+  font-size: 22px;
+  color: #064e3b;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.share-desc {
+  font-size: 14px;
+  color: #475569;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.share-preview-pill {
+  background: #fef9c3;
+  border: 2px dashed #eab308;
+  border-radius: 50px;
+  padding: 8px 18px;
+  font-size: 14px;
+  color: #854d0e;
+  margin-bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.social-share-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  border: 3px solid #ffffff;
+  cursor: pointer;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.18);
+  transition: all 0.15s ease;
+}
+
+.btn-svg-icon {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.btn-whatsapp {
+  background: #25d366;
+}
+.btn-whatsapp:hover {
+  background: #20ba59;
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #188d43;
+}
+
+.btn-twitter {
+  background: #0f172a;
+  border-color: #38bdf8;
+}
+.btn-twitter:hover {
+  background: #1e293b;
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #0284c7;
+}
+
+.btn-copy {
+  background: #6366f1;
+}
+.btn-copy:hover {
+  background: #4f46e5;
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #3730a3;
+}
+
+.social-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+
+footer, .dojo-footer {
+  text-align: center;
+  padding: 16px 20px;
   background: #020617;
   color: #efc728;
+  font-size: 15px;
+  font-weight: 700;
+  border-top: 5px solid #32d734;
+  margin-top: auto;
+}
+
+.footer-social-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.footer-label {
   font-size: 14px;
+  font-weight: 700;
+  color: #facc15;
+}
+
+.social-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff !important;
+  text-decoration: none !important;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.social-icon-link:hover {
+  transform: translateY(-2px) scale(1.15);
+}
+
+.social-icon-link.instagram:hover { background: #e1306c; }
+.social-icon-link.youtube:hover { background: #ff0000; }
+.social-icon-link.discord:hover { background: #5865f2; }
+
+.footer-copy-text {
+  font-size: 14px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .social-share-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  .social-btn {
+    width: 100%;
+  }
+  .armory-slot {
+    flex-direction: column;
+    text-align: center;
+  }
 }

@@ -3,72 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Search Ninja - Fun Game</title>
+    <title>Word Search - Ninjatsu 🔍</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Mali:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/maze_adventure.css') }}">
 </head>
 <body>
-
     <header>
-        <div class="logo">🥷 NINJATSU</div>
+        <div class="logo">
+            <img src="/static/image/logo.png" class="logo-ninja">
+            <span class="logo-title">NINJATSU</span>
+        </div>
         <nav>
             <a href="{{ url_for('homepage') }}">Home</a>
-            <a href="{{ url_for('explore_games') }}" class="active">Explore Games</a>
-            <a href="{{ url_for('start_learning') }}">Start Learning</a>
-            <a href="{{ url_for('rewards') }}">Rewards</a>
+            <a href="{{ url_for('explore_games') }}" class="active">Play Games</a>
+            <a href="{{ url_for('start_learning') }}">Dojo Camp</a>
+            <a href="{{ url_for('rewards') }}">Trophies</a>
             {% if session.get('username') %}
-                <a href="#">Hi, {{ session['username'] }}</a>
-                <a href="{{ url_for('logout') }}" style="color: #ef4444;">Logout</a>
+                <a href="#" class="nav-user">Hi, {{ session['username'] }}! ⭐</a>
+                <a href="{{ url_for('logout') }}" class="nav-logout">Logout</a>
             {% else %}
                 <a href="{{ url_for('login') }}">Login</a>
-                <a href="{{ url_for('register') }}">Register</a>
+                <a href="{{ url_for('register') }}">Join Us!</a>
             {% endif %}
         </nav>
     </header>
 
     <main class="ninja-main">
-        <section style="width: 100%; max-width: 650px;">
+        <section class="game-wrapper">
             
-            <!-- Game HUD / Score Info -->
             <div class="game-hud">
-                <div>DOJO GAME: WORD SEARCH</div>
-                <div style="color: #22c55e;">PRIZE: +30 STAR POINTS</div>
+                <div>WORD SEARCH 🔍</div>
+                <div class="hud-prize">WIN: +30 STARS ⭐</div>
             </div>
 
             <div class="search-card">
-                <h3 style="margin-top: 0; font-size: 24px; color: #064e3b; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                    HIDDEN WORD SEARCH <img src="{{ url_for('static', filename='image/ninja.gif') }}" alt="Ninja" style="width: 38px; vertical-align: middle;">
+                <h3 class="card-heading">
+                    SPOT SECRET WORDS! <img src="{{ url_for('static', filename='image/ninja.gif') }}" alt="Ninja" class="ninja-mini-mascot">
                 </h3>
 
-                <p id="feedback">Scan the big grid, spot hidden words, and type them below!</p>
+                <p id="feedback">Find words in the grid and type them below! 👇</p>
 
-                <!-- Letter Grid Box -->
                 <div id="word-grid"></div>
 
-                <!-- Typing Input Box -->
-                <div class="typing-container" style="margin-top: 15px; display: flex; gap: 10px; justify-content: center; align-items: center; width: 100%;">
-                    <input type="text" id="word-input" placeholder="Type your word here..." autocomplete="off" style="padding: 12px 18px; border-radius: 15px; border: 2px solid #064e3b; font-size: 16px; outline: none; width: 65%; text-transform: uppercase;">
-                    <button id="submit-typed-word-btn" style="padding: 12px 20px; border-radius: 15px; border: none; background: #32d734; color: white; font-weight: bold; cursor: pointer; box-shadow: 0 4px 0 #1b8a1d;">SUBMIT ⭐</button>
+                <div class="typing-container">
+                    <input type="text" id="word-input" placeholder="Type word here..." autocomplete="off">
+                    <button id="submit-typed-word-btn">CHECK! ⭐</button>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Victory Reward Popup -->
     <div id="reward-popup" class="reward-popup hidden">
         <div class="reward-box">
-            <h2 style="font-size: 26px; color: #064e3b; margin-bottom: 15px;">WORD MASTER! 🎉</h2>
-            <p style="font-size: 20px; color: #1f2937; margin-bottom: 25px;">
-                YOU WON: <span id="xpValue">+30 STAR POINTS</span>
-            </p>
+            <h2>SUPER SPY NINJA! 🎉</h2>
+            <p>YOU WON: <span id="xpValue">+30 STARS ⭐</span></p>
             <div class="reward-actions">
-                <a id="popup-home" class="btn-link" href="{{ url_for('homepage') }}" style="text-decoration: none; display: inline-block;">GAME MENU</a>
-                <button id="popup-replay">PLAY AGAIN</button>
+                <a id="popup-home" class="btn-link" href="{{ url_for('homepage') }}">HOME 🏠</a>
+                <button id="popup-replay">PLAY AGAIN 🔄</button>
             </div>
         </div>
     </div>
 
     <footer>
-        &copy; 2026 Ninjatsu Dojo Studio. Made with magic for kids!
+        &copy; 2026 Ninjatsu Dojo Studio. Play, Learn & Have Fun! 🌟
     </footer>
 
     <script src="{{ url_for('static', filename='js/maze_adventure.js') }}"></script>

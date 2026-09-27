@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninjatsu - Master Control Center 🛡️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Mali:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_dashboard.css') }}">
+</head>
+<body>
+
+    <!-- STICKY TOP HEADER -->
+    <header class="admin-header">
+        <div class="admin-header-brand">
+            <span class="logo-ninja">🛡️</span>
+            <div>
+                <span class="admin-title">NINJATSU MASTER CONTROL</span>
+                <span class="admin-sub">Admin Intelligence Console</span>
+            </div>
+        </div>
+        <div class="admin-header-actions">
+            <a href="{{ url_for('logout') }}" class="btn-back-playroom">Logout</a>
+        </div>
+    </header>
+
+    <main class="admin-layout">
+        
+        <!-- FLASH MESSAGES -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div style="max-width: 600px; margin: 0 auto; width: 100%;">
+                    {% for category, message in messages %}
+                        <div style="padding: 12px 20px; background: #dcfce7; border: 2px solid #22c55e; border-radius: 20px; color: #15803d; font-weight: 700; text-align: center; margin-bottom: 15px;">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- TOP EXECUTIVE METRICS ROW -->
+        <section class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-title">ACTIVE STUDENTS</span>
+                    <span class="metric-icon">🎒</span>
+                </div>
+                <div class="metric-value">{{ total_users }}</div>
+                <div class="metric-footer">Total enrolled student accounts</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-title">TOTAL STAR XP EARNED</span>
+                    <span class="metric-icon">⭐</span>
+                </div>
+                <div class="metric-value">{{ total_xp_awarded }}</div>
+                <div class="metric-footer">Collective student stars</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-title">TOTAL GAMES PLAYED</span>
+                    <span class="metric-icon">🎮</span>
+                </div>
+                <div class="metric-value">{{ total_games_played }}</div>
+                <div class="metric-footer">Logged score sessions</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-title">QUESTS FINISHED</span>
+                    <span class="metric-icon">📜</span>
+                </div>
+                <div class="metric-value status-text" style="color: #3b82f6;">{{ total_quests_completed }}</div>
+                <div class="metric-footer">Completed daily assignments</div>
+            </div>
+        </section>
+
+        <!-- GAMEPLAY ENGAGEMENT & BELT TIER ANALYTICS -->
+        <section class="analytics-split">
+            <!-- Game Station Activity -->
+            <div class="dashboard-card game-analytics-card">
+                <div class="card-head">
+                    <h2>🎮 Training Station Activity & Plays</h2>
+                    <span class="card-caption">Live count from student sessions</span>
+                </div>
+                
+                <div class="game-progress-list">
+                    {% set max_games = total_games_played if total_games_played > 0 else 1 %}
+
+                    <div class="game-stat-item">
+                        <div class="stat-info">
+                            <span>⭐ Star Strike</span>
+                            <b>{{ game_stats.star_strike }} plays</b>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: {{ (game_stats.star_strike / max_games * 100)|round }}%; background: #f59e0b;"></div>
+                        </div>
+                    </div>
+
+                    <div class="game-stat-item">
+                        <div class="stat-info">
+                            <span>⚡ Word Speed Run</span>
+                            <b>{{ game_stats.word_speed_run }} plays</b>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: {{ (game_stats.word_speed_run / max_games * 100)|round }}%; background: #3b82f6;"></div>
+                        </div>
+                    </div>
+
+                    <div class="game-stat-item">
+                        <div class="stat-info">
+                            <span>🏁 Word Tower Race</span>
+                            <b>{{ game_stats.word_race }} plays</b>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: {{ (game_stats.word_race / max_games * 100)|round }}%; background: #10b981;"></div>
+                        </div>
+                    </div>
+
+                    <div class="game-stat-item">
+                        <div class="stat-info">
+                            <span>🍉 Number Slice</span>
+                            <b>{{ game_stats.math_slice }} plays</b>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: {{ (game_stats.math_slice / max_games * 100)|round }}%; background: #ef4444;"></div>
+                        </div>
+                    </div>
+
+                    <div class="game-stat-item">
+                        <div class="stat-info">
+                            <span>🔍 Word Search</span>
+                            <b>{{ game_stats.word_search }} plays</b>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: {{ (game_stats.word_search / max_games * 100)|round }}%; background: #8b5cf6;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ninja Belt Distribution -->
+            <div class="dashboard-card belt-analytics-card">
+                <div class="card-head">
+                    <h2>🥋 Ninja Belt Ranks Achieved</h2>
+                    <span class="card-caption">Ranks unlocked based on XP thresholds</span>
+                </div>
+                
+                <div class="belt-list">
+                    {% set total_base = total_users if total_users > 0 else 1 %}
+
+                    <div class="belt-item">
+                        <span class="belt-badge white">White (0-49)</span>
+                        <div class="belt-bar-wrap">
+                            <div class="belt-bar" style="width: {{ (belt_distribution.white / total_base * 100)|round }}%;"></div>
+                        </div>
+                        <span class="belt-count">{{ belt_distribution.white }}</span>
+                    </div>
+
+                    <div class="belt-item">
+                        <span class="belt-badge yellow">Yellow (50+)</span>
+                        <div class="belt-bar-wrap">
+                            <div class="belt-bar" style="width: {{ (belt_distribution.yellow / total_base * 100)|round }}%;"></div>
+                        </div>
+                        <span class="belt-count">{{ belt_distribution.yellow }}</span>
+                    </div>
+
+                    <div class="belt-item">
+                        <span class="belt-badge green">Green (100+)</span>
+                        <div class="belt-bar-wrap">
+                            <div class="belt-bar" style="width: {{ (belt_distribution.green / total_base * 100)|round }}%;"></div>
+                        </div>
+                        <span class="belt-count">{{ belt_distribution.green }}</span>
+                    </div>
+
+                    <div class="belt-item">
+                        <span class="belt-badge blue">Blue (200+)</span>
+                        <div class="belt-bar-wrap">
+                            <div class="belt-bar" style="width: {{ (belt_distribution.blue / total_base * 100)|round }}%;"></div>
+                        </div>
+                        <span class="belt-count">{{ belt_distribution.blue }}</span>
+                    </div>
+
+                    <div class="belt-item">
+                        <span class="belt-badge black">Black (300+)</span>
+                        <div class="belt-bar-wrap">
+                            <div class="belt-bar" style="width: {{ (belt_distribution.black / total_base * 100)|round }}%;"></div>
+                        </div>
+                        <span class="belt-count">{{ belt_distribution.black }}</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STUDENT NINJAS DIRECTORY TABLE -->
+        <section class="dashboard-card student-directory-card">
+            <div class="card-head directory-head">
+                <div>
+                    <h2>🎒 Registered Little Ninjas</h2>
+                    <span class="card-caption">Real student records, level, and performance metrics</span>
+                </div>
+                
+                <div class="directory-tools">
+                    <input type="text" id="ninjaSearchInput" placeholder="Search by name or email..." class="search-input">
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="ninja-master-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Student Ninja</th>
+                            <th>Email</th>
+                            <th>Age</th>
+                            <th>Level</th>
+                            <th>Total XP</th>
+                            <th>Belt Rank</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ninjaTableBody">
+                        {% for user in users %}
+                        {% set user_xp = user.progress.total_xp if user.progress else 0 %}
+                        {% set user_lvl = user.progress.current_level if user.progress else 1 %}
+                        <tr>
+                            <td><span class="id-pill">#{{ user.id }}</span></td>
+                            <td>
+                                <div class="student-name-cell">
+                                    <span class="avatar-circle">🥷</span>
+                                    <b>{{ user.username }}</b>
+                                </div>
+                            </td>
+                            <td class="email-text">{{ user.email }}</td>
+                            <td>{{ user.age }} yrs</td>
+                            <td><b>Lvl {{ user_lvl }}</b></td>
+                            <td><span class="xp-badge">⭐ {{ user_xp }} XP</span></td>
+                            <td>
+                                <span class="belt-tag">
+                                    {% if user_xp >= 300 %}Black Belt
+                                    {% elif user_xp >= 200 %}Blue Belt
+                                    {% elif user_xp >= 100 %}Green Belt
+                                    {% elif user_xp >= 50 %}Yellow Belt
+                                    {% else %}White Belt
+                                    {% endif %}
+                                </span>
+                            </td>
+                            <td>
+                                <form action="{{ url_for('delete_user', user_id=user.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete student {{ user.username }}?');">
+                                    <button type="submit" class="action-btn delete">Remove ❌</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="8" class="empty-state">No registered student ninjas found in the database.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="dojo-footer">
+        &copy; 2026 Ninjatsu Dojo Studio. Parent & Teacher Master Portal 🌟
+    </footer>
+
+    <!-- Instant Client-side Search -->
+    <script>
+        document.getElementById('ninjaSearchInput').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('#ninjaTableBody tr');
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(query) ? '' : 'none';
+            });
+        });
+    </script>
+
+    <script src="{{ url_for('static', filename='js/ninja_juice.js') }}"></script>
+</body>
+</html>

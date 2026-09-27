@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Missions - Ninjatsu 📜</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Mali:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="dojo-header-green">
+        <div class="logo-box-green">
+            <span class="logo-ninja">🥷</span>
+            <span class="logo-title">NINJATSU</span>
+        </div>
+
+        <nav class="nav-menu-green">
+            <a href="{{ url_for('homepage') }}" class="nav-item">Home</a>
+            <a href="{{ url_for('explore_games') }}" class="nav-item">Play Games</a>
+            <a href="{{ url_for('start_learning') }}" class="nav-item">Dojo Camp</a>
+            <a href="{{ url_for('rewards') }}" class="nav-item">Trophies</a>
+            <a href="{{ url_for('daily_quests') }}" class="nav-item quest-badge active">📜 Missions</a>
+            <a href="{{ url_for('logout') }}" class="nav-item logout-btn">Logout</a>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <div class="bento-grid">
+            
+            <div class="bento-card hero-card">
+                <h2>TODAY'S MISSIONS 📜</h2>
+                <p>Finish missions to win bonus stars!</p>
+                
+                <div style="margin-top: 15px; background: #f0fdf4; border: 2px solid #bbf7d0; padding: 12px 18px; border-radius: 18px;">
+                    <p style="font-size: 14px; font-weight: bold; color: #064e3b; margin-bottom: 2px;">YOUR LEVEL:</p>
+                    <p style="font-size: 16px; color: #f97316; font-weight: bold;">Level {{ progress.current_level if progress else 1 }} ⭐ | Total: {{ progress.total_xp if progress else 0 }} Stars</p>
+                </div>
+
+                <div class="banner-actions" style="margin-top: 20px;">
+                    <a href="{{ url_for('explore_games') }}" class="btn-green">Play Games 🕹️</a>
+                    <a href="{{ url_for('rewards') }}" class="btn-dark">View Belts 🥋</a>
+                </div>
+            </div>
+
+            <div class="right-stack" style="gap: 12px;">
+                <h3 style="color: #064e3b; font-size: 18px; font-weight: 700; margin-bottom: 2px;">Mission List:</h3>
+                
+                {% for quest in quests %}
+                <div class="bento-card mini-card" style="justify-content: space-between; padding: 14px 20px;">
+                    <div style="display: flex; align-items: center; gap: 14px;">
+                        <div class="card-icon-left" style="font-size: 24px; padding: 8px 12px;">
+                            {% if quest.is_completed %}✅{% else %}🎯{% endif %}
+                        </div>
+                        <div>
+                            <h3 style="font-size: 15px; margin-bottom: 2px; color: #064e3b;">
+                                {{ quest.quest_name }}
+                            </h3>
+                            <p style="font-size: 13px; font-weight: bold;">
+                                {% if quest.is_completed %}
+                                    <span style="color: #16a34a;">Done! 🎉</span>
+                                {% else %}
+                                    <span style="color: #d97706;">Ready to play! ⏳</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        {% if quest.is_completed %}
+                            <span style="background: #dcfce7; color: #15803d; padding: 6px 16px; border-radius: 50px; font-weight: bold; font-size: 13px;">Done ⭐</span>
+                        {% else %}
+                            {% if 'Math' in quest.quest_name %}
+                                <a href="{{ url_for('math_slice') }}" class="btn-green" style="padding: 7px 16px; font-size: 13px; text-decoration: none;">PLAY 🚀</a>
+                            {% elif 'Word' in quest.quest_name %}
+                                <a href="{{ url_for('word_race') }}" class="btn-green" style="padding: 7px 16px; font-size: 13px; text-decoration: none;">PLAY 🚀</a>
+                            {% else %}
+                                <a href="{{ url_for('explore_games') }}" class="btn-green" style="padding: 7px 16px; font-size: 13px; text-decoration: none;">PLAY 🚀</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="bento-card mini-card" style="justify-content: center; padding: 20px;">
+                    <p style="color: #64748b; font-weight: bold;">All missions cleared for today! 🌟</p>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="dojo-footer">
+        &copy; 2026 Ninjatsu Dojo Studio. Play, Learn & Have Fun! 🌟
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/ninja_juice.js') }}"></script>
+
+</body>
+</html>

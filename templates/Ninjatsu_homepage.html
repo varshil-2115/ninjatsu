@@ -3,78 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ninjatsu - Gamified Learning Dojo</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/global_ninja.css') }}">
+    <title>Ninjatsu Playroom - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Mali:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<!-- Open Graph / Facebook / WhatsApp -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ninjatsu.com/">
+<meta property="og:title" content="Ninjatsu Dojo - Gamified Learning for Young Ninjas! 🥷">
+<meta property="og:description" content="Master math, words, and puzzles in an arcade dojo! Train your brain, earn XP, and unlock ninja belts.">
+<meta property="og:image" content="{{ url_for('static', filename='image/og_preview.png', _external=True) }}">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ninjatsu Dojo - Gamified Learning 🥷">
+<meta name="twitter:description" content="Level up your skills with math and word puzzles! Play free now.">
+<meta name="twitter:image" content="{{ url_for('static', filename='image/og_preview.png', _external=True) }}">
+
 </head>
 <body>
 
-    <header>
-        <div class="logo">🥷 NINJATSU</div>
-        <nav>
-            <a href="{{ url_for('homepage') }}" class="active">Home</a>
-            <a href="{{ url_for('explore_games') }}">Explore Games</a>
-            <a href="{{ url_for('start_learning') }}">Start Learning</a>
-            <a href="{{ url_for('rewards') }}">Rewards</a>
+    <header class="dojo-header-green">
+        <div class="logo-box-green">
+            <img src="/static/image/logo.png" class="logo-ninja">
+            <span class="logo-title">NINJATSU</span>
+        </div>
+
+        <nav class="nav-menu-green">
+            <a href="{{ url_for('homepage') }}" class="nav-item active">Home</a>
+            <a href="{{ url_for('explore_games') }}" class="nav-item">Play Games</a>
+            <a href="{{ url_for('start_learning') }}" class="nav-item">Dojo Camp</a>
+            <a href="{{ url_for('rewards') }}" class="nav-item">Trophies</a>
+
             {% if session.get('username') %}
-                <a href="#">Hi, {{ session['username'] }}</a>
-                <a href="{{ url_for('logout') }}" style="color: #ef4444;">Logout</a>
+                <!-- <a href="{{ url_for('daily_quests') }}" class="nav-item quest-badge">📜 Quests</a> -->
+                <a href="{{ url_for('rewards') }}" class="nav-item user-highlight">Hi, {{ session['username'] }}! ⭐</a>
+                <a href="{{ url_for('logout') }}" class="nav-item logout-btn">Logout</a>
             {% else %}
-                <a href="{{ url_for('login') }}">Login</a>
-                <a href="{{ url_for('register') }}">Register</a>
+                <a href="{{ url_for('login') }}" class="nav-item login-btn">Login</a>
+                <a href="{{ url_for('register') }}" class="nav-item register-btn">Join Us!</a>
             {% endif %}
         </nav>
     </header>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div class="flash-container" style="max-width: 650px; margin: 30px auto; padding: 15px; border: 4px solid #ef4444; border-radius: 15px; background: rgba(255, 255, 255, 0.9); text-align: center;">
-                {% for category, message in messages %}
-                    <p style="color: #ef4444; font-weight: bold; font-size: 16px; line-height: 1.4;">⚠️ {{ message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
-
-    <main style="flex: 1;">
-        <section class="hero">
-            <div class="hero-text" style="flex: 1; min-width: 300px;">
-                <h1>Master Coding & Math Like a <span>Ninja Warrior</span></h1>
-                <p>Sharpen your mind, slice through bugs, and conquer mathematical equations in our elite gamified training dojo. Level up your skills, unlock legendary katana badges, and become a shadow master.</p>
-                <div class="hero-buttons" style="margin-top: 30px;"> 
-                    <a href="{{ url_for('start_learning') }}" class="btn btn-primary" style="margin-bottom: 10px;">Enter Training Room ⚔️</a>
-                    <a href="{{ url_for('explore_games') }}" class="btn btn-secondary" style="margin-bottom: 10px;">Play Arcade 🕹️</a>
+    <main class="arcade-viewport">  
+        <!-- LEFT SIDE: 3 Staggered Gameplay Video Cards -->
+        <section class="gameplay-showcase">
+            <!-- Video 1: Top preview -->
+            <div class="video-card card-top">
+                <div class="video-screen">
+                    <video autoplay muted loop playsinline class="preview-video">
+                        <source src="../static/video/word__speed.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-label">⚡ SPEED TRIAL</div>
                 </div>
             </div>
-            <div class="hero-image" style="display: flex; justify-content: center; align-items: center; min-width: 200px;">
-                <img src="{{ url_for('static', filename='image/ninja2_reg (3).png') }}" alt="Hanging Ninja" style="max-width: 220px; height: auto; border: none; background: transparent; filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.6));">
+
+            <!-- Video 2: Middle preview (shifted outward to the right) -->
+            <div class="video-card card-mid">
+                <div class="video-screen">
+                    <video autoplay muted loop playsinline class="preview-video">
+                        <source src="/static/video/math_slice.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-label">🔢 NUMBER SLICE</div>
+                </div>
+            </div>
+
+            <!-- Video 3: Bottom preview -->
+            <div class="video-card card-bottom">
+                <div class="video-screen">
+                    <video autoplay muted loop playsinline class="preview-video">
+                        <source src="/static/video/tower_race.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-label">🗼 TOWER RACE</div>
+                </div>
+            </div>
+        </section>
+        
+        
+        <section class="gameplay-showcase">
+            <!-- Video 1: Top preview -->
+            <div class="video-card card-top">
+                <div class="video-screen">
+                    <video autoplay muted loop playsinline class="preview-video">
+                        <source src="/static/video/guess_word.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-label">🌳 GUESS WORD</div>
+                </div>
+            </div>
+
+            <!-- Video 2: Middle preview (shifted outward to the right) -->
+            <div class="video-card card-mid">
+                <div class="video-screen">
+                    <video autoplay muted loop playsinline class="preview-video">
+                        <source src="/static//video/maze_fun.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-label">🧩 MAZE FUN</div>
+                </div>
+            </div>
+
+            <!-- Video 3: Bottom preview -->
+            <div class="video-card card-bottom">
+                <div class="video-screen">
+                    <video autoplay muted loop playsinline class="preview-video">
+                        <source src="/static/video/memory_card.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-label">🎴 MEMORY CARDS</div>
+                </div>
             </div>
         </section>
 
-        <section class="features">
-            <div class="card">
-                <div style="font-size: 55px; margin-bottom: 15px;">⚔️</div>
-                <h3>GAMIFIED CHALLENGES</h3>
-                <p>Learn core concepts of Python, Java, and Logic Building disguised as elite boss fights and quests.</p>
+        <!-- RIGHT BOTTOM: Floating Animated Ninja + Stacked Action Buttons -->
+        <aside class="action-launch-zone">
+            <!-- Animated Mascot -->
+            <div class="mascot-launch-wrapper">
+                <div class="speech-bubble">READY TO FIGHT? 🔥</div>
+                <img src="/static/image/home_page_gif.gif" alt="Ninja Mascot" class="bouncing-ninja">
+                
             </div>
-
-            <div class="card">
-                <div style="font-size: 55px; margin-bottom: 15px;">🔥</div>
-                <h3>ADAPTIVE XP ENGINE</h3>
-                <p>Earn XP points instantly as you crack problems. Watch your rank rise from Recruit to Shogun.</p>
+            <!-- Stacked Buttons: Small Gold Training on top, Big Green Play below -->
+            <div class="launch-buttons-stack">
+                
+                <a href="{{ url_for('start_learning') }}" class="btn-train-gold">
+                    <span class="btn-icon">🥋</span> Start Training!
+                </a>
+                <a href="{{ url_for('explore_games') }}" class="btn-play-mega">
+                    <span class="btn-icon">🎮</span> PLAY GAMES! 🚀
+                </a>
             </div>
-
-            <div class="card">
-                <div style="font-size: 55px; margin-bottom: 15px;">🛡️</div>
-                <h3>LEGENDARY BADGES</h3>
-                <p>Unlock custom element-based items, weapons, and title badges to showcase your coding honor.</p>
-            </div>
-        </section>
+        </aside>
     </main>
+<footer class="dojo-footer">
+    <div class="footer-social-row">
+        <span class="footer-label">Follow Ninjatsu Dojo:</span>
+        
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/ninjatsudojo.play/" target="_blank" rel="noopener noreferrer" class="social-icon-link instagram" aria-label="Instagram">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+        </a>
 
-    <footer>
-        &copy; 2026 Ninjatsu Dojo Studio. Designed for Next-Gen Coders.
-    </footer>
+        <!-- YouTube -->
+        <a href="https://www.youtube.com/@ninjatsukids" target="_blank" rel="noopener noreferrer" class="social-icon-link youtube" aria-label="YouTube">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+        </a>
 
-    <script src="{{ url_for('static', filename='js/ninja_juice.js') }}"></script>
+        <!-- Discord / Gaming Community -->
+        <a href="https://discord.gg/tfyQhtUSW" target="_blank" rel="noopener noreferrer" class="social-icon-link discord" aria-label="Discord">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+            </svg>
+        </a>
+    </div>
+    <div class="footer-copy-text">&copy; 2026 Ninjatsu Dojo Studio. Play, Learn & Have Fun! ⭐</div>
+</footer>
+<script>
+  window.NINJA_DAY_BGM = "{{ url_for('static', filename='video/morning_sound.mp3') }}";
+  window.NINJA_NIGHT_BGM = "{{ url_for('static', filename='video/night_sound.mp3') }}";
+</script>
+<script src="{{ url_for('static', filename='js/ninja_juice.js') }}"></script>
 </body>
 </html>

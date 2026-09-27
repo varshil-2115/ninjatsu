@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Headquarters Login - Ninjatsu 🛡️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Mali:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body class="login-page">
+    <video autoplay muted loop playsinline id="bg-video">
+        <source id="bg-video-source" src="{{ url_for('static', filename='video/day_forest.mp4') }}" type="video/mp4">
+    </video>
+    <header>
+        <div class="logo">🛡️ MASTER DOJO</div>
+        <nav>
+            <a href="{{ url_for('homepage') }}">Home 🏠</a>
+        </nav>
+    </header>
+
+    <main class="login-main">
+        <section class="hero auth-card">
+            <div class="hero-text">
+                <h1>PARENT & TEACHER <span>ZONE</span> 🛡️</h1>
+                <p>Welcome, Sensei! Sign in to manage student ninja accounts.</p>
+            </div>
+            
+            <form class="auth-form" action="{{ url_for('admin_login') }}" method="POST">
+                <div class="form-group">
+                    <label>MASTER USERNAME:</label>
+                    <input type="text" name="username" placeholder="Type admin username..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label>MASTER PASSWORD:</label>
+                    <input type="password" name="password" placeholder="Type admin password..." required>
+                </div>
+                
+                <button type="submit" class="btn-primary" style="background: #dc2626; box-shadow: 0 6px 0 #991b1b;">
+                    OPEN HEADQUARTERS 🔑
+                </button>
+            </form>
+
+            <p class="switch-auth">
+                Looking for student login? <a href="{{ url_for('login') }}">Back to Playroom ➡️</a>
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 Ninjatsu Dojo Studio. Parent & Teacher Portal 🌟
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/ninja_juice.js') }}"></script>
+
+</body>
+</html>
