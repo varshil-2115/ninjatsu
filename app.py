@@ -3,6 +3,7 @@ from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify, Response
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import db, User, Progress, GameScore, Badge, DailyQuest
+from models import db, User, Progress, GameScore, Badge, DailyQuest, SiteVisit
 
 app = Flask(__name__)
 
@@ -33,9 +34,9 @@ with app.app_context():
         db.session.commit()
 
     # Automatically create a default admin account if it doesn't exist
-    admin_exists = User.query.filter_by(username='admin').first()
+    admin_exists = User.query.filter_by(username='ninjamaster').first()
     if not admin_exists:
-        hashed_admin_pw = generate_password_hash('admin123', method='pbkdf2:sha256')
+        hashed_admin_pw = generate_password_hash('master150', method='pbkdf2:sha256')
         admin_user = User(username='admin', email='admin@ninjatsu.com', password_hash=hashed_admin_pw, age=20)
         db.session.add(admin_user)
         db.session.commit()
@@ -266,6 +267,9 @@ def admin_panel():
         flash('Please login as Admin to access Master Control!', 'warning')
         return redirect(url_for('login'))
 
+    total_visits = SiteVisit.query.count()
+    unique_visitors = db.session.query(SiteVisit.ip_address).distinct().count()
+
     students = User.query.filter(User.username != 'admin').order_by(User.id.asc()).all()
     total_students = len(students)
 
@@ -437,6 +441,27 @@ def sitemap():
 </urlset>
 """
     return Response(content, mimetype="application/xml")
+
+@app.before_request
+def record_visitor():
+    # Skip static files, favicon, API calls, and admin views
+    if (request.path.startswith('/static') or 
+        request.path.startswith('/admin') or 
+        request.path.startswith('/api') or 
+        request.path == '/favicon.ico'):
+        return
+
+    try:
+        # Read visitor IP behind Render's reverse proxy
+        visitor_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+        if visitor_ip and ',' in visitor_ip:
+            visitor_ip = visitor_ip.split(',')[0].strip()
+
+        visit = SiteVisit(ip_address=visitor_ip, endpoint=request.path)
+        db.session.add(visit)
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
 
 if __name__ == '__main__':
     app.run(debug=True)

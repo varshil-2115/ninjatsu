@@ -68,14 +68,24 @@
                 <div class="metric-footer">Logged score sessions</div>
             </div>
 
-            <div class="metric-card">
-                <div class="metric-header">
-                    <span class="metric-title">QUESTS FINISHED</span>
-                    <span class="metric-icon">📜</span>
-                </div>
-                <div class="metric-value status-text" style="color: #3b82f6;">{{ total_quests_completed }}</div>
-                <div class="metric-footer">Completed daily assignments</div>
-            </div>
+            <!-- Live Visitor Traffic Metrics -->
+<div class="stat-card visitor-card">
+    <div class="stat-icon">👁️</div>
+    <div class="stat-content">
+        <span class="stat-title">Total Page Hits</span>
+        <h2 class="stat-number">{{ total_page_views }}</h2>
+        <span class="stat-subtitle">All Public Views</span>
+    </div>
+</div>
+
+<div class="stat-card unique-visitor-card">
+    <div class="stat-icon">🌍</div>
+    <div class="stat-content">
+        <span class="stat-title">Unique Visitors</span>
+        <h2 class="stat-number">{{ unique_visitors }}</h2>
+        <span class="stat-subtitle">Distinct IP Addresses</span>
+    </div>
+</div>
         </section>
 
         <!-- GAMEPLAY ENGAGEMENT & BELT TIER ANALYTICS -->

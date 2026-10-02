@@ -51,3 +51,11 @@ class DailyQuest(db.Model):
     quest_name = db.Column(db.String(100), nullable=False)
     is_completed = db.Column(db.Boolean, default=False)
     date_assigned = db.Column(db.String(20), nullable=False)
+
+class SiteVisit(db.Model):
+    __tablename__ = 'site_visits'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    ip_address = db.Column(db.String(64), nullable=True)
+    endpoint = db.Column(db.String(128), nullable=True)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
