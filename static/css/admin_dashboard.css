@@ -499,3 +499,126 @@ body.theme-night .belt-tag {
     gap: 12px;
   }
 }
+
+/* ==========================================================================
+   SENSEI CLAN HUB DROPDOWN IN ADMIN HEADER
+   ========================================================================== */
+.admin-hub-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.btn-hub-toggle {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+}
+
+.btn-hub-toggle:hover {
+  background: #facc15;
+  color: #0f172a;
+  border-color: #facc15;
+  transform: translateY(-1px);
+}
+
+.hub-btn-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.hub-caret {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.admin-hub-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 290px;
+  background: rgba(15, 23, 42, 0.98);
+  backdrop-filter: blur(12px);
+  border: 2px solid #38bdf8;
+  border-radius: 20px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  z-index: 2000;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-hub-menu.active {
+  display: flex;
+}
+
+.hub-menu-header {
+  font-size: 11px;
+  font-weight: 700;
+  color: #38bdf8;
+  letter-spacing: 1px;
+  padding: 8px 12px 4px;
+}
+
+.hub-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #f8fafc;
+  transition: background 0.15s ease;
+}
+
+.hub-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.hub-mini-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #ffffff;
+}
+
+.hub-item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.hub-item-info b {
+  font-size: 14px;
+  color: #f8fafc;
+}
+
+.hub-item-info span {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.hub-footer-link {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 4px;
+  padding-top: 10px;
+  justify-content: center;
+  color: #facc15;
+  font-size: 13px;
+}
+
+.hub-footer-link:hover {
+  color: #fde047;
+}

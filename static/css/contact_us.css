@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CONTACT US & SOCIAL PLATFORM SHOWCASE
+   CONTACT US & BRAND VECTOR PLATFORM SHOWCASE
    ========================================================================== */
 
 .contact-viewport {
@@ -33,13 +33,13 @@
 
 .contact-hero h1 {
   font-size: 36px;
-  color: #064e3b;
+  color: #fbfcfc;
   margin-bottom: 10px;
 }
 
 .contact-hero p {
   font-size: 16px;
-  color: #475569;
+  color: #fdfdfd;
   font-weight: 600;
   line-height: 1.5;
 }
@@ -67,32 +67,67 @@
   transform: translateY(-3px);
 }
 
-.support-card {
-  border-color: #38bdf8;
+.support-card { border-color: #38bdf8; }
+.follow-card { border-color: #facc15; }
+
+.card-head-row {
+  margin-bottom: 8px;
 }
 
-.follow-card {
-  border-color: #facc15;
+.card-badge-label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: #e0f2fe;
+  color: #0369a1;
+  margin-bottom: 8px;
 }
 
-.card-icon-bubble {
-  font-size: 32px;
-  margin-bottom: 10px;
+.card-badge-label.golden {
+  background: #fef9c3;
+  color: #854d0e;
 }
 
 .contact-card h2 {
-  font-size: 22px;
-  color: #0f172a;
+  font-size: 24px;
+  color: #ffffff;
   margin-bottom: 6px;
 }
 
 .card-desc {
   font-size: 14px;
-  color: #64748b;
+  color: #ffffff;
   font-weight: 600;
   margin-bottom: 22px;
   line-height: 1.4;
 }
+
+/* SVG ICON CONTAINER BASICS */
+.brand-svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.ch-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.mail-bg { background: #ea4335; }
+.discord-bg { background: #5865f2; }
+.ig-bg { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%); }
+.fb-bg { background: #1877f2; }
 
 /* CHANNEL LIST (Support & Complaints) */
 .channel-list {
@@ -119,10 +154,6 @@
   background: #ffffff;
   border-color: #38bdf8;
   box-shadow: 0 6px 14px rgba(56, 189, 248, 0.2);
-}
-
-.ch-icon {
-  font-size: 24px;
 }
 
 .ch-details {
@@ -161,7 +192,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 18px 14px;
+  padding: 16px 14px;
   border-radius: 20px;
   background: #f8fafc;
   border: 2px solid #e2e8f0;
@@ -175,22 +206,34 @@
   background: #ffffff;
 }
 
-.social-tile.yt:hover { border-color: #ef4444; box-shadow: 0 8px 16px rgba(239, 68, 68, 0.2); }
-.social-tile.ig:hover { border-color: #e1306c; box-shadow: 0 8px 16px rgba(225, 48, 108, 0.2); }
-.social-tile.dc:hover { border-color: #5865f2; box-shadow: 0 8px 16px rgba(88, 101, 242, 0.2); }
-.social-tile.pin:hover { border-color: #e60023; box-shadow: 0 8px 16px rgba(230, 0, 35, 0.2); }
-.social-tile.fb:hover { border-color: #1877f2; box-shadow: 0 8px 16px rgba(24, 119, 242, 0.2); }
-
-.tile-icon {
-  font-size: 28px;
-  margin-bottom: 6px;
+.tile-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  margin-bottom: 8px;
 }
+
+.yt-box { background: #ff0000; }
+.pin-box { background: #e60023; }
+.ig-box { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%); }
+.fb-box { background: #1877f2; }
+.dc-box { background: #5865f2; }
+
+.social-tile.yt:hover { border-color: #ff0000; box-shadow: 0 8px 16px rgba(255, 0, 0, 0.2); }
+.social-tile.pin:hover { border-color: #e60023; box-shadow: 0 8px 16px rgba(230, 0, 35, 0.2); }
+.social-tile.ig:hover { border-color: #e1306c; box-shadow: 0 8px 16px rgba(225, 48, 108, 0.2); }
+.social-tile.fb:hover { border-color: #1877f2; box-shadow: 0 8px 16px rgba(24, 119, 242, 0.2); }
+.social-tile.dc:hover { border-color: #5865f2; box-shadow: 0 8px 16px rgba(88, 101, 242, 0.2); }
 
 .tile-sub {
   font-size: 12px;
   color: #64748b;
   font-weight: 600;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 /* NIGHT THEME ADAPTATION */
@@ -211,7 +254,6 @@ body.theme-night .ch-name { color: #f8fafc; }
 body.theme-night .ch-link,
 body.theme-night .tile-sub { color: #94a3b8; }
 
-/* RESPONSIVE */
 @media (max-width: 860px) {
   .contact-grid {
     grid-template-columns: 1fr;
