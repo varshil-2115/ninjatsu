@@ -39,7 +39,7 @@
             {% endif %}
         {% endwith %}
 
-        <!-- TOP EXECUTIVE METRICS ROW -->
+<!-- TOP EXECUTIVE METRICS ROW -->
         <section class="metrics-grid">
             <div class="metric-card">
                 <div class="metric-header">
@@ -68,24 +68,25 @@
                 <div class="metric-footer">Logged score sessions</div>
             </div>
 
-            <!-- Live Visitor Traffic Metrics -->
-<div class="stat-card visitor-card">
-    <div class="stat-icon">👁️</div>
-    <div class="stat-content">
-        <span class="stat-title">Total Page Hits</span>
-        <h2 class="stat-number">{{ total_page_views }}</h2>
-        <span class="stat-subtitle">All Public Views</span>
-    </div>
-</div>
+            <!-- Total Page Hits Card -->
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-title">TOTAL PAGE HITS</span>
+                    <span class="metric-icon">👁️️</span>
+                </div>
+                <div class="metric-value">{{ total_page_views }}</div>
+                <div class="metric-footer">All public page views</div>
+            </div>
 
-<div class="stat-card unique-visitor-card">
-    <div class="stat-icon">🌍</div>
-    <div class="stat-content">
-        <span class="stat-title">Unique Visitors</span>
-        <h2 class="stat-number">{{ unique_visitors }}</h2>
-        <span class="stat-subtitle">Distinct IP Addresses</span>
-    </div>
-</div>
+            <!-- Unique Visitors Card -->
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-title">UNIQUE VISITORS</span>
+                    <span class="metric-icon">🌍</span>
+                </div>
+                <div class="metric-value">{{ unique_visitors }}</div>
+                <div class="metric-footer">Distinct IP addresses</div>
+            </div>
         </section>
 
         <!-- GAMEPLAY ENGAGEMENT & BELT TIER ANALYTICS -->
