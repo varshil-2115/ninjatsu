@@ -2,6 +2,30 @@
    CONTACT US & BRAND VECTOR PLATFORM SHOWCASE
    ========================================================================== */
 
+.logo {
+  font-family: 'Mali', cursive;
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  text-shadow: 2px 2px 0px #15803d;
+}
+
+.logo-ninja {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;          /* Preserves the original compact footprint */
+  height: 34px;
+  font-size: 34px;      /* Native emoji scale base */
+  position: relative;
+  text-shadow: 2px 2px 0px #15803d;
+  z-index: 20;          /* Lifts it into an upper layer */
+  transform: scale(1.5); /* Increase scale freely (e.g. 1.4, 1.6, 1.8) */
+  transform-origin: center;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+  pointer-events: none; /* Prevents interference with navbar clicks */
+}
+
 .contact-viewport {
   flex: 1;
   max-width: 1200px;

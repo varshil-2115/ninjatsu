@@ -12,8 +12,8 @@
 
     <!-- HEADER -->
     <header class="dojo-header-green">
-        <div class="logo-box-green">
-            <span class="logo-ninja">🥷</span>
+        <div class="logo">
+            <img src="/static/image/logo.png" class="logo-ninja">
             <span class="logo-title">NINJATSU</span>
         </div>
         <nav class="nav-menu-green">
@@ -42,19 +42,28 @@
                 <p class="card-desc">Need assistance or want to suggest new puzzles? Choose your preferred direct transmission channel:</p>
                 
                 <div class="channel-list">
-                    <!-- EMAIL -->
-                    <a href="mailto:ninjastudojo@gmail.com" class="channel-item email">
-                        <div class="ch-icon-box mail-bg">
-                            <svg class="brand-svg" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                            </svg>
-                        </div>
-                        <div class="ch-details">
-                            <span class="ch-name">Sensei Support Email</span>
-                            <span class="ch-link">support@ninjatsu.com</span>
-                        </div>
-                        <span class="ch-action">Write ➔</span>
-                    </a>
+                    <!-- DIRECT GMAIL WEB COMPOSE -->
+{% if session.get('username') %}
+    {% set mail_body = "Hello Sensei,%0D%0A%0D%0AI am logged in as Ninja: " ~ session.get('username') ~ "%0D%0AMy registered email: " ~ user_email ~ "%0D%0A%0D%0AMy feedback/question:%0D%0A" %}
+{% else %}
+    {% set mail_body = "Hello Sensei,%0D%0A%0D%0AMy feedback/question:%0D%0A" %}
+{% endif %}
+
+<a href="https://mail.google.com/mail/?view=cm&fs=1&to=ninjatsudojo@gmail.com&su=Ninjatsu+Dojo+Feedback&body={{ mail_body }}" 
+   target="_blank" 
+   rel="noopener noreferrer" 
+   class="channel-item email">
+    <div class="ch-icon-box mail-bg">
+        <svg class="brand-svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+    </div>
+    <div class="ch-details">
+        <span class="ch-name">Sensei Support Email</span>
+        <span class="ch-link">ninjatsudojo@gmail.com</span>
+    </div>
+    <span class="ch-action">Write in Gmail ➔</span>
+</a>
 
                     <!-- DISCORD -->
                     <a href="https://discord.gg/tfyQhtUSW" target="_blank" rel="noopener noreferrer" class="channel-item discord">
@@ -65,7 +74,7 @@
                         </div>
                         <div class="ch-details">
                             <span class="ch-name">Discord Dojo Desk</span>
-                            <span class="ch-link">#support-and-advice</span>
+                            <span class="ch-link">#chit-and-chat</span>
                         </div>
                         <span class="ch-action">Chat ➔</span>
                     </a>
@@ -79,7 +88,7 @@
                         </div>
                         <div class="ch-details">
                             <span class="ch-name">Instagram Direct Message</span>
-                            <span class="ch-link">@ninjatsu_dojo</span>
+                            <span class="ch-link">@ninjatsudojo.play</span>
                         </div>
                         <span class="ch-action">DM ➔</span>
                     </a>
@@ -93,7 +102,7 @@
                         </div>
                         <div class="ch-details">
                             <span class="ch-name">Facebook Messenger</span>
-                            <span class="ch-link">Ninjatsu Gaming Studio</span>
+                            <span class="ch-link">Ninjatsu Dojo</span>
                         </div>
                         <span class="ch-action">Message ➔</span>
                     </a>

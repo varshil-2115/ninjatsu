@@ -1,5 +1,7 @@
 import os
 from datetime import datetime
+from email_validator import validate_email, EmailNotValidError
+from authlib.integrations.flask_client import OAuth
 from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify, Response
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import db, User, Progress, GameScore, Badge, DailyQuest, SiteVisit
@@ -92,6 +94,14 @@ def register():
         password = data.get('password')
         age = data.get('age')
         
+        # Check if real email domain with valid MX records
+        try:
+            valid = validate_email(email, check_deliverability=True)
+            email = valid.normalized  # Clean real email
+        except EmailNotValidError as e:
+            flash(f'Invalid email address: {str(e)}', 'danger')
+            return redirect(url_for('register'))
+
         user_exists = User.query.filter((User.username == username) | (User.email == email)).first()
         if user_exists:
             flash('Username or Email already registered!', 'danger')
@@ -353,7 +363,12 @@ def delete_user(user_id):
 
 @app.route('/contact')
 def contact_us():
-    return render_template('contact_us.html')
+    user_email = ""
+    if 'user_id' in session:
+        user = User.query.get(session['user_id'])
+        if user:
+            user_email = user.email
+    return render_template('contact_us.html', user_email=user_email)
 
 # API Route: Securely update score and XP
 @app.route('/api/update-xp', methods=['POST'])
@@ -469,6 +484,82 @@ def sitemap():
 </urlset>
 """
     return Response(content, mimetype="application/xml")
+
+
+
+# Configure OAuth
+oauth = OAuth(app)
+google = oauth.register(
+    name='google',
+    client_id=os.environ.get('GOOGLE_CLIENT_ID'),
+    client_secret=os.environ.get('GOOGLE_CLIENT_SECRET'),
+    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
+    client_kwargs={'scope': 'openid email profile'}
+)
+
+@app.route('/login/google')
+def google_login():
+    # Dynamically generate the redirect URI (works for both local and production)
+    redirect_uri = url_for('google_authorize', _external=True)
+    return google.authorize_redirect(redirect_uri)
+
+@app.route('/authorize/google')
+def google_authorize():
+    try:
+        token = google.authorize_access_token()
+        user_info = token.get('userinfo')
+        if not user_info:
+            user_info = google.userinfo()
+
+        email = user_info['email']
+        # Use name or prefix of email as default ninja username
+        name = user_info.get('name') or email.split('@')[0]
+        # Clean username to letters/digits
+        clean_username = ''.join(c for c in name if c.isalnum()) or email.split('@')[0]
+
+        # 1. Check if user already exists with this email
+        user = User.query.filter_by(email=email).first()
+
+        if not user:
+            # Avoid username collisions
+            base_username = clean_username
+            counter = 1
+            while User.query.filter_by(username=clean_username).first():
+                clean_username = f"{base_username}{counter}"
+                counter += 1
+
+            # Generate random password hash since authentication is handled by Google
+            random_pw_hash = generate_password_hash(os.urandom(16).hex(), method='pbkdf2:sha256')
+            
+            # Create user (verified via Google)
+            user = User(
+                username=clean_username,
+                email=email,
+                password_hash=random_pw_hash,
+                age=10 # Default starter age for junior ninjas
+            )
+            db.session.add(user)
+            db.session.commit()
+
+            # Initialize game progress
+            progress = Progress(user_id=user.id, current_level=1, total_xp=0)
+            db.session.add(progress)
+            db.session.commit()
+
+        # 2. Establish Session
+        session['user_id'] = user.id
+        session['username'] = user.username
+
+        if user.username.lower() in ['ninjamaster', 'admin']:
+            flash('Welcome, Master Sensei!', 'success')
+            return redirect(url_for('admin_panel'))
+
+        flash(f'Welcome to the Dojo, {user.username}! 🌟', 'success')
+        return redirect(url_for('homepage'))
+
+    except Exception as e:
+        flash('Google sign-in failed. Please try again.', 'danger')
+        return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True)
