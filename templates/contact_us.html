@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Dojo Sensei & Community — Ninjatsu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Mali:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contact_us.css') }}">
+</head>
+<body class="theme-day">
+
+    <!-- HEADER -->
+    <header class="dojo-header-green">
+        <div class="logo-box-green">
+            <span class="logo-ninja">🥷</span>
+            <span class="logo-title">NINJATSU</span>
+        </div>
+        <nav class="nav-menu-green">
+            <a href="{{ url_for('homepage') }}">Home</a>
+            <a href="{{ url_for('explore_games') }}">Play Games</a>
+            <a href="{{ url_for('start_learning') }}">Dojo Camp</a>
+            <a href="{{ url_for('rewards') }}">Trophies</a>
+            <a href="{{ url_for('contact_us') }}" class="active">Contact</a>
+        </nav>
+    </header>
+
+    <main class="contact-viewport">
+        <div class="contact-hero">
+            <span class="contact-tag">🥋 SENSEI DISPATCH DESK</span>
+            <h1>Get in Touch With Ninjatsu Dojo</h1>
+            <p>Have a game idea, bug report, feedback, or suggestion? Send us a scroll or connect with the ninja community below!</p>
+        </div>
+
+        <div class="contact-grid">
+            <!-- SECTION 1: SUPPORT, ADVICE & COMPLAINTS -->
+            <div class="contact-card support-card">
+                <div class="card-icon-bubble">📜</div>
+                <h2>Advice, Feedback & Support</h2>
+                <p class="card-desc">Need assistance or want to suggest new puzzles? Choose your preferred direct transmission channel:</p>
+                
+                <div class="channel-list">
+                    <a href="mailto:support@ninjatsu.com" class="channel-item email">
+                        <span class="ch-icon">✉️</span>
+                        <div class="ch-details">
+                            <span class="ch-name">Official Sensei Mailbox</span>
+                            <span class="ch-link">support@ninjatsu.com</span>
+                        </div>
+                        <span class="ch-action">Write ➔</span>
+                    </a>
+
+                    <a href="https://discord.gg/" target="_blank" rel="noopener noreferrer" class="channel-item discord">
+                        <span class="ch-icon">💬</span>
+                        <div class="ch-details">
+                            <span class="ch-name">Discord Dojo Support Ticket</span>
+                            <span class="ch-link">#support-and-advice</span>
+                        </div>
+                        <span class="ch-action">Chat ➔</span>
+                    </a>
+
+                    <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="channel-item instagram">
+                        <span class="ch-icon">📸</span>
+                        <div class="ch-details">
+                            <span class="ch-name">Instagram Direct Message</span>
+                            <span class="ch-link">@ninjatsu_dojo</span>
+                        </div>
+                        <span class="ch-action">DM ➔</span>
+                    </a>
+
+                    <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" class="channel-item facebook">
+                        <span class="ch-icon">📘</span>
+                        <div class="ch-details">
+                            <span class="ch-name">Facebook Messenger</span>
+                            <span class="ch-link">Ninjatsu Gaming Studio</span>
+                        </div>
+                        <span class="ch-action">Message ➔</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- SECTION 2: JOIN & FOLLOW OUR CHANNELS -->
+            <div class="contact-card follow-card">
+                <div class="card-icon-bubble">🌟</div>
+                <h2>Join & Follow Our Clan</h2>
+                <p class="card-desc">Catch daily challenge reels, behind-the-scenes artwork, speedrun highlights, and student showcases:</p>
+
+                <div class="social-tiles-grid">
+                    <a href="https://youtube.com/" target="_blank" rel="noopener noreferrer" class="social-tile yt">
+                        <span class="tile-icon">▶️</span>
+                        <b>YouTube</b>
+                        <span class="tile-sub">Game Previews & Runs</span>
+                    </a>
+
+                    <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="social-tile ig">
+                        <span class="tile-icon">📸</span>
+                        <b>Instagram</b>
+                        <span class="tile-sub">Reels & Daily Belts</span>
+                    </a>
+
+                    <a href="https://discord.gg/" target="_blank" rel="noopener noreferrer" class="social-tile dc">
+                        <span class="tile-icon">🎮</span>
+                        <b>Discord</b>
+                        <span class="tile-sub">Join Ninja Voice & Chat</span>
+                    </a>
+
+                    <a href="https://pinterest.com/" target="_blank" rel="noopener noreferrer" class="social-tile pin">
+                        <span class="tile-icon">📌</span>
+                        <b>Pinterest</b>
+                        <span class="tile-sub">Ninja Art & Badges</span>
+                    </a>
+
+                    <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" class="social-tile fb">
+                        <span class="tile-icon">👥</span>
+                        <b>Facebook</b>
+                        <span class="tile-sub">Parent & School Club</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="dojo-footer">
+        <div class="footer-social-row">
+            <span class="footer-label">Ninjatsu Dojo Clan:</span>
+            <a href="{{ url_for('contact_us') }}" class="footer-contact-link">Contact Sensei ✉️</a>
+        </div>
+        <div class="footer-copy-text">
+            &copy; 2026 Ninjatsu Dojo Studio. Play, Learn & Have Fun! 🌟
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/ninja_juice.js') }}"></script>
+</body>
+</html>

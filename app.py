@@ -351,6 +351,10 @@ def delete_user(user_id):
     flash(f'Ninja #{user_id} has been removed from the Dojo!', 'success')
     return redirect(url_for('admin_panel'))
 
+@app.route('/contact')
+def contact_us():
+    return render_template('contact_us.html')
+
 # API Route: Securely update score and XP
 @app.route('/api/update-xp', methods=['POST'])
 def update_xp():
