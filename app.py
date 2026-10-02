@@ -2,7 +2,6 @@ import os
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify, Response
 from werkzeug.security import generate_password_hash, check_password_hash
-from models import db, User, Progress, GameScore, Badge, DailyQuest
 from models import db, User, Progress, GameScore, Badge, DailyQuest, SiteVisit
 
 app = Flask(__name__)
@@ -33,18 +32,46 @@ with app.app_context():
         db.session.add_all([b1, b2, b3])
         db.session.commit()
 
-    # Automatically create a default admin account if it doesn't exist
-    admin_exists = User.query.filter_by(username='ninjamaster').first()
-    if not admin_exists:
-        hashed_admin_pw = generate_password_hash('master150', method='pbkdf2:sha256')
-        admin_user = User(username='admin', email='admin@ninjatsu.com', password_hash=hashed_admin_pw, age=20)
-        db.session.add(admin_user)
+    # Automatically create or sync master admin account
+    try:
+        admin_exists = User.query.filter((User.username == 'ninjamaster') | (User.email == 'master@ninjatsu.com')).first()
+        if not admin_exists:
+            hashed_admin_pw = generate_password_hash('master150', method='pbkdf2:sha256')
+            admin_user = User(username='ninjamaster', email='master@ninjatsu.com', password_hash=hashed_admin_pw, age=20)
+            db.session.add(admin_user)
+            db.session.commit()
+            
+            admin_progress = Progress(user_id=admin_user.id, current_level=5, total_xp=500)
+            db.session.add(admin_progress)
+            db.session.commit()
+        else:
+            admin_exists.password_hash = generate_password_hash('master150', method='pbkdf2:sha256')
+            db.session.commit()
+    except Exception:
+        db.session.rollback()
+
+# --- MIDDLEWARE ---
+
+@app.before_request
+def record_visitor():
+    # Skip static files, favicon, API calls, and admin views
+    if (request.path.startswith('/static') or 
+        request.path.startswith('/admin') or 
+        request.path.startswith('/api') or 
+        request.path == '/favicon.ico'):
+        return
+
+    try:
+        # Read visitor IP behind Render's reverse proxy
+        visitor_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+        if visitor_ip and ',' in visitor_ip:
+            visitor_ip = visitor_ip.split(',')[0].strip()
+
+        visit = SiteVisit(ip_address=visitor_ip, endpoint=request.path)
+        db.session.add(visit)
         db.session.commit()
-        
-        # Initialize progress for admin
-        admin_progress = Progress(user_id=admin_user.id, current_level=5, total_xp=500)
-        db.session.add(admin_progress)
-        db.session.commit()
+    except Exception:
+        db.session.rollback()
 
 # --- ROUTES ---
 
@@ -65,20 +92,16 @@ def register():
         password = data.get('password')
         age = data.get('age')
         
-        # Check if user already exists
         user_exists = User.query.filter((User.username == username) | (User.email == email)).first()
         if user_exists:
             flash('Username or Email already registered!', 'danger')
             return redirect(url_for('register'))
             
-        # Hash password to make it secure
         hashed_pw = generate_password_hash(password, method='pbkdf2:sha256')
-        
         new_user = User(username=username, email=email, password_hash=hashed_pw, age=int(age))
         db.session.add(new_user)
         db.session.commit()
         
-        # Initializing Progress for new user
         new_progress = Progress(user_id=new_user.id, current_level=1, total_xp=0)
         db.session.add(new_progress)
         db.session.commit()
@@ -96,12 +119,11 @@ def login():
         
         user = User.query.filter_by(username=username).first()
         
-        # Verify credentials
         if user and check_password_hash(user.password_hash, password):
             session['user_id'] = user.id
             session['username'] = user.username
 
-            if user.username.lower() == 'admin':
+            if user.username.lower() in ['ninjamaster', 'admin']:
                 flash('Welcome to the Master Control Center, Sensei!', 'success')
                 return redirect(url_for('admin_panel'))
 
@@ -250,7 +272,7 @@ def admin_login():
         password = request.form.get('password')
         
         user = User.query.filter_by(username=username).first()
-        if user and username == 'admin' and check_password_hash(user.password_hash, password):
+        if user and username in ['ninjamaster', 'admin'] and check_password_hash(user.password_hash, password):
             session['user_id'] = user.id
             session['username'] = user.username
             flash('Welcome back, Grandmaster Admin!', 'success')
@@ -263,14 +285,14 @@ def admin_login():
 
 @app.route('/admin')
 def admin_panel():
-    if session.get('username') != 'admin':
+    if session.get('username') not in ['ninjamaster', 'admin']:
         flash('Please login as Admin to access Master Control!', 'warning')
         return redirect(url_for('login'))
 
     total_visits = SiteVisit.query.count()
     unique_visitors = db.session.query(SiteVisit.ip_address).distinct().count()
 
-    students = User.query.filter(User.username != 'admin').order_by(User.id.asc()).all()
+    students = User.query.filter(~User.username.in_(['ninjamaster', 'admin'])).order_by(User.id.asc()).all()
     total_students = len(students)
 
     total_xp_awarded = 0
@@ -311,12 +333,14 @@ def admin_panel():
         belt_distribution=belt_counts,
         game_stats=game_breakdown,
         total_games_played=total_games_played,
-        total_quests_completed=total_quests_completed
+        total_quests_completed=total_quests_completed,
+        total_page_views=total_visits,
+        unique_visitors=unique_visitors
     )
 
 @app.route('/admin/delete-user/<int:user_id>', methods=['POST'])
 def delete_user(user_id):
-    if session.get('username') != 'admin':
+    if session.get('username') not in ['ninjamaster', 'admin']:
         flash('Unauthorized Action!', 'danger')
         return redirect(url_for('login'))
 
@@ -334,7 +358,7 @@ def update_xp():
         return jsonify({'status': 'unauthorized'}), 401
         
     data = request.get_json() or {}
-    xp_earned = data.get('xp', 1)  # Default changed to 1 XP
+    xp_earned = data.get('xp', 1)
     game_name = data.get('game_name', 'Word Ninja')
 
     user_id = session['user_id']
@@ -410,7 +434,7 @@ Disallow: /admin-login
 Disallow: /api/
 Disallow: /rewards
 
-Sitemap: https://ninjatsu-1.onrender.com/sitemap.xml
+Sitemap: https://ninjatsu.onrender.com/sitemap.xml
 """
     return Response(content, mimetype="text/plain")
 
@@ -419,49 +443,28 @@ def sitemap():
     content = """<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ninjatsu-1.onrender.com/home</loc>
+    <loc>https://ninjatsu.onrender.com/home</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://ninjatsu-1.onrender.com/explore-games</loc>
+    <loc>https://ninjatsu.onrender.com/explore-games</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ninjatsu-1.onrender.com/register</loc>
+    <loc>https://ninjatsu.onrender.com/register</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ninjatsu-1.onrender.com/login</loc>
+    <loc>https://ninjatsu.onrender.com/login</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 </urlset>
 """
     return Response(content, mimetype="application/xml")
-
-@app.before_request
-def record_visitor():
-    # Skip static files, favicon, API calls, and admin views
-    if (request.path.startswith('/static') or 
-        request.path.startswith('/admin') or 
-        request.path.startswith('/api') or 
-        request.path == '/favicon.ico'):
-        return
-
-    try:
-        # Read visitor IP behind Render's reverse proxy
-        visitor_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
-        if visitor_ip and ',' in visitor_ip:
-            visitor_ip = visitor_ip.split(',')[0].strip()
-
-        visit = SiteVisit(ip_address=visitor_ip, endpoint=request.path)
-        db.session.add(visit)
-        db.session.commit()
-    except Exception:
-        db.session.rollback()
 
 if __name__ == '__main__':
     app.run(debug=True)
