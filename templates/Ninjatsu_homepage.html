@@ -6,6 +6,16 @@
     <title>Ninjatsu Playroom - Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Mali:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Primary SEO Meta Tags -->
+    <title>Ninjatsu Dojo — Gamified Learning Arcade & Brain Challenges</title>
+    <meta name="title" content="Ninjatsu Dojo — Gamified Learning Arcade & Brain Challenges">
+    <meta name="description" content="Level up your mind at Ninjatsu Dojo! Play math slicing, speed vocabulary trials, and brain training mini-games to earn ninja belts and trophies.">
+    <meta name="keywords" content="ninjatsu, gamified learning, brain training, math games, vocabulary games, educational arcade, kids coding, ninja belt challenges">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Ninjatsu Studio">
+    <link rel="canonical" href="https://ninjatsu-1.onrender.com/home">
+
 <!-- Open Graph / Facebook / WhatsApp -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ninjatsu.com/">
@@ -18,6 +28,26 @@
 <meta name="twitter:title" content="Ninjatsu Dojo - Gamified Learning 🥷">
 <meta name="twitter:description" content="Level up your skills with math and word puzzles! Play free now.">
 <meta name="twitter:image" content="{{ url_for('static', filename='image/og_preview.png', _external=True) }}">
+
+
+<!-- JSON-LD Structured Data for Search Engines -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Ninjatsu Dojo",
+      "applicationCategory": "EducationalGame",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Interactive educational arcade featuring math slicing, vocabulary racing, and gamified ninja rank progression."
+    }
+    </script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 </head>
 <body>

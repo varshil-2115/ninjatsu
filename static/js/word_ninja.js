@@ -17,13 +17,13 @@ const words = [
   { word: 'DOG', file: 'dog.gif' },
   { word: 'FLOWER', file: 'flower.gif' },
   { word: 'MOON', file: 'moon.gif' },
-  { word: 'BIRD', file: 'sun.gif' },
+  { word: 'BIRD', file: 'bird.gif' },
   { word: 'PANDA', file: 'panda.gif' },
   { word: 'COW', file: 'cow.gif' },
   { word: 'STAR', file: 'star.gif' },
   { word: 'BOY', file: 'boy.mp4' },
   { word: 'GIRL', file: 'girl.gif' },
-  { word: 'APPLE', file:'apple.gif' },
+  { word: 'APPLE', file: 'apple.gif' },
   { word: 'FOX', file: 'fox.gif' },
   { word: 'PLANE', file: 'plane.gif' },
   { word: 'CAR', file: 'car.gif' },
@@ -97,12 +97,12 @@ function checkLetter(letter, btn) {
     btn.style.background = '#22c55e';
     feedback.textContent = 'Nice job! ⭐';
     feedback.style.color = '#22c55e';
-    if (window.NinjaAudio) NinjaAudio.cheer(); // Cheer Sound + Voice
+    if (window.NinjaAudio) NinjaAudio.cheer();
   } else {
     btn.style.background = '#ef4444';
     feedback.textContent = 'Try another letter! 😊';
     feedback.style.color = '#ef4444';
-    if (window.NinjaAudio) NinjaAudio.comfort(); // Gentle Sound + Voice
+    if (window.NinjaAudio) NinjaAudio.comfort();
   }
 
   updateWordDisplay();
@@ -112,10 +112,11 @@ submitBtn.addEventListener('click', () => {
   if (window.NinjaAudio) NinjaAudio.playTap();
 
   if (!currentWord.includes('_')) {
+    // Sends exactly 1 XP to backend
     fetch('/api/update-xp', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ xp: 10, game_name: 'Word Ninja' })
+      body: JSON.stringify({ xp: 1, game_name: 'Word Ninja' })
     })
     .then(response => response.json())
     .then(data => {
@@ -126,7 +127,7 @@ submitBtn.addEventListener('click', () => {
         alert("Log in to save your stars! ⭐");
       }
     })
-    .catch(err => {
+    .catch(() => {
       rewardPopup.classList.remove('hidden');
     });
 

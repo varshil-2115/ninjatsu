@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify, Response
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import db, User, Progress, GameScore, Badge, DailyQuest
 
@@ -26,9 +26,9 @@ with app.app_context():
     
     # Insert dummy badges if the database is empty
     if Badge.query.count() == 0:
-        b1 = Badge(name="🍃 Beginner Ninja", required_xp=0, icon_path="badge1.png")
-        b2 = Badge(name="🌟 Shadow Trainee", required_xp=50, icon_path="badge2.png")
-        b3 = Badge(name="⚔️ Blade Master", required_xp=100, icon_path="badge3.png")
+        b1 = Badge(name="Beginner Ninja", required_xp=0, icon_path="badge1.png")
+        b2 = Badge(name="Shadow Trainee", required_xp=50, icon_path="badge2.png")
+        b3 = Badge(name="Blade Master", required_xp=100, icon_path="badge3.png")
         db.session.add_all([b1, b2, b3])
         db.session.commit()
 
@@ -75,7 +75,7 @@ def register():
         
         new_user = User(username=username, email=email, password_hash=hashed_pw, age=int(age))
         db.session.add(new_user)
-        db.session.commit() # So that user id gets generated
+        db.session.commit()
         
         # Initializing Progress for new user
         new_progress = Progress(user_id=new_user.id, current_level=1, total_xp=0)
@@ -100,12 +100,10 @@ def login():
             session['user_id'] = user.id
             session['username'] = user.username
 
-            # Check if logging in as Admin
             if user.username.lower() == 'admin':
                 flash('Welcome to the Master Control Center, Sensei!', 'success')
                 return redirect(url_for('admin_panel'))
 
-            # Regular Student Login
             flash('Welcome back to the Dojo!', 'success')
             return redirect(url_for('homepage'))
         else:
@@ -113,6 +111,7 @@ def login():
             return redirect(url_for('login'))
             
     return render_template('login.html')
+
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
@@ -134,12 +133,11 @@ def math_slice():
         flash('Please login first!', 'warning')
         return redirect(url_for('login'))
         
-    # Check minimum XP
     user_progress = Progress.query.filter_by(user_id=session['user_id']).first()
-    REQUIRED_XP = 50  # <--- Change required XP here
+    REQUIRED_XP = 50
     
     if not user_progress or user_progress.total_xp < REQUIRED_XP:
-        flash(f'You need at least {REQUIRED_XP} Stars to enter Number Slice! 🍉', 'warning')
+        flash(f'You need at least {REQUIRED_XP} Stars to enter Number Slice!', 'warning')
         return redirect(url_for('explore_games'))
         
     return render_template('math_slice.html')
@@ -201,12 +199,11 @@ def maze_adventure():
         flash('Please login first!', 'warning')
         return redirect(url_for('login'))
         
-    # Check minimum XP
     user_progress = Progress.query.filter_by(user_id=session['user_id']).first()
-    REQUIRED_XP = 100  # <--- Change required XP here
+    REQUIRED_XP = 100
     
     if not user_progress or user_progress.total_xp < REQUIRED_XP:
-        flash(f'You need at least {REQUIRED_XP} Stars to enter Word Search! 🔍', 'warning')
+        flash(f'You need at least {REQUIRED_XP} Stars to enter Word Search!', 'warning')
         return redirect(url_for('explore_games'))
         
     return render_template('maze_adventure.html')
@@ -218,11 +215,9 @@ def word_speed_run():
         return redirect(url_for('login'))
         
     user_progress = Progress.query.filter_by(user_id=session['user_id']).first()
-    
-    # Set your level requirement (e.g., Level 2 or 100 XP)
     REQUIRED_LEVEL = 2
     if not user_progress or user_progress.current_level < REQUIRED_LEVEL:
-        flash(f'Unlock Level {REQUIRED_LEVEL} in the Dojo to play Speed Trial! ⚡', 'warning')
+        flash(f'Unlock Level {REQUIRED_LEVEL} in the Dojo to play Speed Trial!', 'warning')
         return redirect(url_for('start_learning'))
         
     return render_template('word_speed_run.html')
@@ -267,16 +262,13 @@ def admin_login():
 
 @app.route('/admin')
 def admin_panel():
-    # Only allow the admin account
     if session.get('username') != 'admin':
         flash('Please login as Admin to access Master Control!', 'warning')
         return redirect(url_for('login'))
 
-    # 1. Fetch real student users (excluding admin)
     students = User.query.filter(User.username != 'admin').order_by(User.id.asc()).all()
     total_students = len(students)
 
-    # 2. Compute Real Star XP and Real Belt Tiers from Database
     total_xp_awarded = 0
     belt_counts = {"white": 0, "yellow": 0, "green": 0, "blue": 0, "black": 0}
 
@@ -295,7 +287,6 @@ def admin_panel():
         else:
             belt_counts["white"] += 1
 
-    # 3. Real Game Play Analytics from GameScore Table
     total_games_played = GameScore.query.count()
     game_breakdown = {
         "star_strike": GameScore.query.filter(GameScore.game_name.ilike('%Star%')).count(),
@@ -306,7 +297,6 @@ def admin_panel():
         "word_ninja": GameScore.query.filter(GameScore.game_name.ilike('%Ninja%')).count()
     }
 
-    # 4. Total Quests Completed Across All Students
     total_quests_completed = DailyQuest.query.filter_by(is_completed=True).count()
 
     return render_template(
@@ -333,14 +323,14 @@ def delete_user(user_id):
     flash(f'Ninja #{user_id} has been removed from the Dojo!', 'success')
     return redirect(url_for('admin_panel'))
 
-# API Route: To securely update score and XP on backend when a game is completed
+# API Route: Securely update score and XP
 @app.route('/api/update-xp', methods=['POST'])
 def update_xp():
     if 'user_id' not in session:
         return jsonify({'status': 'unauthorized'}), 401
         
-    data = request.get_json()
-    xp_earned = data.get('xp', 30)
+    data = request.get_json() or {}
+    xp_earned = data.get('xp', 1)  # Default changed to 1 XP
     game_name = data.get('game_name', 'Word Ninja')
 
     user_id = session['user_id']
@@ -348,16 +338,13 @@ def update_xp():
     if user_progress:
         user_progress.total_xp += xp_earned
         
-        # Adaptive Level Logic: Level up every 50 XP
         new_level = (user_progress.total_xp // 50) + 1
         if new_level > user_progress.current_level:
-            user_progress.current_level = min(new_level, 5) # Max level 5
+            user_progress.current_level = min(new_level, 5)
             
-        # Log Game Score
         score_log = GameScore(user_id=user_id, game_name=game_name, score=xp_earned)
         db.session.add(score_log)
         
-        # Smart Real-time Automatic Daily Quest Completion based on game played
         today_date = datetime.now().strftime('%Y-%m-%d')
         pending_quests = DailyQuest.query.filter_by(user_id=user_id, date_assigned=today_date, is_completed=False).all()
         for quest in pending_quests:
@@ -365,9 +352,8 @@ def update_xp():
                 quest.is_completed = True
             elif 'Word' in quest.quest_name and ('Word' in game_name or 'word' in game_name.lower() or 'Race' in game_name):
                 quest.is_completed = True
-            elif 'Earn 50 XP' in quest.quest_name and (user_progress.total_xp >= 50 or xp_earned >= 30):
+            elif 'Earn 50 XP' in quest.quest_name and user_progress.total_xp >= 50:
                 quest.is_completed = True
-            # Fallback for general activity if needed
             elif 'Quest' in quest.quest_name:
                 quest.is_completed = True
             
@@ -383,24 +369,21 @@ def update_xp():
 
 @app.route('/challenge/<username>')
 def player_challenge(username):
-    # Query your user & progress models (adjust model names to your actual DB schema)
     user = User.query.filter_by(username=username).first()
-    
     if not user:
-        # Fallback if the user doesn't exist
         return redirect(url_for('homepage'))
         
-    # Get live dynamic stats
     progress = Progress.query.filter_by(user_id=user.id).first()
     total_stars = progress.total_xp if progress else 0
     
-    # Simple dynamic belt title calculation
-    if total_stars >= 100:
+    if total_stars >= 300:
         belt = "Black Belt Master"
-    elif total_stars >= 50:
-        belt = "Red Belt Striker"
-    elif total_stars >= 20:
+    elif total_stars >= 200:
+        belt = "Blue Belt Striker"
+    elif total_stars >= 100:
         belt = "Green Belt Warrior"
+    elif total_stars >= 50:
+        belt = "Yellow Belt Apprentice"
     else:
         belt = "White Belt Trainee"
 
@@ -411,6 +394,49 @@ def player_challenge(username):
         belt=belt
     )
 
+@app.route('/robots.txt')
+def robots():
+    content = """User-agent: *
+Allow: /
+Allow: /home
+Allow: /explore-games
+Allow: /challenge/
+Disallow: /admin
+Disallow: /admin-login
+Disallow: /api/
+Disallow: /rewards
+
+Sitemap: https://ninjatsu-1.onrender.com/sitemap.xml
+"""
+    return Response(content, mimetype="text/plain")
+
+@app.route('/sitemap.xml')
+def sitemap():
+    content = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://ninjatsu-1.onrender.com/home</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://ninjatsu-1.onrender.com/explore-games</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ninjatsu-1.onrender.com/register</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ninjatsu-1.onrender.com/login</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+</urlset>
+"""
+    return Response(content, mimetype="application/xml")
+
 if __name__ == '__main__':
     app.run(debug=True)
-

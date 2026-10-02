@@ -3,9 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Challenge from {{ challenger }} | Ninjatsu Dojo</title>
+    
+    <title>Ninja Challenge from {{ challenger }} | Ninjatsu Dojo</title>
+    <meta name="description" content="{{ challenger }} has earned {{ stars }} Stars and reached {{ belt }}! Can you beat their score?">
+
+    <!-- Open Graph for WhatsApp & Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ninjatsu-1.onrender.com/challenge/{{ challenger }}">
+    <meta property="og:title" content="⚔️ {{ challenger }} challenged you to a Ninjatsu Dojo Battle!">
+    <meta property="og:description" content="Challenger {{ challenger }} holds {{ stars }} Stars (Rank: {{ belt }}). Accept the challenge and claim your ninja belt!">
+    <meta property="og:image" content="https://ninjatsu-1.onrender.com/static/image/logo.png">
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="⚔️ Ninja Battle Challenge from {{ challenger }}!">
+    <meta name="twitter:description" content="Current Record: {{ stars }} Stars. Think you can beat it?">
+    <meta name="twitter:image" content="https://ninjatsu-1.onrender.com/static/image/logo.png">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Mali:wght@700&display=swap" rel="stylesheet">
 </head>
 <body class="theme-day">
 
