@@ -91,10 +91,10 @@
   gap: 25px;
 }
 
-/* 1. TOP METRICS GRID */
+/* 1. TOP METRICS GRID (Responsive for 5 metric cards) */
 .metrics-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
 }
 
